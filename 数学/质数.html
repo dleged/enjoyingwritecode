@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
@@ -13,11 +14,11 @@
 				if(isPrimse(i)) primseCount++;
 			}
 			function isPrimse(num){
-				if(typeof num !== 'number' || num%2 === 0 ){
+				if(typeof num !== 'number' || num % 2 === 0 ){
 					return false;
 				}
 				//一个数如果不能被<其算数平方跟的数整除，就是素数
-				for(let i = 3; i<=Math.sqrt(num);i++){
+				for(let i = 3; i <= Math.sqrt(num);i++){
 					if(num%2 === 0){
 						return false;
 					}
