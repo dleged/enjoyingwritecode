@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>new document</title>
+    <script type="text/javascript">
+        function setColor(){
+            if(document.all){
+                var tr = document.selection.createRange();
+                if(tr.parentElement().id != "editor"){
+                    return;
+                }
+                tr.execCommand("ForeColor", false, "#FF0000");
+            }else{
+                var tr = window.getSelection().getRangeAt(0);
+                if(tr.commonAncestorContainer.parentNode.id != "editor"){
+                    return;
+                }
+                var span = document.createElement("span");
+                span.style.cssText = "color:#ff0000";
+                tr.surroundContents(span);
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="editor" >fdjlksafjd;slafjd;slakfjds</div>
+<div>123456</div>
+<input type="button" onclick="setColor()" value="setColor" />
+</body>
+</html>
