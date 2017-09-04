@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<a href="#" id="hash" onclick="fn();fn1();">
+			<button type="button">dom0级事件</button>
+		</a>
+		<script>
+			/*像上面把onclick写在标签内，都是dom0级事件，fn和fn1依次执行; 
+			第二种获取元素，绑定onclick事件也是dom0级，
+			第二个会覆盖第一个onclick，也会覆盖行内的onclick，只会弹出2。*/
+			function fn(){
+				alert('标签上的DOM0级事件1')
+			}
+			function fn1(){
+				alert('标签上的DOM0级事件2')
+			}
+			var btn=$('#hash').get()[0];
+			btn.onclick=function(){
+				alert('DOM0级事件1');
+			};
+			btn.onclick=function(){
+				alert('DOM0级事件2');
+			};
+		</script>
+		
+		
+		<a href="#" id="hash1" onclick="fn();fn1();">
+			<button type="button">dom2级事件</button>
+		</a>
+		<script type="text/javascript">
+			/*以上的绑定都属于dom2级事件绑定，前面两种都是jq的绑定方式，
+			 * 后面都是原生js的绑定方式，不会覆盖，
+			 * 会依次执行jq的绑定方法和原生的绑定方法，
+			 * 这就是于dom0级的区别；*/
+			$('#hash1').click(function(){
+				alert('jq的dom2级点击第一次')
+			});
+			$('#hash1').click(function(){
+				alert('jq的dom2级点击第二次')
+			});
+			var btn=$('#hash1')[0];
+			btn.addEventListener('click',function(){
+				alert('原生dom2级第一次click')
+			},false);
+			btn.addEventListener('click',function(){
+				alert('原生dom2级第二次click')
+			},false)
+		</script>	
+		
+		
+		<a href="#" id="hash2" onclick="fn();fn1();">
+			<button type="button">DOM0和DOM2级共存</button>
+		</a>
+		<script type="text/javascript">
+			var btn=$('#hash2')[0];
+			btn.onclick=function(){
+				alert('DOM0级事件1');
+			};
+			$('#hash2').click(function(){
+				alert('jq的dom2级点击第一次')
+			});
+			btn.addEventListener('click',function(){
+				alert('原生dom2级第一次click')
+			},false);
+		</script>
+	</body>
+</html>

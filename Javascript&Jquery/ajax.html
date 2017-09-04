@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jsonp 跨域</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<div><div id="demo">1</div></div>
+		
+		<script type="text/javascript">
+			$.ajax({
+				type: 'get',
+				dataType: 'jsonp',
+				url:'http://www.imooc.com/course/getcomment?mid=15349&page=1&r=0.3053194771748564',
+				success:function(data){
+					console.log(JSON.parse(data));
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+			$(document).bind('click','#demo',function(){console.log('is on click')})
+		</script>
+	</body>
+</html>
