@@ -88,7 +88,7 @@
 		lastDay: function(){//每月的最后一天
 			var month = this.month,
 				year = this.year;
-			if(month == 12){
+			if(month == 12){//12月则下一天为下一年的第一天
 				year = year + 1;
 				month = 1;
 			}else{
@@ -96,7 +96,7 @@
 			}
 			var date = year + '-'+ month +'-1';
 			date = new Date(date);
-			date = date.setDate(date.getDate() - 1);//毫秒值
+			date = date.setDate(date.getDate() - 1);//下一天减去一天为今天，毫秒值
 			var day = new Date(date).getDate();
 			return day;
 		},
