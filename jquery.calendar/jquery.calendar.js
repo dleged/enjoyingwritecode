@@ -5,11 +5,11 @@
 	'use staic'
 	
 	var UTILS,
-		dayBox = '.calendar-day',
-		dayWeek = '.calendar-week',
-		defalutItme = 'defalut-item',
-		activeItme = 'active-item',
-		item = '<li class="item"></li>',
+		dayBox 		 = '.calendar-day',
+		dayWeek 	 = '.calendar-week',
+		defalutItme  = 'defalut-item',
+		activeItme 	 = 'active-item',
+		item 		 = '<li class="item"></li>',
 		defalutIndex = 0,
 		that;
 		
@@ -37,7 +37,8 @@
 			}
 			
 			for(var i = 1,len = lastDay + 1;i< len;i++){
-				str += '<li class="item ' + i +'" date-day=' + yyyy_mm + i + '>'+ i + '</li>';
+				str += '<li class="item ' + i +'" date-day=' + yyyy_mm + i + '>'+ 
+						i + '</li>';
 			}
 			_dayBox.html('').append(str);
 			
@@ -73,7 +74,8 @@
 			
 			var ele = that.find('.' + defalutItme);
 			
-			var index = index > ele.length ? defalutIndex : index || defalutIndex;
+			var index = index > ele.length ? 
+					defalutIndex : index || defalutIndex;
 			ele = ele.eq(index);
 			ele.trigger('click');
 			if(fn){
