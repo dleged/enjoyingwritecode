@@ -50,3 +50,14 @@ gulp.task('default',['less','minCss','minJs']);
 gulp.watch(baseJs + '*.js', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 });
+
+
+gulp.task('revrev',revrev());
+function revrev(){
+	console.log(1)
+    gulp.src(['./*.json', '../*.html'])
+        .pipe(revCollector())                                   //- 执行文件内css名的替换
+        .pipe(gulp.dest(htmlSrc))                    //- 替换后的文件输出的目录
+        .pipe(notify({message:'revrev task ok'})); //提示成功
+    
+}
