@@ -6,7 +6,7 @@
 	var defalutOptions = {
 			bannerTime: 200, //切换时间ms
 			nowItem: 0, //初始的item
-			multiple: 18, //控制滑动距离切换
+			multiple: 5, //控制滑动距离切换
 			length: null,
 			intervalTime: 3000,
 			pointPosition: 'right'
@@ -77,7 +77,13 @@
 						left = that.parsentIntCss(sliders,'left');//当前sliders的left值
 					
 					//滑动距离超过一定距离
-					var now = length - Math.round((allW+left) / w);
+					var now = defalutOptions.nowItem,
+						absL = Math.abs(l);
+					if(absL > parseInt(multipleW) && l > 0){
+						now ++;
+					}else if(absL > parseInt(multipleW) && l < 0){
+						now --;
+					}
 					now = now === -1 ? now + 1 : now === length ? now -1 : now;
 					defalutOptions.nowItem = now;
 					utils.toggleItem(now);
