@@ -3,8 +3,8 @@
 		arrHeight = [],
         defaults = {
             itemClass: "waterfall-item", // the brick element class
-            spacingWidth: 10, // the brick element horizontal spacing
-            spacingHeight: 10, // the brick element vertical spacing
+            spacingWidth: 0, // the brick element horizontal spacing
+            spacingHeight: 0, // the brick element vertical spacing
             minColCount: 2, // min columns
             resizeable: false, // trigger positionAll() when browser window is resized
             itemAlign: "center", // the alignment of the brick element ( e.q. [center|left] )
@@ -36,20 +36,26 @@
 			this.setItemPosition(_item);
 		},
 		setItemPosition: function(item){
-			var _arrHeight = this.getArrHeight(item),
-				_w = $(item).eq(0).width(),
-				_spacingWidth = this.Options.spacingWidth,
+			var _spacingWidth = this.Options.spacingWidth,
 				_spacingHeight = this.Options.spacingHeight,
-				_len = this.Options.length;
+				_w = $(item).eq(0).width() + _spacingWidth * 2,
+				_len = this.Options.length,
+				_arrHeight = [];
 				for(var i = 0,len = item.length;i < len;i++){
 					var _minHeight = Math.min.apply(null,_arrHeight),//获取每列排下来最小值
 						_index = _arrHeight.indexOf(_minHeight),
 						_item = item.eq(i),
-						_left = i < _len ? i * _w + (i+1) * _spacingWidth : _index * _w,
-						_top = i < _len ? 0 : _minHeight;
-						if(i > _len){
+						_line = parseInt(i / _len);
+						if(i >= _len){
 							_arrHeight[_index] = _minHeight + _item.height();
+							_left = _index * _w + (_index+1) * _spacingWidth;
+							_top = _minHeight + (_line+2) * _spacingHeight;
+						}else{
+							_arrHeight.push(_item.height());
+							_left = i * _w + (i + 1) * _spacingWidth;
+							_top = _spacingHeight;
 						}
+						console.log(i,_line)
 					_item.css({
 						left: _left,
 						top: _top
@@ -57,9 +63,10 @@
 				}
 		},
 		getArrHeight: function(item){
-			var _len = this.Options.length;
+			var _len = this.Options.length,
+				_spacingHeight = this.Options.spacingHeight;
 			for(var i = 0;i < _len;i++){
-				arrHeight.push(item.eq(i).height());
+				arrHeight.push(item.eq(i).height() + 2 * _spacingHeight);
 			}
 			return arrHeight;
 		},
