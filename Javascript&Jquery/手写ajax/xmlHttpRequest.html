@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>XMLHttpRequest</title>
+	</head>
+	<body>
+		<div id="init">
+		</div>
+	</body>
+	<script type="text/javascript">
+		!(function(w){
+			w.syncXml = function(type,url,data){
+				var data = data || null;
+				var type = type || 'GET';
+				xmlHttp = w.XMLHttpRequest ? 
+				new XMLHttpRequest() : w.activeXObject() ? 
+				new ActiveXObject('Microsoft.XMLHTTP') : null;
+				
+				if(xmlHttp){
+					xmlHttp.onreadystatechange = stateChange;
+					xmlHttp.open(type,url);
+					xmlHttp.send(data);
+				}
+				
+				function stateChange(){
+					if(xmlHttp.readyState == 4){
+						if(xmlHttp.status == 200){
+							xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//post请求增加的
+							console.log(xmlHttp.response);
+						}
+					}
+				}
+			}
+		})(window);
+		
+		var url = 'http://www.imooc.com/search/course?words=react';
+		syncXml('get',url);
+	</script>
+</html>
