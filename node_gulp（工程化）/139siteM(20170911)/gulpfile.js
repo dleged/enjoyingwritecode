@@ -90,8 +90,8 @@ gulp.task('minJs',['minCss'],function(){
 /*html关联脚步文件资源更名*/ 
 gulp.task('revFile',['minImage','minJs'],function(){
     return gulp.src(['./rev-manifest.json', baseHtml + '*.html'])
-				.pipe(revCollector())        // 执行文件内css名的替换
-				.pipe(gulp.dest(distHtml))    // 替换后的文件输出的目录
+						.pipe(revCollector())        // 执行文件内css名的替换
+						.pipe(gulp.dest(distHtml))    // 替换后的文件输出的目录
         		.pipe(notify({message:'html关联脚步文件资源更名 task ok'})); //提示成功
 });
 

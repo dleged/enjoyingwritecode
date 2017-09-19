@@ -26,15 +26,16 @@
 				function stateChange(){
 					if(xmlHttp.readyState == 4){
 						if(xmlHttp.status == 200){
-							xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//post请求增加的
-							console.log(xmlHttp.response);
+							var data = xmlHttp.response;
+							var body = document.querySelector('body');
+							body.innerHTML = data
 						}
 					}
 				}
 			}
 		})(window);
 		
-		var url = 'http://www.imooc.com/search/course?words=react';
+		var url = './data.json';
 		syncXml('get',url);
 	</script>
 </html>
