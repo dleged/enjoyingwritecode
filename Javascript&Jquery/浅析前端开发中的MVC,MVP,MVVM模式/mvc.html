@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>mvc模式</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 200px;
+				-webkit-box-shadow: 0 0 10px #ccc;
+				-moz-box-shadow:  0 0 10px #ccc;
+				box-shadow:  0 0 10px #ccc;
+				overflow: hidden;
+				margin: 0 auto;
+			}
+			.num{
+				width: 200px;
+				height: 150px;
+				line-height: 150px;
+				text-align: center;
+				color: black;
+				background: white;
+				font-size: 30px;
+			}
+			.add,.sub{
+				width: 100px;
+				height: 75px;
+				line-height: 65px;
+				text-align: center;
+				color: white;
+				float: left;
+				font-size: 56px;
+				cursor: pointer;
+			}
+			.add{
+				background: #dab373;
+			}
+			.sub{
+				background: black;
+			}
+			p{
+				text-indent: 20px;
+				padding: 20px;
+			}
+			img{
+				margin: 0 auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/mvc.png" alt="" />
+		<p>
+			如图，实线代表方法调用，虚线代表事件通知。
+			MVC允许在不改变视图的情况下改变视图对用户输入的响应方式，用户对View的操作交给了Controller处理，在Controller中响应View的事件调用Model的接口对数据进行操作，一旦Model发生变化便通知相关视图进行更新。
+		</p>
+		<div class="box">
+			<div class="num">0RMB</div>
+			<div class="add">+</div>
+			<div class="sub">-</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		!function(w){
+			w.myApp = {}
+			
+			myApp.model = function(){
+				var val = 0;//需要操作的数据
+				this.add = function(v){//操作数据的方法
+					val += v;
+				}
+				this.sub = function(v){
+					val == 0 ? val = 0 : val -= v;
+				}
+				this.getVal = function(){
+					return val;
+				}
+				
+				/*观察者模式,在model上注册view，进而观察model的变化*/
+				var self = this,
+					views = [];
+				this.register = function(view){
+					views.push(view);
+				}
+				this.notify = function(){
+					for(var i = 0, len = views.length;views[i];i++){
+						views[i].render(self);
+					}
+				}
+				
+			}
+			
+			myApp.view = function(controller){
+				var domNum 		= document.querySelector('.num'),
+					domAddBtn	= document.querySelector('.add'),
+					domSubBtn 	= document.querySelector('.sub');
+					
+				/*model数据改变，并渲染界面*/
+				this.render = function(model){
+					domNum.innerText = model.getVal() + 'RMB';
+				}
+				
+				/*策略模式,不同的策略响应不同的clntroller*/
+				domAddBtn.onclick = controller.increase;
+				domSubBtn.onclick = controller.decrease;
+			}
+			
+			myApp.controller = function(){
+				var model = null,
+					view = null;
+					
+				this.init = function(){
+					model = new myApp.model();
+					view = new myApp.view(this);
+					/* View向Model注册，当Model更新就会去通知View啦 */
+					model.register(view);
+					model.notify();
+				}
+				
+				/* 让Model更新数值并通知View更新视图 */
+				this.increase = function(){
+					model.add(1);
+					model.notify();
+				}
+				this.decrease = function(){
+					model.sub(1);
+					model.notify();
+				}
+			}
+		}(window)
+		
+		var controller = new myApp.controller();
+			controller.init();
+	</script>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>每日一练</title>
+		<style>
+			ul li{
+				list-style: cjk-earthly-branch;
+			}
+		</style>
+	</head>
+	<body>
+		<pre>
+			<ul>
+				<li>找出数字数组中最大的元素（使用Match.max函数）</li>
+				<li>转化一个数字数组为function数组（每个function都弹出相应的数字）</li>
+				<li>给object数组进行排序（排序条件是每个元素对象的属性个数）</li>
+				<li>利用JavaScript打印出Fibonacci数（不使用全局变量）</li>
+				<li>实现如下语法的功能：var a = (5).plus(3).minus(6); //2</li>
+				<li>实现如下语法的功能：var a = add(2)(3)(4); //9</li>
+			</ul>
+		</pre>
+		<script type="text/javascript">
+			!function(){
+				var arr = [1,2,3,4,5]
+				var max = Math.max.apply(null,arr);
+				console.log(max); //5
+				
+				
+				
+				
+				var fnArr = [0,2,4,5];
+				function getFnArr(fnArr){
+					var arr = [];
+					for(var i = 0,len = fnArr.length;i < len;i++){
+						(function(num){
+							arr.push(function(){
+								return num;
+							});
+						})(fnArr[i])
+					}
+					return arr;
+				}
+				var fnArr = getFnArr(fnArr);
+				console.log(fnArr[2]()); //4
+				
+				var objArr = [
+					{a:'a'},
+					{a:'a',b:'b',c:'c',d:'d'},
+					{a:'a',b:'b',c:'c'},
+					{a:'a',b:'b'}
+				]
+				
+				function sortObject(arr){
+					var numArr = [];
+					/*冒泡排序*/
+					for(var i = 0;arr[i];i++){
+						var j = i + 1;
+						for(var k = j;arr[k]; k++){
+							var lenI = Object.keys(arr[i]).length,
+								lenK = Object.keys(arr[k]).length;
+							if(lenI > lenK){
+								var temp = arr[i];
+								arr[i] = arr[k];
+								arr[k] = temp;
+							}
+						}
+					}
+					return arr;
+				}
+				console.log(sortObject(objArr));
+			}()
+		</script>
+	</body>
+</html>

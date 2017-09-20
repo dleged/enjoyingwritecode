@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>mvp模式</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 200px;
+				-webkit-box-shadow: 0 0 10px #ccc;
+				-moz-box-shadow:  0 0 10px #ccc;
+				box-shadow:  0 0 10px #ccc;
+				overflow: hidden;
+				margin: 0 auto;
+			}
+			.num{
+				width: 200px;
+				height: 150px;
+				line-height: 150px;
+				text-align: center;
+				color: black;
+				background: white;
+				font-size: 30px;
+			}
+			.add,.sub{
+				width: 100px;
+				height: 75px;
+				line-height: 65px;
+				text-align: center;
+				color: white;
+				float: left;
+				font-size: 56px;
+				cursor: pointer;
+			}
+			.add{
+				background: #dab373;
+			}
+			.sub{
+				background: black;
+			}
+			p{
+				text-indent: 20px;
+				padding: 20px;
+			}
+			img{
+				margin: 0 auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/mvp.png" alt="" />
+		<p>
+			虽然在MVC里，View是可以直接访问Model的，但MVP中的View并不能直接使用Model，而是通过为Presenter提供接口，让Presenter去更新Model，再通过观察者模式更新View。
+			与MVC相比，MVP模式通过解耦View和Model，完全分离视图和模型使职责划分更加清晰；由于View不依赖Model，可以将View抽离出来做成组件，它只需要提供一系列接口提供给上层操作。
+		</p>
+		<div class="box">
+			<div class="num">0RMB</div>
+			<div class="add">+</div>
+			<div class="sub">-</div>
+		</div>
+		<p>
+			Presenter作为View和Model之间的“中间人”，除了基本的业务逻辑外，还有大量代码需要对从View到Model和从Model到View的数据进行“手动同步”，这样Presenter显得很重，维护起来会比较困难。而且由于没有数据绑定，如果Presenter对视图渲染的需求增多，它不得不过多关注特定的视图，一旦视图需求发生改变，Presenter也需要改动。
+		</p>
+	</body>
+	<script type="text/javascript">
+		!function(w){
+			
+			w.myApp = {}
+			
+			myApp.model = function(){
+				var val = 0;//需要操作的数据
+				this.add = function(v){//操作数据的方法
+					val += v;
+				}
+				this.sub = function(v){
+					val == 0 ? val = 0 : val -= v;
+				}
+				this.getVal = function(){
+					return val;
+				}
+				
+			}
+			
+			myApp.view = function(){
+				var domNum 		= document.querySelector('.num'),
+					domAddBtn	= document.querySelector('.add'),
+					domSubBtn 	= document.querySelector('.sub');
+					
+				/*model数据改变，并渲染界面*/
+				this.render = function(model){
+					domNum.innerText = model.getVal() + 'RMB';
+				}
+				
+				this.init = function(){
+					var presenter = new myApp.presenter(this);
+					domAddBtn.onclick = presenter.increase;
+					domSubBtn.onclick = presenter.decrease;
+				}
+				
+			}
+			
+			myApp.presenter = function(view){
+				var model = new myApp.model();
+				view.render(model);
+				
+				this.increase = function(){
+					model.add(1);
+					view.render(model);
+				}
+				this.decrease = function(){
+					model.sub(1);
+					view.render(model);
+				}
+			}
+		}(window)
+		
+		var view = new myApp.view();
+			view.init();
+	</script>
+</html>
