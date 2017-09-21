@@ -69,6 +69,47 @@
 					return arr;
 				}
 				console.log(sortObject(objArr));
+				
+				//斐波纳契数列
+				function Fibonacci(i){
+					if(i < 2){
+						return 1;
+					}else{
+						return arguments.callee(i-1) + arguments.callee(i-2);
+					}
+				}
+				for(var i = 0;i < 10;i++){
+					console.log(Fibonacci(i));
+				}
+				
+				
+				Number.prototype.plus = function(num){
+					var num = parseInt(num);
+					if(typeof num == 'number'){
+						return this + num;
+					}else{
+						return null;
+					}
+				}
+				Number.prototype.minus = function(num){
+					var num = parseInt(num);
+					if(typeof num == 'number'){
+						return this - num;
+					}else{
+						return null;
+					}
+				}
+				console.log('运算求值：',(5).plus(3).minus(6));
+				
+				//实现如下语法的功能：var a = add(2)(3)(4);
+				function add(){
+					var arguments = Array.prototype.slice.call(arguments);
+					if(arguments.length){
+						return add;
+					}else{
+					}
+				}
+				add(2)
 			}()
 		</script>
 	</body>
