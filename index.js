@@ -16,8 +16,6 @@ define("navflayer/navflayer_new2", ["jquery"], function(e) {
                 a("#chatallnum").html(e).show())
             }
     }
-    
-    
     //压缩后
     var a = e("jquery")
       , i = seajs.data.vars
