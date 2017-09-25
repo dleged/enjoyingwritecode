@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 10px;
+				padding：10px;
+				font-family: "agency fb";
+				text-align: center;
+			}
+			div{
+				padding: 20px;
+				background-color: #4B4B4B;
+			}
+		</style>
+	</head>
+	<pre>
+		JavaScript事件模型原始事件模型，捕获型事件模型，冒泡事件模型，
+		原始事件模型就是ele.onclick=function(){}这种类型的事件模型冒泡事件模型是指事件从事件的发生地（目标元素），
+		一直向上传递，直到document，捕获型则恰好相反，事件是从document向下传递，
+		直到事件的发生地（目标元素）IE是只支持冒泡事件模型的，下面是兼容各个浏览器的事件监听代码
+	</pre>
+	<body>
+		<div id="util">
+			我是无辜的DIV
+		</div>
+		<button>
+			绑定DIV事件
+		</button>
+		<button>
+			取消DIV事件
+		</button>
+		<script type="text/javascript">
+			var i = 0;
+			var button = document.querySelectorAll('button');
+			var div = document.querySelector('div');
+			function handler(){
+				div.innerText = i;
+				i++;
+			}
+			button[0].onclick = function(){
+				i = 0;
+				div.innerText = 'DIV添加了click事件!';
+				EventUtil.addListener(div,'click',handler);
+			}
+			button[1].onclick = function(){
+				i = 0;
+				div.innerText = 'DIV取消了click事件!';
+				EventUtil.removeLinstener(div,'click',handler);
+			}
+			
+			EventUtil = {
+				addListener: function(target,type,handler){
+					if(target.addEventListener){
+						target.addEventListener(type,handler);
+					}else if(target.attachEvent){ //ie8
+						target.attachEvent('on' + type,function(){
+							handler.call(target);
+						});
+					}else{
+						target['on' + type] = handler; //0级dom绑定
+					}
+				},
+				removeLinstener: function(target,type,handler){
+					if(target.removeEventListener){
+						target.removeEventListener(type,handler);
+					}else if(target.attachEvent){
+						target.detachEvent('on' + type,function(){
+							handler.call(target);
+						});
+					}else{
+						target['on' + type] = null; //0级dom绑定
+					}
+				},
+				getEvent: function(e){
+					return window.event ? window.event : e;
+				},
+				getTarget: function(e){
+					var evt = this.getEvent(e);
+					var target;
+					if(evt.target){
+						target = evt.target;
+					}else{
+						target = evt.srcElement;
+					}
+					return target;
+				},
+				stopPropagation: function(e){  //停止冒泡
+					var evt = this.getEvent(e);
+					if(evt.stopPropagation){
+						evt.stopPropagation();
+					}else if(evt.cancelBubble){
+						evt.cancelBubble = true;
+					}
+				},
+				preDefaultEvent: function(e){ //阻值默认行为的发生
+					var evt = this.getEvent(e);
+					if(evt.preDefaultEvent){
+						evt.preDefaultEvent();
+					}else if(evt.cancelBubble){
+						evt.returnValue = false;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
