@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			命令模式旨在将函数的调用、请求和操作封装成一个单一的对象，
+			然后对这个对象进行一系列的处理。
+			在 Javascript中我们可以配合单例将一个对象暴露出一个公用的对象，
+			外部通过命令进行对象内部方法的调用和参数的传递。
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				var lian = {};
+				
+				lian.pao = function(pao_num){
+					console.log(pao_num + '大炮开始战斗！')
+				}
+				lian.bubing = function(bubing_num){
+					console.log(bubing_num + '步兵炮开始战斗！')
+				}
+				lian.lianzhang = function(obj){
+					lian[obj['type']](obj['num']);
+				}
+				
+				lian.lianzhang({
+					type: 'pao',
+					num: 500
+				});
+				lian.lianzhang({
+					type: 'bubing',
+					num: 1300
+				});
+			})()
+		</script>
+	</body>
+</html>

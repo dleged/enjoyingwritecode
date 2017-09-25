@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			建造者模式主要用于“分步骤构建一个复杂的对象”，在这其中“分步骤”是一个稳定的算法，
+			而复杂对象的各个部分则经常变化。我们平时开发的时候，逻辑模块一旦增多，
+			就需要很好的把控对应模块的职责，建造者模式也是我们大型项目毕竟的一步。
+			模式左右:
+			1.分步创建一个复杂的对象
+			2.解耦封装过程和具体穿件的组件
+			3.无需关系组件如何组装
+			注意事项:
+			一定要一个稳定的算法进行支持
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				/*1.输出的东西是房子
+				2.包工头说他会盖房子,但是他不去做干盖房子的活
+				3.工人负责做干房子复杂的活*/
+				
+				function Fangzi(){
+					this.woshi = '';
+					this.chufang = '';
+					this.keting = '';
+				}
+				
+				function Baogongtou(){
+					this.gaifangzi = function(gongren){
+						gongren.gai_woshi();
+						gongren.gai_chufang();
+						gongren.gai_keting();
+					}
+				}
+				
+				function GongRen(){
+					this.gai_woshi = function(){
+						console.log('卧室盖好了！');
+					}
+					this.gai_chufang = function(){
+						console.log('厨房盖好了！');
+					}
+					this.gai_keting = function(){
+						console.log('客厅盖好了！');
+					}
+					
+					this.gai_fangzi = function(){
+						var fangzi = new Fangzi();
+						fangzi.chufang = 'ok';
+						fangzi.keting = 'ok';
+						fangzi.woshi = 'ok';
+						return fangzi;
+					}
+				}
+				
+				var gongren = new GongRen();
+				var baogongtou = new Baogongtou();
+				baogongtou.gaifangzi(gongren);
+				var fangzi = gongren.gai_fangzi();
+				console.log(fangzi);
+			})()
+		</script>
+	</body>
+</html>

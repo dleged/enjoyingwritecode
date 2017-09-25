@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			观察者模式又叫发布订阅模式，它定义了一种一堆多的关系，
+			让多个观察者对象同时监听一个主题对象，这个主题对象的
+			状态发生变化时就会通知所有的观察者对象，使得它们能够
+			自动更新自己。
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				var o = $({});
+				
+				$.jianting = function(){
+					o.on.apply(o,arguments);
+				}
+				
+				$.fabu = function(){
+					o.trigger.apply(o,arguments);
+				}
+				
+				$.qingchu = function(){
+					o.off.apply(o,arguments);
+				}
+				
+				$.jianting('test/ls',function(e,a,b){
+					console.log(a + ' || ' + b)
+				})
+				$.jianting('test/ls',function(e,a,b){
+					console.log('ok');
+				})
+				$.jianting('test/ls2',function(e,a,b){
+					console.log(a + ' || ' + b)
+				})
+				$.jianting('test/ls2',function(e,a,b){
+					console.log('ok2');
+				})
+				$.fabu('test/ls',[1,2]);
+				$.fabu('test/ls2',[1,2]);
+			})()
+		</script>
+	</body>
+</html>
