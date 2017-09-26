@@ -50,6 +50,48 @@
 				$.fabu('test/ls',[1,2]);
 				$.fabu('test/ls2',[1,2]);
 			})()
+			
+			/*发布定于售楼价格*/
+			event = {
+				PriceList: {},
+				listen: function(key,fn){
+					if(!this.PriceList[key]){//若key型号的楼盘没人订阅
+						this.PriceList[key] = [];
+					}
+					this.PriceList[key].push(fn);
+				},
+				trigger: function(){
+					arguments = Array.prototype.slice.call(arguments);
+					var key = arguments.shift(); 
+					
+					if(!this.PriceList[key]){
+						return false;
+					}
+					var fns = this.PriceList[key];
+					var fn = fns[0];
+					for(var i = 0;fn;fn = fns[i+1]){
+						fn.apply(null,arguments);
+					}
+				}
+			}
+			installEvent = function(obj){
+				for(i in event){
+					obj[i] = event[i];
+				}
+			}
+			
+			var salesOffices = {};  
+			installEvent( salesOffices ); 
+			
+			salesOffices.listen('恒厚阳关城1栋',function(price){
+				console.log('恒厚阳关城1栋：',price,'元');
+			});
+			salesOffices.listen('恒厚阳关城12栋',function(price){
+				console.log('恒厚阳关城12栋：',price,'元');
+			});
+			
+			salesOffices.trigger('恒厚阳关城1栋',20000)
+			salesOffices.trigger('恒厚阳关城1212栋','2000');//没有订阅
 		</script>
 	</body>
 </html>
