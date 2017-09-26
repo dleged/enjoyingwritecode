@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>双飞翼布局是对圣杯布局的一种改良。</title>
+		<style>
+			/*圣杯布局*/
+			{
+				margin: 0;
+				padding: 0;
+			}
+			.header{
+				height: 200px;
+				background: #EA8020;
+			}
+			.atricle{
+				height: 200px;
+				background: #DAB373;
+				overflow: hidden;
+			}
+			.footer{
+				height: 200px;
+				background: #F58787;
+			}
+			.left{
+				width: 150px;
+				float: left;
+				background: #00FFFF;
+				margin-left: -100%;
+				margin-bottom: -999px;/*为了展示和父元素一样高*/
+				padding-bottom: 999px;
+			}
+			.middle{
+				float: left;
+				width: 100%;
+				background: #0000FF;
+			}
+			.right{
+				width: 200px;
+				float: left;
+				background: #FF00FF;
+				margin-left: -200px;
+				margin-bottom: -999px;
+				padding-bottom: 999px;
+			}
+			.inner{
+				margin-left: 150px;
+				margin-right: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			我是头部
+		</div>
+		<div class="atricle">
+			<!--非浮动元素会影响正常的元素的布局-->
+			<div class="middle">
+				<div class="inner"><!--和圣杯布局的差异-->
+					我是中间
+					<p>我是中间</p>
+					<p>我是中间</p>
+					<p>我是中间</p>
+				</div>
+				
+			</div>
+			<div class="left">我是左边</div>
+			<div class="right">我是右边</div>
+		</div>
+		<div class="footer">
+			我是底部
+		</div>
+	</body>
+</html>
