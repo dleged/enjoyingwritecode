@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			在 JavaScript 里，
+			代理模式运用也非常广泛，
+			比如我们开发一个拳王97的游戏我们需要获得用户上下左右上的方向键的组合，
+			就可以使用代理模式来代理我们发送给控制中心的组合按键。
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				//买家
+				function Maijia(){
+					this.name = '小明';
+				}
+				
+				//中介 卖房
+				function zhongjie(){
+				}
+				zhongjie.prototype._maifang = function(money){
+					new Fangdong((new Maijia)).maifang(money);
+				}
+				
+				//房东 卖房
+				function Fangdong(maija){
+					this.maifang = function(money){
+						console.log('收到来自【' + maija.name + '】的付款:',money);
+					}
+				}
+				
+				(new zhongjie)._maifang('500w');
+			})()
+		</script>
+	</body>
+</html>

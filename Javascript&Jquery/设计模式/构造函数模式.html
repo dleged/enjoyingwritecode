@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			在 JavaScript  里，
+			构造函数通常是认为用来实现实例的，JavaScript 没有类的概念，
+			但是有特殊的构造函数。通过 new 关键字来调用自定义的构造函数，在构造函数内部，
+			this 关键字引用的是新创建的对象。我们可以配合单例模式实现很好的 OO 编程。
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				function Door(){
+					if(!(this instanceof Door)){//检测有没有new关键字
+						return false;
+					}
+					this.color = 'black';
+					this.width = '200';
+					this.height = '500';
+					this.create = function(){
+						return '【颜色】 '+ this.color + 
+								' 【宽】 '+ this.width + 
+								' 【高】 '+ this.height;
+					}
+				}
+				
+				var door = new Door();
+				console.log(door.create());
+			})()
+		</script>
+	</body>
+</html>
+  

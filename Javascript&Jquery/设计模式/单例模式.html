@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			在 JavaScript 里，
+			单例作为一个命名空间提供者，
+			从全局命名空间里提供一个唯一的访问点来访问该对象。
+			学习好单例模式，
+			在开发中将能很好的控制命名空间，避免变量污染等。
+		</pre>
+		<script type="text/javascript">
+			var xiaoli = (function(){
+				var xiaolijia = function(message){
+					this.mengling = message;
+				}
+				var men;
+				var info = {
+					sendMessage: function(message){
+						if(!men){
+							men = new xiaolijia(message);
+						}
+						return men;
+					}
+				}
+				return info;
+			})()
+			
+			var xiaofan = {
+				callXiaoLi: function(){
+					var _xl = xiaoli.sendMessage('dididi！！！');
+					alert(_xl.mengling);
+					_xl = null;//等待垃圾回收
+				}
+			}
+			xiaofan.callXiaoLi();
+			
+			/*传统按钮绑定事件*/
+			$('#a').bind('click',function(){
+				//业务逻辑
+				var a = 1;
+			});
+			$('#b').bind('click',function(){
+				//业务逻辑
+				//接收不到上面的变量a,若想接收到,就得是全局变量，全局变量一直存在，增加内存
+			});
+			$('#c').bind('click',function(){
+				//业务逻辑
+			});
+			$('#d').bind('click',function(){
+				//业务逻辑
+			});
+			/*使用单例模式*/
+			var TOP = {
+				init: function(){
+					this.render();
+					this.bind();
+				},
+				a: 44444,
+				render: function(){
+					var me = this;
+					me.btnA = $('head');
+				},
+				bind: function(){
+					var me = this;
+					me.btnA.bind('click',function(){
+						//业务逻辑
+					});
+				}
+			}
+			var BANNER = {
+				init: function(){
+					this.render();
+					this.bind();
+				},
+				a: 3333,
+				render: function(){
+					var me = this;
+					me.btnA = $('pre');
+				},
+				bind: function(){
+					var me = this;
+					me.btnA.bind('click',function(){
+						//业务逻辑
+						TOP.a++;//调用top的a值
+						console.log(TOP.a);
+					});
+				}
+			}
+			
+			TOP.init();
+			BANNER.init();
+		</script>
+	</body>
+</html>
