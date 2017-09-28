@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			适配器模式在项目开发中有着很重要的地位，
+			比如我们开发的一些统一的接口去组合其他同学的功能就起着很关键的作用
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				/*var oldfn = {
+					test:function(){
+						console.log('我是test！');
+					},
+					go: funciton(){}
+				}*/
+				
+				function newFn(){
+					this.test = function(){
+						console.log('我是新的test！');
+					}
+					this.go = function(){
+						
+					}
+				}
+				
+				/*代码给改了，要改回来，如下适配器操作*/
+				function oldFn(){
+					var fn = new newFn();
+					var result = {
+						test: function(){
+							fn.test();
+						},
+						go: function(){
+							fn.go();
+						}
+					}
+					
+					return result;
+				}
+				
+				var old = new oldFn();
+				old.test();
+			})()
+		</script>
+	</body>
+</html>
+

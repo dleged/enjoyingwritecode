@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			职责链模式可以将发送者和接受者之间进行解耦，
+			比如 nodejs 需要处理中间件等，就会用到职责链模式。
+			
+			例子：假设一个电视网站对于某部新上市的手机经过了2轮缴纳500元定金与200元定金的预定，
+			现在已经到了正式购买的阶段。
+			支付了500元定金的用户在购买阶段可以使用100元优惠券，
+			200元定金可以使用50元优惠券，
+			普通用户没有如果没有库存不一定能买到。
+			我的意思就是不要像上述那样面向过程的从500传递到200然后再到普通，
+			万一我们想传递到100呢？ 岂不是还得要大修一番？
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				//500元的定金
+				function order500(type,pay,stock){
+					if(type === 5 && pay === true && stock > 0){
+						console.log('500 rmb deposit, get 100 coupon ');
+					}else{
+						return 'nextSuccessor';
+					}
+				}
+				//500元的定金
+				function order100(type,pay,stock){
+					if(type === 1 && pay === true && stock > 0){
+						console.log('100 rmb deposit, get 10 coupon ');
+					}else{
+						return 'nextSuccessor';
+					}
+				}
+				function order0(type,pay,stock){
+					if(stock > 0){
+						console.log('可以买到货');
+					}else{
+						console.log('不可以买到货');
+					}
+				}
+				//职责链
+				function Chain(fn){
+					this.fn = fn;
+					this.successor = null;
+				}
+				//职责链当前是那个预付订单类型
+				Chain.prototype.nextSuccessor = function(successor){
+					return this.successor = successor;
+				}
+				
+				//只关心当前方法是否符合，不符合就执行nextSuccessor。中间可以插入一个订单类型，不影响链式结构
+				Chain.prototype.passRequest = function(){
+					var ret = this.fn.apply(this,arguments);//执行当前订单类型
+					if(ret === 'nextSuccessor'){//订单类型不符合当前的要求
+						return this.successor.passRequest.apply(this.successor,arguments);//执行nextSuccessor实例的当前方法
+					}else{
+						return ret;
+					}
+				}
+				
+				/*装载职责链节点对应的业务方法*/
+				var chainOrder500 = new Chain(order500);
+				var chainOrder100 = new Chain(order100);
+				var chainOrder0 = new Chain(order0);
+				
+				/*装载职责链节点下一个对应的节点，若当前节点不通过，则运行下一个节点的业务方法*/
+				chainOrder500.nextSuccessor(chainOrder100);
+				chainOrder100.nextSuccessor(chainOrder0);
+				
+				/*执行方法*/
+				chainOrder500.passRequest(1,true,500);
+				
+				/*若中间插入300类型订单,只需做如下改动*/
+				//500元的定金
+				function order300(type,pay,stock){
+					if(type === 3 && pay === true && stock > 0){
+						console.log('300 rmb deposit, get 30 coupon ');
+					}else{
+						return 'nextSuccessor';
+					}
+				}
+				var chainOrder300 = new Chain(order300);
+				
+				chainOrder500.nextSuccessor(chainOrder300);
+				chainOrder300.nextSuccessor(chainOrder100);
+				chainOrder100.nextSuccessor(chainOrder0);
+				
+				chainOrder500.passRequest(3,true,500);
+			})()
+		</script>
+	</body>
+</html>

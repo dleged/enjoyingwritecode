@@ -14,8 +14,8 @@
 				var data = data || null;
 				var type = type || 'GET';
 				xmlHttp = w.XMLHttpRequest ? 
-				new XMLHttpRequest() : w.activeXObject() ? 
-				new ActiveXObject('Microsoft.XMLHTTP') : null;
+				new XMLHttpRequest() : w.activeXObject() ? //firefox opera 8.0+ safari ie 7+
+				new ActiveXObject('Microsoft.XMLHTTP') : null; //internet explort
 				
 				if(xmlHttp){
 					xmlHttp.onreadystatechange = stateChange;

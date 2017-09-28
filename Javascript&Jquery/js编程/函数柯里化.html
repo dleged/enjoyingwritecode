@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数柯里化</title>
+		<style type="text/css">
+			*{
+				margin: 10px;
+				padding：10px;
+				font-family: "agency fb";
+				text-align: center;
+			}
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			在JavaScript的世界里，
+			函数贯穿始终。
+			我们开发的时候并不是每一个都是函数都是直接声明然后调用函数名字这么简单，
+			需要掌握很多高级的函数来帮助我们优化代码的性能以及书写出更加对整体业务有通用性的高级函数。 
+		</pre>
+		<div id="util">
+			我是无辜的DIV
+		</div>
+		<button>
+			绑定DIV事件
+		</button>
+		<button>
+			取消DIV事件
+		</button>
+	<script type="text/javascript">
+		(function($){
+			/*function add(num1,num2){
+				return num1 + num2;
+			}
+			
+			function totalAdd(num3){
+				return add(1,2) + num3;
+			}
+			console.log(totalAdd(3));*/
+			
+			function add(num1,num2,num3){
+				return num1 + num2 + num3;
+			}
+			
+			
+			function curring(fn){
+				var args = Array.prototype.slice.call(arguments,1);
+				return function(){
+					var newArgs = Array.prototype.slice.call(arguments);
+					var finallArgs = args.concat(newArgs);
+					return fn.apply(null,finallArgs);
+				}
+			}
+			var sum = curring(add,1)(2,3);
+			console.log(sum);
+			
+			
+			
+			
+			function curryXmlHttp(fn) {
+	            var slice = Array.prototype.slice,
+	            __args = slice.call(arguments, 1);
+	            return function () {
+	                var __inargs = slice.call(arguments);
+	                return fn.apply(this, __args.concat(__inargs));
+	            };
+	        }
+			function Ajax() {
+			    this.xhr = new XMLHttpRequest();
+			}
+			Ajax.prototype.open = function(type, url, data, callback) {
+		        this.xhr.open(type, url, data.async);
+				this.xhr.send(data.paras);
+				callback(this.xhr.response, this.xhr.status, this.xhr);
+			}
+			'get post'.split(' ').forEach(function(mt) {
+			    Ajax.prototype[mt] = curryXmlHttp(Ajax.prototype.open, mt);
+			});
+			var xhr = new Ajax();
+			xhr.get('data.json', {async: true,paras: true},
+				function(datas) {
+			    	console.log(datas);   
+			});
+			
+			/*var xhr1 = new Ajax();
+			xhr1.post('/articles/add.php', {},
+				function(datas) {
+			    // done(datas)    
+			});*/
+		})(jQuery)
+	</script>
+</html>

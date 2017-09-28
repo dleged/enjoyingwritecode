@@ -40,10 +40,14 @@
 				div.innerText = i;
 				i++;
 			}
+			function handler2(){
+				console.log('hello 事件模型！');
+			}
 			button[0].onclick = function(){
 				i = 0;
 				div.innerText = 'DIV添加了click事件!';
 				EventUtil.addListener(div,'click',handler);
+				EventUtil.addListener(div,'click',handler2);
 			}
 			button[1].onclick = function(){
 				i = 0;
@@ -56,9 +60,7 @@
 					if(target.addEventListener){
 						target.addEventListener(type,handler);
 					}else if(target.attachEvent){ //ie8
-						target.attachEvent('on' + type,function(){
-							handler.call(target);
-						});
+						target.attachEvent('on' + type,handler);
 					}else{
 						target['on' + type] = handler; //0级dom绑定
 					}
@@ -67,9 +69,7 @@
 					if(target.removeEventListener){
 						target.removeEventListener(type,handler);
 					}else if(target.attachEvent){
-						target.detachEvent('on' + type,function(){
-							handler.call(target);
-						});
+						target.detachEvent('on' + type,handler);
 					}else{
 						target['on' + type] = null; //0级dom绑定
 					}

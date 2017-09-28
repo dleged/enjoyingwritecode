@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			迭代器模式提供一种方法顺序访问一个聚合对象中各个元素，
+			而又不需要暴露该方法中的内部表示。
+			对于集合内部结果常常变化各异，我们不想暴露其内部结构的话，
+			但又想让客户代码透明底访问其中的元素，
+			这种情况下我们可以使用迭代器模式。 
+		</pre>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<script type="text/javascript">
+			~(function(){
+				var arr = [1,2,3];
+				var iterator = function(arr){
+					var index = 0;
+					return {
+						hasNext: function(){
+							return Boolean(arr[index+1]);
+						},
+						next: function(){
+							return arr[index+1]
+						},
+						reset: function(){
+							index = 0;
+						}
+					}
+				};
+				var item = iterator(arr);
+				console.log(item.next());
+				
+				
+				/*实现$.each();*/
+				$.extend({
+					each: function($arr,callback){
+						for(var i = 0,len = $arr.length;i<len;i++){
+							var item = $arr[i];
+							callback.apply($arr,[item,i]);	
+						}
+						return $arr;
+					}
+				})
+				
+				$.each($('ul li'), function(item,i) {
+					console.log(item);
+				});
+			})()
+		</script>
+	</body>
+</html>
