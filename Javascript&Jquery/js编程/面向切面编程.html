@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向切面编程</title>
+		<style type="text/css">
+			*{
+				margin: 10px;
+				padding：10px;
+				font-family: "agency fb";
+				text-align: center;
+			}
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+	</head>
+	<body>
+	<pre>
+		Aspect Oriented Programming(AOP)，面向切面编程，
+		是一个比较热门的话题。AOP主要实现的目的是针对业务处理过程中的切面进行提取，
+		它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果。
+		我们可以用JavaScript来实现面向切面，可以方便我们对代码进行无侵入式的开发。
+		如统计某个函数的执行时间。
+	</pre>
+	<button id="button" tag="login">点击打开登录浮层</button>
+	<script type="text/javascript">
+		//点登陆即要弹出 浮沉 又要执行登录
+		function showLogin(param){
+			console.log('浮沉出现！',param['a']);
+			return 1;
+		}
+		function startLogin(param){
+			console.log('开始登录！',param['a']);
+		}
+		
+		function endLogin(param){
+			console.log('登录成功！',param['a']);
+		}
+		
+		Function.prototype.before = function(fn){
+			var _self = this;
+			//返回包含了原函数和新函数的"代理"函数
+			return function(){
+				//挂载 after上的原方法和回调方法
+				fn.apply(this,arguments); 
+				return _self.apply(_self,arguments);//返回原函数的结果 传递实例showLogin方法的返回值
+			}
+		}
+		
+		Function.prototype.after = function(fn){
+			var _self = this; //实例第一次调用的对象
+			//返回包含了原函数和新函数的"代理"函数
+			return function(){
+				//挂载 before上的原方法和回调方法
+				var result = _self.apply(_self,arguments); // 链式_self指上一函数返回匿名函数 自执行一遍
+				fn.apply(this,arguments);
+				return result;//返回原函数的结果
+			}
+		}
+		
+		
+		var doLogin = showLogin
+					.before(startLogin)
+					.after(endLogin);
+					
+		document.querySelector('#button').onclick = doLogin;
+		
+		//doLogin({a: 'a'});//每个方法都传递参数了
+		
+		
+	</script>
+</html>

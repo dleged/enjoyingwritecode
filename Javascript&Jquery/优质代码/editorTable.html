@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet">
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>编号</td>
+					<th>姓名</td>
+					<th>年龄</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>echo</td>
+					<td>12</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>andy</td>
+					<td>12</td>
+				</tr>
+			</tbody>
+		</table>
+		<script type="text/javascript">
+			~function($){
+				var index = {
+					init: function(){
+						var me = this;
+						me.render();
+						me.bind();
+					},
+					render: function(){
+						var me = this;
+						me.test = $('table td');
+					},
+					bind: function(){
+						var me = this;
+						var that = window;
+						me.test.on('click',$.proxy(me['_do'],this));//this ===》 index
+					},
+					_do: function(e){
+						console.log(this); //this ===》 index
+						var dom = $(e.target);
+						if($(dom).children().length){
+							return false;
+						}
+						var input = $('<input type="text" value="'+ dom.text() +'" >');
+						dom.html(input);
+						input.focus();
+						input.blur(function(e){
+							dom.text($(this).val());
+							console.log(dom)
+						})
+					}
+				}
+				index.init();
+				exports = index;
+			}(jQuery)
+		</script>
+	</body>
+</html>
