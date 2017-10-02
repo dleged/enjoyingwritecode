@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<ul id="ul1">
+			<li class="li1">1</li>
+			<li class="li1">2</li>
+		</ul>
+		
+		<ul id="ul2">
+			<li class="li2">3</li>
+			<li class="li2">4</li>
+		</ul>
+		<script type="text/javascript">
+			
+			var aArr = [];
+			for(var i = 0;i < 100000;i++){
+			　aArr.push(i);
+			}
+			
+			
+			(function(){
+				//every
+				var _sum = 0;
+			    console.time('every求和时间');
+			    aArr.every(function(item,index){
+			        _sum += item;
+			        return true;//every每个值都运行
+			    })
+			    console.log('every求和： '+_sum);
+			    console.timeEnd('every求和时间');
+			    
+				//filter
+			    var _sum = 0;
+			    console.time('filter求和时间');
+			    aArr.filter(function(item,index){
+			        _sum += item;
+			    })
+			    console.log('filter求和： '+_sum);
+			    console.timeEnd('filter求和时间');
+
+				//map
+			    var _sum = 0;
+			    console.time('map求和时间');
+			    aArr.map(function(item,index){
+			        _sum += item;
+			    })
+			    console.log('map求和： '+_sum);
+			    console.timeEnd('map求和时间');
+			    
+			    //some
+			    var _sum = 0;
+			    console.time('some求和时间');
+			    aArr.some(function(item,index){
+			        _sum += item;
+			    })
+			    console.log('some求和： '+_sum);
+			    console.timeEnd('some求和时间');
+			    
+			    //reduce
+			    console.time('reduce求和时间');
+			    var prev;
+			    aArr.reduce(function(prev,item,index){
+			        prev += item;
+			    })
+			    console.log('reduce求和： '+_sum);
+			    console.timeEnd('reduce求和时间');
+			    
+			     //reduceRight
+			    console.time('reduceRight求和时间');
+			    var next;
+			    aArr.reduceRight(function(next,item,index){
+			        prev += item;
+			    })
+			    console.log('reduceRight求和： '+_sum);
+			    console.timeEnd('reduceRight求和时间');
+			    
+			    //eval
+			    console.time('eval求和时间');
+			    var _sum = eval(aArr.join('+'));
+			    console.log('eval求和： '+_sum);
+			    console.timeEnd('eval求和时间');
+			    
+			    //for
+			    console.time('for(var i = 0,len = aArr.length;i < len;i++)求和时间');
+			    var _sum = 0;
+			    for(var i = 0,len = aArr.length;i < len;i++){
+			    	_sum += i;
+			    }
+			    console.log('for求和： '+_sum);
+			    console.timeEnd('for(var i = 0,len = aArr.length;i < len;i++)求和时间');
+			    
+			    console.time('for(var i = 0;i < aArr.length;i++)求和时间');
+			    var _sum = 0;
+			    for(var i = 0;i < aArr.length;i++){
+			    	_sum += i;
+			    }
+			    console.log('for求和： '+_sum);
+			    console.timeEnd('for(var i = 0;i < aArr.length;i++)求和时间');
+			    
+			    
+			    //while
+			    console.time('while求和时间');
+			    var _sum = 0,i = 0,_len = aArr.length;
+			    while(i < _len){
+			    	_sum += aArr[i];
+			    	i++;
+			    }
+			    console.log('while求和： '+_sum);
+			    console.timeEnd('while求和时间');
+			    
+			    //do while
+			    console.time('do while求和时间');
+			    var _sum = 0,i = 0,_len = aArr.length;
+			    do{
+			    	_sum += aArr[i];
+			    	i++;
+			    }while(i < _len)
+			    console.log('do while求和： '+_sum);
+			    console.timeEnd('do while求和时间');
+			    
+			    //forEach
+			    var _sum = 0;
+			    console.time('forEach求和时间');
+			    aArr.forEach(function(item,index){
+			        _sum += item;
+			        return true;//every每个值都运行
+			    })
+			    console.log('forEach求和： '+_sum);
+			    console.timeEnd('forEach求和时间');
+			})()
+			
+			every求和： 4999950000
+			every求和时间: 5.648193359375ms
+			filter求和： 4999950000
+			filter求和时间: 3.9560546875ms
+			map求和： 4999950000
+			map求和时间: 17.988037109375ms
+			some求和： 4999950000
+			some求和时间: 6.005126953125ms
+			reduce求和： 4999950000
+			reduce求和时间: 5.129150390625ms
+			reduceRight求和： 4999950000
+			reduceRight求和时间: 4.081787109375ms
+			eval求和： 4999950000
+			eval求和时间: 43.47314453125ms
+			for求和： 4999950000
+			for(var i = 0,len = aArr.length;i < len;i++)求和时间: 2.748046875ms
+			for求和： 4999950000
+			for(var i = 0;i < aArr.length;i++)求和时间: 5.08984375ms
+			while求和： 4999950000
+			while求和时间: 4.9140625ms
+			do while求和： 4999950000
+			do while求和时间: 4.52392578125ms
+			forEach求和： 4999950000
+			forEach求和时间: 4.5830078125ms
+
+		</script>
+	</body>
+</html>
