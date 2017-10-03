@@ -101,15 +101,19 @@
 				console.log('运算求值：',(5).plus(3).minus(6));
 				
 				//实现如下语法的功能：var a = add(2)(3)(4);
-				
 				function add(){
-					var args = Array.prototype.slice.apply(arguments);
+					var args = Array.prototype.slice(arguments);
 					return function(){
-						var newArgs = Array.prototype.slice.apply(arguments);
-						var finallArgs = args.concat(newArgs);
+						var finalArgs = Array.prototype.slice(arguments);
+						finalArgs = args.concat(finalArgs);
+						var prev;
+						finalArgs.reduce(function(prev,next,item){
+							prev += next;
+						});
+						return prev;
 					}
 				}
-				console.log(add(1,2)(1,2));
+				console.log(add(2)(3));
 			}()
 			
 		</script>
