@@ -98,39 +98,31 @@ jQuery.fn = jQuery.prototype = {
 		return ret;
 	},
 
-	// Execute a callback for every element in the matched set.
 	each: function( callback ) {
 		return jQuery.each( this, callback );
 	},
-
 	map: function( callback ) {
 		return this.pushStack( jQuery.map( this, function( elem, i ) {
 			return callback.call( elem, i, elem );
 		} ) );
 	},
-
 	slice: function() {
 		return this.pushStack( slice.apply( this, arguments ) );
 	},
-
 	first: function() {
 		return this.eq( 0 );
 	},
-
 	last: function() {
 		return this.eq( -1 );
 	},
-
 	eq: function( i ) {
 		var len = this.length,
 			j = +i + ( i < 0 ? len : 0 );
 		return this.pushStack( j >= 0 && j < len ? [ this[ j ] ] : [] );
 	},
-
 	end: function() {
 		return this.prevObject || this.constructor();
 	},
-
 	// For internal use only.
 	// Behaves like an Array's method, not like a jQuery method.
 	push: push,
@@ -144,29 +136,23 @@ jQuery.extend = jQuery.fn.extend = function() {
 		i = 1,
 		length = arguments.length,
 		deep = false;
-
 	// Handle a deep copy situation
 	if ( typeof target === "boolean" ) {
 		deep = target;
-
 		// Skip the boolean and the target
 		target = arguments[ i ] || {};
 		i++;
 	}
-
 	// Handle case when target is a string or something (possible in deep copy)
 	if ( typeof target !== "object" && !jQuery.isFunction( target ) ) {
 		target = {};
 	}
-
 	// Extend jQuery itself if only one argument is passed
 	if ( i === length ) {
 		target = this;
 		i--;
 	}
-
 	for ( ; i < length; i++ ) {
-
 		// Only deal with non-null/undefined values
 		if ( ( options = arguments[ i ] ) != null ) {
 
@@ -301,7 +287,6 @@ jQuery.extend( {
 
 	each: function( obj, callback ) {
 		var length, i = 0;
-
 		if ( isArrayLike( obj ) ) {
 			length = obj.length;
 			for ( ; i < length; i++ ) {
@@ -462,7 +447,6 @@ function( i, name ) {
 } );
 
 function isArrayLike( obj ) {
-
 	// Support: real iOS 8.2 only (not reproducible in simulator)
 	// `in` check used to prevent JIT error (gh-2145)
 	// hasOwn isn't used here due to false negatives
