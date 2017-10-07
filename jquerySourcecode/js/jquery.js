@@ -264,21 +264,15 @@ jQuery.extend( {
 		if ( obj == null ) {
 			return obj + "";
 		}
-
-		// Support: Android <=2.3 only (functionish RegExp)
 		return typeof obj === "object" || typeof obj === "function" ?
 			class2type[ toString.call( obj ) ] || "object" :
 			typeof obj;
 	},
 
-	// Evaluates a script in a global context
 	globalEval: function( code ) {
 		DOMEval( code );
 	},
 
-	// Convert dashed to camelCase; used by the css and data modules
-	// Support: IE <=9 - 11, Edge 12 - 13
-	// Microsoft forgot to hump their vendor prefix (#9572)
 	camelCase: function( string ) {
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
@@ -313,7 +307,6 @@ jQuery.extend( {
 	// results is for internal usage only
 	makeArray: function( arr, results ) {
 		var ret = results || [];
-
 		if ( arr != null ) {
 			if ( isArrayLike( Object( arr ) ) ) {
 				jQuery.merge( ret,
@@ -362,13 +355,11 @@ jQuery.extend( {
 
 		return matches;
 	},
-
 	// arg is for internal usage only
 	map: function( elems, callback, arg ) {
 		var length, value,
 			i = 0,
 			ret = [];
-
 		// Go through the array, translating each of the items to their new values
 		if ( isArrayLike( elems ) ) {
 			length = elems.length;
@@ -397,18 +388,15 @@ jQuery.extend( {
 
 	// A global GUID counter for objects
 	guid: 1,
-
 	// Bind a function to a context, optionally partially applying any
 	// arguments.
 	proxy: function( fn, context ) {
 		var tmp, args, proxy;
-
 		if ( typeof context === "string" ) {
 			tmp = fn[ context ];
 			context = fn;
 			fn = tmp;
 		}
-
 		// Quick check to determine if target is callable, in the spec
 		// this throws a TypeError, but we will just return undefined.
 		if ( !jQuery.isFunction( fn ) ) {
