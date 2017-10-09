@@ -8,7 +8,6 @@
  * Copyright JS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
- *
  * Date: 2017-03-20T18:59Z
  */
 ( function( global, factory ) {
@@ -123,8 +122,6 @@ jQuery.fn = jQuery.prototype = {
 	end: function() {
 		return this.prevObject || this.constructor();
 	},
-	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
 	push: push,
 	sort: arr.sort,
 	splice: arr.splice
@@ -136,37 +133,35 @@ jQuery.extend = jQuery.fn.extend = function() {
 		i = 1,
 		length = arguments.length,
 		deep = false;
-	// Handle a deep copy situation
+	// 处理深层复制情况
 	if ( typeof target === "boolean" ) {
 		deep = target;
-		// Skip the boolean and the target
+		// 跳过布尔值和目标值
 		target = arguments[ i ] || {};
 		i++;
 	}
-	// Handle case when target is a string or something (possible in deep copy)
+	// 当目标是字符串或某些东西（可能在深层复制中）处理情况
 	if ( typeof target !== "object" && !jQuery.isFunction( target ) ) {
 		target = {};
 	}
-	// Extend jQuery itself if only one argument is passed
+	//如果只传递一个参数，则扩展jQuery本身
 	if ( i === length ) {
 		target = this;
 		i--;
 	}
+	//传递多个参数
 	for ( ; i < length; i++ ) {
-		// Only deal with non-null/undefined values
+		// 只处理非空/未定义的值
 		if ( ( options = arguments[ i ] ) != null ) {
-
-			// Extend the base object
+			// 扩展基础对象
 			for ( name in options ) {
 				src = target[ name ];
 				copy = options[ name ];
-
-				// Prevent never-ending loop
+				// 防止永无止境的循环
 				if ( target === copy ) {
 					continue;
 				}
-
-				// Recurse if we're merging plain objects or arrays
+				// 如果我们合并了普通的对象或数组，就会重新出现
 				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
 					( copyIsArray = Array.isArray( copy ) ) ) ) {
 
@@ -178,10 +173,10 @@ jQuery.extend = jQuery.fn.extend = function() {
 						clone = src && jQuery.isPlainObject( src ) ? src : {};
 					}
 
-					// Never move original objects, clone them
+					// 永远不要移动原始对象，克隆它们
 					target[ name ] = jQuery.extend( deep, clone, copy );
 
-				// Don't bring in undefined values
+				// 不要带入未定义的值
 				} else if ( copy !== undefined ) {
 					target[ name ] = copy;
 				}
@@ -189,22 +184,17 @@ jQuery.extend = jQuery.fn.extend = function() {
 		}
 	}
 
-	// Return the modified object
+	// 返回修改的对象
 	return target;
 };
 
 jQuery.extend( {
-
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
-
 	isReady: true,
-
 	error: function( msg ) {
 		throw new Error( msg );
 	},
-
 	noop: function() {},
-
 	isFunction: function( obj ) {
 		return jQuery.type( obj ) === "function";
 	},
@@ -214,52 +204,45 @@ jQuery.extend( {
 	},
 
 	isNumeric: function( obj ) {
-
-		// As of jQuery 3.0, isNumeric is limited to
-		// strings and numbers (primitives or objects)
-		// that can be coerced to finite numbers (gh-2662)
+		// 截至jQuery 3.0，isNumeric仅限于
+		// 字符串和数字（原语或对象）
+		// 可以强制为有限的数字（gh-2662）
 		var type = jQuery.type( obj );
 		return ( type === "number" || type === "string" ) &&
-
-			// parseFloat NaNs numeric-cast false positives ("")
-			// ...but misinterprets leading-number strings, particularly hex literals ("0x...")
-			// subtraction forces infinities to NaN
+			// ...但是误解了前导数字串，特别是十六进制文字（“0x ...”）
+			// 减去强制无限的NaN
 			!isNaN( obj - parseFloat( obj ) );
 	},
-
+	
+	// 所谓"纯粹的对象"，就是该对象是通过"{}"或"new Object"创建的。
 	isPlainObject: function( obj ) {
 		var proto, Ctor;
 
-		// Detect obvious negatives
-		// Use toString instead of jQuery.type to catch host objects
+		// 使用toString判断obj的类型
 		if ( !obj || toString.call( obj ) !== "[object Object]" ) {
 			return false;
 		}
 
-		proto = getProto( obj );
+		proto = getProto( obj ); //getProto = Object.getPrototypeOf
 
-		// Objects with no prototype (e.g., `Object.create( null )`) are plain
+		// 没有prototype
 		if ( !proto ) {
 			return true;
 		}
 
-		// Objects with prototype are plain iff they were constructed by a global Object function
+		// 具有原型的对象是纯粹的，如果它们是由全局对象函数构造的
 		Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
 		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
 	},
 
 	isEmptyObject: function( obj ) {
-
-		/* eslint-disable no-unused-vars */
-		// See https://github.com/eslint/eslint/issues/6125
 		var name;
-
 		for ( name in obj ) {
 			return false;
 		}
 		return true;
 	},
-
+	//var class2type = {};
 	type: function( obj ) {
 		if ( obj == null ) {
 			return obj + "";
@@ -269,10 +252,11 @@ jQuery.extend( {
 			typeof obj;
 	},
 
+	//动态执行该段脚本后，再删除
 	globalEval: function( code ) {
 		DOMEval( code );
 	},
-
+	//驼峰转换css
 	camelCase: function( string ) {
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
@@ -297,14 +281,12 @@ jQuery.extend( {
 		return obj;
 	},
 
-	// Support: Android <=4.0 only
 	trim: function( text ) {
 		return text == null ?
 			"" :
 			( text + "" ).replace( rtrim, "" );
 	},
 
-	// results is for internal usage only
 	makeArray: function( arr, results ) {
 		var ret = results || [];
 		if ( arr != null ) {
@@ -317,7 +299,6 @@ jQuery.extend( {
 				push.call( ret, arr );
 			}
 		}
-
 		return ret;
 	},
 
@@ -325,7 +306,7 @@ jQuery.extend( {
 		return arr == null ? -1 : indexOf.call( arr, elem, i );
 	},
 
-	//合并2个数组，改变第一个数组，第二个数组不变
+	//合并2个数组，改变第一个数组并返回，第二个数组不变
 	merge: function( first, second ) {
 		var len = +second.length,
 			j = 0,
@@ -342,25 +323,21 @@ jQuery.extend( {
 			matches = [],
 			i = 0,
 			length = elems.length,
-			callbackExpect = !invert;
-
-		// Go through the array, only saving the items
-		// that pass the validator function
+			callbackExpect = !invert;//不传invert值默认为true
+		// 通过数组，只保存项目
+		// 通过验证器函数
 		for ( ; i < length; i++ ) {
 			callbackInverse = !callback( elems[ i ], i );
 			if ( callbackInverse !== callbackExpect ) {
 				matches.push( elems[ i ] );
 			}
 		}
-
 		return matches;
 	},
-	// arg is for internal usage only
 	map: function( elems, callback, arg ) {
 		var length, value,
 			i = 0,
 			ret = [];
-		// Go through the array, translating each of the items to their new values
 		if ( isArrayLike( elems ) ) {
 			length = elems.length;
 			for ( ; i < length; i++ ) {
@@ -371,7 +348,6 @@ jQuery.extend( {
 				}
 			}
 
-		// Go through every key on the object,
 		} else {
 			for ( i in elems ) {
 				value = callback( elems[ i ], i, arg );
@@ -382,14 +358,10 @@ jQuery.extend( {
 			}
 		}
 
-		// Flatten any nested arrays
 		return concat.apply( [], ret );
 	},
 
-	// A global GUID counter for objects
 	guid: 1,
-	// Bind a function to a context, optionally partially applying any
-	// arguments.
 	proxy: function( fn, context ) {
 		var tmp, args, proxy;
 		if ( typeof context === "string" ) {
@@ -397,28 +369,25 @@ jQuery.extend( {
 			context = fn;
 			fn = tmp;
 		}
-		// Quick check to determine if target is callable, in the spec
-		// this throws a TypeError, but we will just return undefined.
+		// 快速检查以确定目标是否可调用，在规格中
+		// 这会引发一个TypeError，但是我们只会返回undefined。
 		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
 		}
 
-		// Simulated bind
-		args = slice.call( arguments, 2 );
+		// 模拟绑定
+		args = slice.call( arguments, 2 );//获取前2个之后的参数
 		proxy = function() {
 			return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
 		};
 
-		// Set the guid of unique handler to the same of original handler, so it can be removed
+		// 和独特的处理程序的guid相同的原始处理程序，所以它可以删除
 		proxy.guid = fn.guid = fn.guid || jQuery.guid++;
-
 		return proxy;
 	},
-
 	now: Date.now,
-
-	// jQuery.support is not used in Core but other projects attach their
-	// properties to it so it needs to exist.
+	// jQuery.support不用于Core，但其他项目附加它们
+	// 属性，所以它需要存在。
 	support: support
 } );
 
@@ -426,24 +395,23 @@ if ( typeof Symbol === "function" ) {
 	jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
 }
 
-// Populate the class2type map
+// 填充{}类型
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
-function( i, name ) {
-	class2type[ "[object " + name + "]" ] = name.toLowerCase();
-} );
+	function( i, name ) {
+		class2type[ "[object " + name + "]" ] = name.toLowerCase();
+});
 
 function isArrayLike( obj ) {
-	// Support: real iOS 8.2 only (not reproducible in simulator)
-	// `in` check used to prevent JIT error (gh-2145)
-	// hasOwn isn't used here due to false negatives
-	// regarding Nodelist length in IE
+	//支持：只有真正的iOS 8.2（在模拟器中不可重现）
+	//`in`检查用于防止JIT错误（gh-2145）
+	// hasOwn由于假阴性而不在这里使用
+	//关于IE中的Nodelist长度
 	var length = !!obj && "length" in obj && obj.length,
 		type = jQuery.type( obj );
 
 	if ( type === "function" || jQuery.isWindow( obj ) ) {
 		return false;
 	}
-
 	return type === "array" || length === 0 ||
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
 }
@@ -804,7 +772,6 @@ function Sizzle( selector, context, results, seed ) {
  */
 function createCache() {
 	var keys = [];
-
 	function cache( key, value ) {
 		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
@@ -2709,9 +2676,6 @@ jQuery.isXMLDoc = Sizzle.isXML;
 jQuery.contains = Sizzle.contains;
 jQuery.escapeSelector = Sizzle.escape;
 
-
-
-
 var dir = function( elem, dir, until ) {
 	var matched = [],
 		truncate = until !== undefined;
@@ -2730,13 +2694,11 @@ var dir = function( elem, dir, until ) {
 
 var siblings = function( n, elem ) {
 	var matched = [];
-
 	for ( ; n; n = n.nextSibling ) {
 		if ( n.nodeType === 1 && n !== elem ) {
 			matched.push( n );
 		}
 	}
-
 	return matched;
 };
 
@@ -2756,7 +2718,7 @@ var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|
 
 var risSimple = /^.[^:#\[\.,]*$/;
 
-// Implement the identical functionality for filter and not
+// 实现相同的过滤功能，而不是
 function winnow( elements, qualifier, not ) {
 	if ( jQuery.isFunction( qualifier ) ) {
 		return jQuery.grep( elements, function( elem, i ) {
@@ -2764,7 +2726,7 @@ function winnow( elements, qualifier, not ) {
 		} );
 	}
 
-	// Single element
+	// 单一元素
 	if ( qualifier.nodeType ) {
 		return jQuery.grep( elements, function( elem ) {
 			return ( elem === qualifier ) !== not;
@@ -2847,8 +2809,6 @@ jQuery.fn.extend( {
 
 
 // Initialize a jQuery object
-
-
 // A central reference to the root jQuery(document)
 var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 	init = jQuery.fn.init = function( selector, context, root ) {//selector = div
