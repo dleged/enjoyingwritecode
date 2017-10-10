@@ -127,6 +127,10 @@ jQuery.fn = jQuery.prototype = {
 	splice: arr.splice
 };
 
+//deep		可选。 Boolean类型 指示是否深度合并对象，默认为false。如果该值为true，且多个对象的某个同名属性也都是对象，则该"属性对象"的属性也将进行合并。
+//target	Object类型 目标对象，其他对象的成员属性将被附加到该对象上。
+//object1	可选。 Object类型 第一个被合并的对象。
+//objectN	可选。 Object类型 第N个被合并的对象。
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[ 0 ] || {},
@@ -136,15 +140,19 @@ jQuery.extend = jQuery.fn.extend = function() {
 	// 处理深层复制情况
 	if ( typeof target === "boolean" ) {
 		deep = target;
-		// 跳过布尔值和目标值
+		// 如果第一个参数为boolean则目标对象为target
 		target = arguments[ i ] || {};
 		i++;
 	}
-	// 当目标是字符串或某些东西（可能在深层复制中）处理情况
-	if ( typeof target !== "object" && !jQuery.isFunction( target ) ) {
+	// 当目标是非{}
+	if ( typeof target !== "object" && !jQuery.isFunction( target )) {
 		target = {};
 	}
-	//如果只传递一个参数，则扩展jQuery本身
+	// ***当目标是[]***
+	if (target instanceof Array) {
+		target = {};
+	}
+	//如果只传递一个参数，返回Jquery
 	if ( i === length ) {
 		target = this;
 		i--;
@@ -172,10 +180,8 @@ jQuery.extend = jQuery.fn.extend = function() {
 					} else {
 						clone = src && jQuery.isPlainObject( src ) ? src : {};
 					}
-
 					// 永远不要移动原始对象，克隆它们
 					target[ name ] = jQuery.extend( deep, clone, copy );
-
 				// 不要带入未定义的值
 				} else if ( copy !== undefined ) {
 					target[ name ] = copy;
@@ -2663,9 +2669,6 @@ if ( !assert(function( el ) {
 return Sizzle;
 
 })( window );
-
-
-
 jQuery.find = Sizzle;
 jQuery.expr = Sizzle.selectors;
 // Deprecated
@@ -2679,7 +2682,6 @@ jQuery.escapeSelector = Sizzle.escape;
 var dir = function( elem, dir, until ) {
 	var matched = [],
 		truncate = until !== undefined;
-
 	while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {
 		if ( elem.nodeType === 1 ) {
 			if ( truncate && jQuery( elem ).is( until ) ) {
@@ -2704,21 +2706,13 @@ var siblings = function( n, elem ) {
 
 
 var rneedsContext = jQuery.expr.match.needsContext;
-
-
-
 function nodeName( elem, name ) {
-
   return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
-
 };
 var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
-
-
-
 var risSimple = /^.[^:#\[\.,]*$/;
 
-// 实现相同的过滤功能，而不是
+// 实现相同的过滤功能
 function winnow( elements, qualifier, not ) {
 	if ( jQuery.isFunction( qualifier ) ) {
 		return jQuery.grep( elements, function( elem, i ) {
@@ -2726,26 +2720,26 @@ function winnow( elements, qualifier, not ) {
 		} );
 	}
 
-	// 单一元素
+	// 传入一个选择器，过滤
 	if ( qualifier.nodeType ) {
 		return jQuery.grep( elements, function( elem ) {
 			return ( elem === qualifier ) !== not;
 		} );
 	}
 
-	// Arraylike of elements (jQuery, arguments, Array)
+	// 数组的元素（jQuery，arguments，Array）
 	if ( typeof qualifier !== "string" ) {
 		return jQuery.grep( elements, function( elem ) {
 			return ( indexOf.call( qualifier, elem ) > -1 ) !== not;
 		} );
 	}
 
-	// Simple selector that can be filtered directly, removing non-Elements
+	// 可以直接过滤的简单选择器，删除非元素
 	if ( risSimple.test( qualifier ) ) {
 		return jQuery.filter( qualifier, elements, not );
 	}
 
-	// Complex selector, compare the two sets, removing non-Elements
+	// 复合选择器，比较两组，删除非元素
 	qualifier = jQuery.filter( qualifier, elements );
 	return jQuery.grep( elements, function( elem ) {
 		return ( indexOf.call( qualifier, elem ) > -1 ) !== not && elem.nodeType === 1;
@@ -2754,20 +2748,18 @@ function winnow( elements, qualifier, not ) {
 
 jQuery.filter = function( expr, elems, not ) {
 	var elem = elems[ 0 ];
-
 	if ( not ) {
 		expr = ":not(" + expr + ")";
 	}
-
 	if ( elems.length === 1 && elem.nodeType === 1 ) {
 		return jQuery.find.matchesSelector( elem, expr ) ? [ elem ] : [];
 	}
-
 	return jQuery.find.matches( expr, jQuery.grep( elems, function( elem ) {
 		return elem.nodeType === 1;
 	} ) );
 };
 
+/*find,filter,not,is过滤选择器*/
 jQuery.fn.extend( {
 	find: function( selector ) {
 		var i, ret,
@@ -2789,7 +2781,7 @@ jQuery.fn.extend( {
 		return len > 1 ? jQuery.uniqueSort( ret ) : ret;
 	},
 	filter: function( selector ) {
-		return this.pushStack( winnow( this, selector || [], false ) );
+		return this.pushStack( winnow( this, selector || [], false ) );//进堆栈操作
 	},
 	not: function( selector ) {
 		return this.pushStack( winnow( this, selector || [], true ) );
@@ -2797,8 +2789,8 @@ jQuery.fn.extend( {
 	is: function( selector ) {
 		return !!winnow(
 			this,
-			// If this is a positional/relative selector, check membership in the returned set
-			// so $("p:first").is("p:last") won't return true for a doc with two "p".
+			//如果这是一个位置/相对选择器，请检查返回的集合中的成员资格
+			// so $（“p：first”）。is（“p：last”）对于具有两个“p”的文档将不会返回true。
 			typeof selector === "string" && rneedsContext.test( selector ) ?
 				jQuery( selector ) :
 				selector || [],
@@ -2808,17 +2800,18 @@ jQuery.fn.extend( {
 } );
 
 
-// Initialize a jQuery object
-// A central reference to the root jQuery(document)
+// 初始化一个jQuery对象
+//对根jQuery（文档）的中心引用
 var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 	init = jQuery.fn.init = function( selector, context, root ) {//selector = div
 		var match, elem;
 		if ( !selector ) {
 			return this;//返回 jQuery.fn对象
 		}
-		root = root || rootjQuery; //$(document)
+		root = root || rootjQuery; //rootjQuery = $(document)
 		if ( typeof selector === "string" ) {
-			if ( selector[ 0 ] === "<" &&
+			// 创建document.createElement(slector)
+			if (selector[ 0 ] === "<" &&
 				selector[ selector.length - 1 ] === ">" &&
 				selector.length >= 3 ) {
 				match = [ null, selector, null ];
@@ -2862,45 +2855,39 @@ var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 			// HANDLE: $(expr, $(...))
 			} else if ( !context || context.jquery ) {
 				return ( context || root ).find( selector );
-			// HANDLE: $(expr, context)
-			// (which is just equivalent to: $(context).find(expr)
 			} else {
 				return this.constructor( context ).find( selector );
 			}
 		}
-		else if ( selector.nodeType ) { //为 documet做句柄判断
+		else if ( selector.nodeType ) { //selector为document
 			this[ 0 ] = selector;
 			this.length = 1;
 			return this; //
 		} 
 		else if ( jQuery.isFunction( selector ) ) {
-			return root.ready !== undefined ?
-				root.ready( selector ) :
-				// Execute immediately if ready is not present
-				selector( jQuery );
+			return root.ready !== undefined ? root.ready( selector ) : selector( jQuery );
 		}
-		return jQuery.makeArray( selector, this ); 
+		return jQuery.makeArray( selector, this );
 	};
 
-// Give the init function the jQuery prototype for later instantiation
+// 给init函数提供jQuery原型以供稍后实例化
 init.prototype = jQuery.fn;
 
-// Initialize central reference
+// 初始化中心参考
 var rootjQuery = jQuery( document );
 var rparentsprev = /^(?:parents|prev(?:Until|All))/,
-	// Methods guaranteed to produce a unique set when starting from a unique set
+	// 从独特的集合开始时，保证产生唯一集合的方法
 	guaranteedUnique = {
 		children: true,
 		contents: true,
 		next: true,
 		prev: true
 	};
-
+	
 jQuery.fn.extend( {
 	has: function( target ) {
 		var targets = jQuery( target, this ),
 			l = targets.length;
-
 		return this.filter( function() {
 			var i = 0;
 			for ( ; i < l; i++ ) {
@@ -2910,54 +2897,48 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-
 	closest: function( selectors, context ) {
 		var cur,
 			i = 0,
 			l = this.length,
 			matched = [],
 			targets = typeof selectors !== "string" && jQuery( selectors );
-
-		// Positional selectors never match, since there's no _selection_ context
+		// 位置选择器从不匹配，因为没有_selection_上下文
 		if ( !rneedsContext.test( selectors ) ) {
 			for ( ; i < l; i++ ) {
 				for ( cur = this[ i ]; cur && cur !== context; cur = cur.parentNode ) {
-
-					// Always skip document fragments
+					// 始终跳过文档片段
 					if ( cur.nodeType < 11 && ( targets ?
 						targets.index( cur ) > -1 :
-
-						// Don't pass non-elements to Sizzle
+						// 不要将非元素传递给Sizzle
 						cur.nodeType === 1 &&
 							jQuery.find.matchesSelector( cur, selectors ) ) ) {
-
 						matched.push( cur );
 						break;
 					}
 				}
 			}
 		}
-
 		return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
 	},
 
-	// Determine the position of an element within the set
+	// 确定集合中元素的位置
 	index: function( elem ) {
 
-		// No argument, return index in parent
+		// 没有参数，父级中返回索引
 		if ( !elem ) {
 			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
 		}
 
-		// Index in selector
+		// 选择器中的索引
 		if ( typeof elem === "string" ) {
 			return indexOf.call( jQuery( elem ), this[ 0 ] );
 		}
 
-		// Locate the position of the desired element
+		// 找到所需元素的位置
 		return indexOf.call( this,
 
-			// If it receives a jQuery object, the first element is used
+			// 如果接收到jQuery对象，则使用第一个元素
 			elem.jquery ? elem[ 0 ] : elem
 		);
 	},
@@ -3042,14 +3023,11 @@ jQuery.each( {
 		if ( selector && typeof selector === "string" ) {
 			matched = jQuery.filter( selector, matched );
 		}
-
 		if ( this.length > 1 ) {
-
 			// Remove duplicates
 			if ( !guaranteedUnique[ name ] ) {
 				jQuery.uniqueSort( matched );
 			}
-
 			// Reverse order for parents* and prev-derivatives
 			if ( rparentsprev.test( name ) ) {
 				matched.reverse();
