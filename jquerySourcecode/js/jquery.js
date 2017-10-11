@@ -2692,8 +2692,6 @@ var dir = function( elem, dir, until ) {
 	}
 	return matched;
 };
-
-
 var siblings = function( n, elem ) {
 	var matched = [];
 	for ( ; n; n = n.nextSibling ) {
@@ -2821,38 +2819,36 @@ var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 			if ( match && ( match[ 1 ] || !context ) ) {
 				if ( match[ 1 ] ) {
 					context = context instanceof jQuery ? context[ 0 ] : context;
-					//后台兼容运行脚本的选项是正确的
-					//如果parseHTML不存在，则故意让错误被抛出
+					// 后台兼容运行脚本的选项是正确的
+					// 如果parseHTML不存在，则故意让错误被抛出
 					jQuery.merge( this, jQuery.parseHTML(
 						match[ 1 ],
 						context && context.nodeType ? context.ownerDocument || context : document,
 						true
 					) );
-					// HANDLE: $(html, props)
+					// HANDLE: $(html, props) 组合选择器
 					if ( rsingleTag.test( match[ 1 ] ) && jQuery.isPlainObject( context ) ) {
 						for ( match in context ) {
-							// Properties of context are called as methods if possible
+							// 如果可能，上下文的属性称为方法
 							if ( jQuery.isFunction( this[ match ] ) ) {
 								this[ match ]( context[ match ] );
-
-							// ...and otherwise set as attributes
+							// 并以其他方式设置为属性
 							} else {
 								this.attr( match, context[ match ] );
 							}
 						}
 					}
 					return this;
-				// HANDLE: $(#id)
+					// id选择器
 				} else {
 					elem = document.getElementById( match[ 2 ] );
 					if ( elem ) {
-						// Inject the element directly into the jQuery object
+						// 将元素直接注入到jQuery对象中
 						this[ 0 ] = elem;
 						this.length = 1;
 					}
 					return this;
 				}
-			// HANDLE: $(expr, $(...))
 			} else if ( !context || context.jquery ) {
 				return ( context || root ).find( selector );
 			} else {
@@ -2921,28 +2917,22 @@ jQuery.fn.extend( {
 		}
 		return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
 	},
-
 	// 确定集合中元素的位置
 	index: function( elem ) {
-
 		// 没有参数，父级中返回索引
 		if ( !elem ) {
 			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
 		}
-
 		// 选择器中的索引
 		if ( typeof elem === "string" ) {
 			return indexOf.call( jQuery( elem ), this[ 0 ] );
 		}
-
 		// 找到所需元素的位置
 		return indexOf.call( this,
-
 			// 如果接收到jQuery对象，则使用第一个元素
 			elem.jquery ? elem[ 0 ] : elem
 		);
 	},
-
 	add: function( selector, context ) {
 		return this.pushStack(
 			jQuery.uniqueSort(
@@ -2950,7 +2940,6 @@ jQuery.fn.extend( {
 			)
 		);
 	},
-
 	addBack: function( selector ) {
 		return this.add( selector == null ?
 			this.prevObject : this.prevObject.filter( selector )
@@ -2963,6 +2952,28 @@ function sibling( cur, dir ) {
 	return cur;
 }
 
+//	var dir = function( elem, dir, until ) {
+//		var matched = [],
+//			truncate = until !== undefined;
+//		while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {
+//			if ( elem.nodeType === 1 ) {
+//				if ( truncate && jQuery( elem ).is( until ) ) {
+//					break;
+//				}
+//				matched.push( elem );
+//			}
+//		}
+//		return matched;
+//	};
+//	var siblings = function( n, elem ) {
+//		var matched = [];
+//		for ( ; n; n = n.nextSibling ) {
+//			if ( n.nodeType === 1 && n !== elem ) {
+//				matched.push( n );
+//			}
+//		}
+//		return matched;
+//	};
 jQuery.each( {
 	parent: function( elem ) {
 		var parent = elem.parentNode;
@@ -3002,33 +3013,26 @@ jQuery.each( {
         if ( nodeName( elem, "iframe" ) ) {
             return elem.contentDocument;
         }
-
-        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
-        // Treat the template element as a regular one in browsers that
-        // don't support it.
         if ( nodeName( elem, "template" ) ) {
             elem = elem.content || elem;
         }
-
         return jQuery.merge( [], elem.childNodes );
 	}
 }, function( name, fn ) {
 	jQuery.fn[ name ] = function( until, selector ) {
 		var matched = jQuery.map( this, fn, until );
-
 		if ( name.slice( -5 ) !== "Until" ) {
 			selector = until;
 		}
-
 		if ( selector && typeof selector === "string" ) {
 			matched = jQuery.filter( selector, matched );
 		}
 		if ( this.length > 1 ) {
-			// Remove duplicates
+			// 删除重复
 			if ( !guaranteedUnique[ name ] ) {
 				jQuery.uniqueSort( matched );
 			}
-			// Reverse order for parents* and prev-derivatives
+			// 父母的反向顺序*和前一个衍生物
 			if ( rparentsprev.test( name ) ) {
 				matched.reverse();
 			}
@@ -3041,7 +3045,7 @@ var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
 
 
 
-// Convert String-formatted options into Object-formatted ones
+// 将字符串格式的选项转换为对象格式的选项
 function createOptions( options ) {
 	var object = {};
 	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
@@ -3051,29 +3055,28 @@ function createOptions( options ) {
 }
 
 /*
- * Create a callback list using the following parameters:
- *
- *	options: an optional list of space-separated options that will change how
- *			the callback list behaves or a more traditional option object
- *
- * By default a callback list will act like an event callback list and can be
- * "fired" multiple times.
- *
- * Possible options:
- *
- *	once:			will ensure the callback list can only be fired once (like a Deferred)
- *
- *	memory:			will keep track of previous values and will call any callback added
- *					after the list has been fired right away with the latest "memorized"
- *					values (like a Deferred)
- *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
- *
- *	stopOnFalse:	interrupt callings when a callback returns false
- *
- */
+ * 使用以下参数创建回调列表：
+ *
+ * 选项：一个可选的空格分隔选项列表，它们将改变如何
+ * 回调列表行为或更传统的选项对象
+ *
+ * 默认情况下，回调列表将像事件回调列表一样执行
+ * “多次发射”。
+ *
+ * 可能的选择：
+ *
+ * 一次：将确保回调列表只能被触发一次（如Deferred）
+ *
+ * 内存：将跟踪以前的值，并调用任何回调
+ * 在列表被立刻被开除以后，最新的“记忆”
+ * 值（如Deferred）
+ *
+ * unique：确保回调只能添加一次（列表中不重复）
+ *
+ * stopOnFalse：当回调返回false时中断调用
+ *
+ */
 jQuery.Callbacks = function( options ) {
-
 	// Convert options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
@@ -3266,41 +3269,32 @@ jQuery.Callbacks = function( options ) {
 	return self;
 };
 
-
 function Identity( v ) {
 	return v;
 }
 function Thrower( ex ) {
 	throw ex;
 }
-
 function adoptValue( value, resolve, reject, noValue ) {
 	var method;
-
 	try {
-
 		// Check for promise aspect first to privilege synchronous behavior
 		if ( value && jQuery.isFunction( ( method = value.promise ) ) ) {
 			method.call( value ).done( resolve ).fail( reject );
-
 		// Other thenables
 		} else if ( value && jQuery.isFunction( ( method = value.then ) ) ) {
 			method.call( value, resolve, reject );
-
 		// Other non-thenables
 		} else {
-
 			// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
 			// * false: [ value ].slice( 0 ) => resolve( value )
 			// * true: [ value ].slice( 1 ) => resolve()
 			resolve.apply( undefined, [ value ].slice( noValue ) );
 		}
-
 	// For Promises/A+, convert exceptions into rejections
 	// Since jQuery.when doesn't unwrap thenables, we can skip the extra checks appearing in
 	// Deferred#then to conditionally suppress rejection.
 	} catch ( value ) {
-
 		// Support: Android 4.0 only
 		// Strict mode functions invoked without .call/.apply get global-object context
 		reject.apply( undefined, [ value ] );
@@ -3308,7 +3302,6 @@ function adoptValue( value, resolve, reject, noValue ) {
 }
 
 jQuery.extend( {
-
 	Deferred: function( func ) {
 		var tuples = [
 
@@ -3597,24 +3590,18 @@ jQuery.extend( {
 		// All done!
 		return deferred;
 	},
-
 	// Deferred helper
 	when: function( singleValue ) {
 		var
-
 			// count of uncompleted subordinates
 			remaining = arguments.length,
-
 			// count of unprocessed arguments
 			i = remaining,
-
 			// subordinate fulfillment data
 			resolveContexts = Array( i ),
 			resolveValues = slice.call( arguments ),
-
 			// the master Deferred
 			master = jQuery.Deferred(),
-
 			// subordinate callback factory
 			updateFunc = function( i ) {
 				return function( value ) {
@@ -3625,25 +3612,20 @@ jQuery.extend( {
 					}
 				};
 			};
-
 		// Single- and empty arguments are adopted like Promise.resolve
 		if ( remaining <= 1 ) {
 			adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
 				!remaining );
-
 			// Use .then() to unwrap secondary thenables (cf. gh-3000)
 			if ( master.state() === "pending" ||
 				jQuery.isFunction( resolveValues[ i ] && resolveValues[ i ].then ) ) {
-
 				return master.then();
 			}
 		}
-
 		// Multiple arguments are aggregated like Promise.all array elements
 		while ( i-- ) {
 			adoptValue( resolveValues[ i ], updateFunc( i ), master.reject );
 		}
-
 		return master.promise();
 	}
 } );
@@ -3662,61 +3644,44 @@ jQuery.Deferred.exceptionHook = function( error, stack ) {
 	}
 };
 
-
-
-
 jQuery.readyException = function( error ) {
 	window.setTimeout( function() {
 		throw error;
 	} );
 };
 
-
-
-
 // The deferred used on DOM ready
 var readyList = jQuery.Deferred();
-
 jQuery.fn.ready = function( fn ) {
-
 	readyList
 		.then( fn )
-
 		// Wrap jQuery.readyException in a function so that the lookup
 		// happens at the time of error handling instead of callback
 		// registration.
 		.catch( function( error ) {
 			jQuery.readyException( error );
 		} );
-
 	return this;
 };
 
 jQuery.extend( {
-
 	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
-
 	// A counter to track how many items to wait for before
 	// the ready event fires. See #6781
 	readyWait: 1,
-
 	// Handle when the DOM is ready
 	ready: function( wait ) {
-
 		// Abort if there are pending holds or we're already ready
 		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
 			return;
 		}
-
 		// Remember that the DOM is ready
 		jQuery.isReady = true;
-
 		// If a normal DOM Ready event fired, decrement, and wait if need be
 		if ( wait !== true && --jQuery.readyWait > 0 ) {
 			return;
 		}
-
 		// If there are functions bound, to execute
 		readyList.resolveWith( document, [ jQuery ] );
 	}
@@ -3737,51 +3702,38 @@ function completed() {
 // Older IE sometimes signals "interactive" too soon
 if ( document.readyState === "complete" ||
 	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
-
 	// Handle it asynchronously to allow scripts the opportunity to delay ready
 	window.setTimeout( jQuery.ready );
 
 } else {
-
 	// Use the handy event callback
 	document.addEventListener( "DOMContentLoaded", completed );
-
 	// A fallback to window.onload, that will always work
 	window.addEventListener( "load", completed );
 }
 
 
-
-
-// Multifunctional method to get and set values of a collection
-// The value/s can optionally be executed if it's a function
+//获取和设置集合值的多功能方法
+//如果它是一个函数，则可以选择执行该值
 var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
 		bulk = key == null;
-
-	// Sets many values
 	if ( jQuery.type( key ) === "object" ) {
 		chainable = true;
 		for ( i in key ) {
 			access( elems, fn, i, key[ i ], true, emptyGet, raw );
 		}
-
-	// Sets one value
 	} else if ( value !== undefined ) {
 		chainable = true;
-
 		if ( !jQuery.isFunction( value ) ) {
 			raw = true;
 		}
-
 		if ( bulk ) {
-
 			// Bulk operations run against the entire set
 			if ( raw ) {
 				fn.call( elems, value );
 				fn = null;
-
 			// ...except when executing function values
 			} else {
 				bulk = fn;
@@ -3814,7 +3766,6 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	return len ? fn( elems[ 0 ], key ) : emptyGet;
 };
 var acceptData = function( owner ) {
-
 	// Accepts only:
 	//  - Node
 	//    - Node.ELEMENT_NODE
@@ -3832,23 +3783,17 @@ function Data() {
 }
 
 Data.uid = 1;
-
 Data.prototype = {
-
 	cache: function( owner ) {
-
 		// Check if the owner object already has a cache
 		var value = owner[ this.expando ];
-
 		// If not, create one
 		if ( !value ) {
 			value = {};
-
 			// We can accept data for non-element nodes in modern browsers,
 			// but we should not, see #8335.
 			// Always return an empty object.
 			if ( acceptData( owner ) ) {
-
 				// If it is a node unlikely to be stringify-ed or looped over
 				// use plain assignment
 				if ( owner.nodeType ) {
@@ -3871,7 +3816,6 @@ Data.prototype = {
 	set: function( owner, data, value ) {
 		var prop,
 			cache = this.cache( owner );
-
 		// Handle: [ owner, key, value ] args
 		// Always use camelCase key (gh-2257)
 		if ( typeof data === "string" ) {
@@ -3896,16 +3840,16 @@ Data.prototype = {
 	},
 	access: function( owner, key, value ) {
 
-		// In cases where either:
+		//在以下情况之一：
 		//
-		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
+		// 1.没有指定键
+		// 2.指定了一个字符串键，但没有提供任何值
 		//
-		// Take the "read" path and allow the get method to determine
-		// which value to return, respectively either:
+		//取“读”路径，并允许get方法确定
+		//要返回的值分别为：
 		//
-		//   1. The entire cache object
-		//   2. The data stored at the key
+		// 1.整个缓存对象
+		// 2.存储在密钥上的数据
 		//
 		if ( key === undefined ||
 				( ( key && typeof key === "string" ) && value === undefined ) ) {
@@ -3913,16 +3857,16 @@ Data.prototype = {
 			return this.get( owner, key );
 		}
 
-		// When the key is not a string, or both a key and value
-		// are specified, set or extend (existing objects) with either:
+		//当键不是字符串，或键和值两者时
+		//被指定，设置或扩展（现有对象）与：
 		//
-		//   1. An object of properties
-		//   2. A key and value
+		// 1.属性对象
+		// 2.一键和值
 		//
 		this.set( owner, key, value );
 
-		// Since the "set" path can have two possible entry points
-		// return the expected data based on which path was taken[*]
+		//由于“set”路径可以有两个可能的入口点
+		//根据采用哪个路径返回预期的数据[*]
 		return value !== undefined ? value : key;
 	},
 	remove: function( owner, key ) {
@@ -3934,16 +3878,13 @@ Data.prototype = {
 		}
 
 		if ( key !== undefined ) {
-
 			// Support array or space separated string of keys
 			if ( Array.isArray( key ) ) {
-
 				// If key is an array of keys...
 				// We always set camelCase keys, so remove that.
 				key = key.map( jQuery.camelCase );
 			} else {
 				key = jQuery.camelCase( key );
-
 				// If a key with the spaces exists, use it.
 				// Otherwise, create an array by matching non-whitespace
 				key = key in cache ?
@@ -3957,10 +3898,8 @@ Data.prototype = {
 				delete cache[ key[ i ] ];
 			}
 		}
-
 		// Remove the expando if there's no more data
 		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
-
 			// Support: Chrome <=35 - 45
 			// Webkit & Blink performance suffers when deleting properties
 			// from DOM nodes, so set to undefined instead
@@ -3978,20 +3917,19 @@ Data.prototype = {
 	}
 };
 var dataPriv = new Data();
-
 var dataUser = new Data();
 
 
 
-//	Implementation Summary
+// 执行摘要
 //
-//	1. Enforce API surface and semantic compatibility with 1.9.x branch
-//	2. Improve the module's maintainability by reducing the storage
-//		paths to a single mechanism.
-//	3. Use the same single mechanism to support "private" and "user" data.
-//	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
-//	5. Avoid exposing implementation details on user objects (eg. expando properties)
-//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
+// 1.强制API表面和与1.9.x分支的语义兼容性
+// 2.通过减少存储来提高模块的可维护性
+// 到单一机制的路径。
+// 3.使用相同的单一机制来支持“私有”和“用户”数据。
+// 4. _Never_将“私有”数据公开给用户代码（TODO：Drop _data，_removeData）
+// 5.避免暴露用户对象的实现细节（例如，expando属性）
+// 为2014年实施升级到WeakMap提供了一条明确的路径
 
 var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
 	rmultiDash = /[A-Z]/g;
@@ -4009,7 +3947,7 @@ function getData( data ) {
 		return null;
 	}
 
-	// Only convert to a number if it doesn't change the string
+	// 如果不更改字符串，则只转换为数字
 	if ( data === +data + "" ) {
 		return +data;
 	}
@@ -4023,7 +3961,6 @@ function getData( data ) {
 
 function dataAttr( elem, key, data ) {
 	var name;
-
 	// If nothing was found internally, try to fetch any
 	// data from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {
@@ -4073,16 +4010,13 @@ jQuery.fn.extend( {
 		var i, name, data,
 			elem = this[ 0 ],
 			attrs = elem && elem.attributes;
-
 		// Gets all values
 		if ( key === undefined ) {
 			if ( this.length ) {
 				data = dataUser.get( elem );
-
 				if ( elem.nodeType === 1 && !dataPriv.get( elem, "hasDataAttrs" ) ) {
 					i = attrs.length;
 					while ( i-- ) {
-
 						// Support: IE 11 only
 						// The attrs elements can be null (#14894)
 						if ( attrs[ i ] ) {
@@ -4096,17 +4030,14 @@ jQuery.fn.extend( {
 					dataPriv.set( elem, "hasDataAttrs", true );
 				}
 			}
-
 			return data;
 		}
-
 		// Sets multiple values
 		if ( typeof key === "object" ) {
 			return this.each( function() {
 				dataUser.set( this, key );
 			} );
 		}
-
 		return access( this, function( value ) {
 			var data;
 
@@ -4437,7 +4368,6 @@ function showHide( elements, show ) {
 
 		display = elem.style.display;
 		if ( show ) {
-
 			// Since we force visibility upon cascade-hidden elements, an immediate (and slow)
 			// check is required in this first loop unless we have a nonempty display value (either
 			// inline or about-to-be-restored)
@@ -4492,19 +4422,13 @@ jQuery.fn.extend( {
 	}
 } );
 var rcheckableType = ( /^(?:checkbox|radio)$/i );
-
 var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]+)/i );
-
 var rscriptType = ( /^$|\/(?:java|ecma)script/i );
-
-
 
 // We have to close these tags to support XHTML (#13200)
 var wrapMap = {
-
 	// Support: IE <=9 only
 	option: [ 1, "<select multiple='multiple'>", "</select>" ],
-
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
 	// this by omitting <tbody> or other required elements.
@@ -4513,18 +4437,14 @@ var wrapMap = {
 	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
 	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
 
-	_default: [ 0, "", "" ]
 };
 
 // Support: IE <=9 only
 wrapMap.optgroup = wrapMap.option;
-
 wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
 
-
 function getAll( context, tag ) {
-
 	// Support: IE <=9 - 11 only
 	// Use typeof to avoid zero-argument method invocation on host objects (#15151)
 	var ret;
@@ -4659,10 +4579,6 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 		div = fragment.appendChild( document.createElement( "div" ) ),
 		input = document.createElement( "input" );
 
-	// Support: Android 4.0 - 4.3 only
-	// Check state lost if the name is set (#11217)
-	// Support: Windows Web Apps (WWA)
-	// `name` and `type` must use .setAttribute for WWA (#14901)
 	input.setAttribute( "type", "radio" );
 	input.setAttribute( "checked", "checked" );
 	input.setAttribute( "name", "t" );
@@ -4705,13 +4621,10 @@ function safeActiveElement() {
 
 function on( elem, types, selector, data, fn, one ) {
 	var origFn, type;
-
-	// Types can be a map of types/handlers
+	// 类型可以是类型/处理程序的映射
 	if ( typeof types === "object" ) {
-
 		// ( types-Object, selector, data )
 		if ( typeof selector !== "string" ) {
-
 			// ( types-Object, data )
 			data = data || selector;
 			selector = undefined;
@@ -4765,15 +4678,11 @@ function on( elem, types, selector, data, fn, one ) {
 }
 
 /*
- * Helper functions for managing events -- not part of the public interface.
- * Props to Dean Edwards' addEvent library for many of the ideas.
+ * 助理函数用于管理事件 - 不是公共接口的一部分。
  */
 jQuery.event = {
-
 	global: {},
-
 	add: function( elem, types, handler, data, selector ) {
-
 		var handleObjIn, eventHandle, tmp,
 			events, t, handleObj,
 			special, handlers, type, namespaces, origType,
@@ -9111,14 +9020,12 @@ jQuery.extend( {
 
 jQuery.each( [ "get", "post" ], function( i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
-
 		// Shift arguments if data argument was omitted
 		if ( jQuery.isFunction( data ) ) {
 			type = type || callback;
 			callback = data;
 			data = undefined;
 		}
-
 		// The url can be an options object (which then must have .url)
 		return jQuery.ajax( jQuery.extend( {
 			url: url,
