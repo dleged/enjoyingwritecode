@@ -10,13 +10,12 @@
 └── release/ 发布*/
 
 var gulp = require('gulp'),
-  
     browserSync = require('browser-sync').create(),  //多浏览器多设备同步&自动刷新
     SSI         = require('browsersync-ssi'),
     clean = require('gulp-clean'), //clean 用来删除文件
-	rename = require('gulp-rename'), //文件重命名
-	minify = require('gulp-minify-css'), //压缩css
-	uglify = require('gulp-uglify'), //js压缩
+		rename = require('gulp-rename'), //文件重命名
+		minify = require('gulp-minify-css'), //压缩css
+		uglify = require('gulp-uglify'), //js压缩
     notify = require('gulp-notify'), //提示
     base64 = require('gulp-base64'), //图片base64
     rev = require('gulp-rev'), //- 对文件名加MD5后缀
