@@ -12,5 +12,14 @@
 		   	第三个参数，factory，是一个需要进行实例化的函数或者一个对象。
 		</p>
 	</body>
-	<script src="AMD.js" type="text/javascript" charset="utf-8"></script>
+	<script src="require.js" type="text/javascript" data-main="main" charset="utf-8"></script>
+	<script type="text/javascript">
+		/*按需加载*/
+		/*require(['./one','./two','./there'],function(){
+			One();
+			Two();
+			There();
+		})*/
+		
+	</script>
 </html>
