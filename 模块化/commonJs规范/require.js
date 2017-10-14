@@ -1,3 +1,4 @@
+//观察者模式实现异步commonjs
 function require(p){
   var path = require.resolve(p);
   var mod = require.modules[path];
@@ -9,6 +10,7 @@ function require(p){
   return mod.exports;
 }
 
+//全局require
 require.modules = {};
 
 require.resolve = function (path){
@@ -20,6 +22,7 @@ require.resolve = function (path){
     || orig;
 };
 
+//导出模块方法
 require.register = function (path, fn){
   require.modules[path] = fn;
 };
