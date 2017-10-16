@@ -65,7 +65,7 @@
 					utils.startInterval();
 					$(window).unbind('mousemove touchmove',this.fnMove);
 					var event = window.event || e,
-						currentX = event.clientX,
+						currentX = event.clientX ? event.clientX : event.changedTouches[0].clientX,
 						Eles = BannerSlider.Eles,
 						img = $(Eles.imgItem),
 						w = img.width();
@@ -79,6 +79,7 @@
 					//滑动距离超过一定距离
 					var now = defalutOptions.nowItem,
 						absL = Math.abs(l);
+						console.log(absL)
 					if(absL > parseInt(multipleW) && l > 0){
 						now ++;
 					}else if(absL > parseInt(multipleW) && l < 0){
@@ -209,6 +210,5 @@
 		touchmove: window.hasOwnProperty('onmousemove') ? 'mousemove' : 'touchmove',
 		touchend: window.hasOwnProperty('onmouseup') ? 'mouseup' : 'touchend',
 	}
-	
 	$.prototype.BannerSlider = BannerSlider;
 })(window,document,jQuery);
