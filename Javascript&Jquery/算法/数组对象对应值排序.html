@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数组对象，对应值排序</title>
+	</head>
+	<body>
+		<script>
+			var arrObj = [{data: 23},{data: 23423},{data:1}];
+			function sortArrObj(arrObj){
+				var arr = [];
+				for(var i = 0,len = arrObj.length;i < len;i++){
+					for(var j = i+1;j < len;j++){
+						if(Number(arrObj[i].data) < Number(arrObj[j].data)){
+							var temp = arrObj[i];
+							arrObj[i] = arrObj[j];
+							arrObj[j] = temp;
+						}
+					}
+				}
+				return arrObj;
+			}
+			console.log(sort(arrObj))
+		</script>
+	</body>
+</html>
