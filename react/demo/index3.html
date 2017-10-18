@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			这里需要注意， this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;
+			如果有一个子节点，数据类型是 object ；
+			如果有多个子节点，数据类型就是 array 。所以，处理 this.props.children 的时候要小心。
+		</pre>
+		<div id="root">
+		</div>
+	    <script type="text/babel">
+    	    var NodeList = React.createClass({
+	        	render: function() {
+		       		return (
+			       			<ol>
+			       			{
+			       				React.Children.map(this.props.children,function(child){
+			       					return <li>{child}</li>
+			       				})
+			       			}
+			       			</ol>
+		       			)
+    				}
+        		});
+	    	ReactDOM.render(
+	    		<NodeList name="faithzzz">
+	    			<span>Hello</span>
+	    			<span>World</span>
+	    		</NodeList>,
+	    		document.getElementById('root')
+	    	);
+		</script>
+	</body>
+</html>
