@@ -1,4 +1,4 @@
-//观察者模式实现异步commonjs
+//利用观察者模式，实现require功能
 function require(p){
   var path = require.resolve(p);
   var mod = require.modules[path];
@@ -22,11 +22,12 @@ require.resolve = function (path){
     || orig;
 };
 
-//导出模块方法
+//注册模块路径，导出模块方法
 require.register = function (path, fn){
   require.modules[path] = fn;
 };
 
+//切割路径
 require.relative = function (parent) {
   return function(p){
     if ('.' != p.charAt(0)) return require(p);
