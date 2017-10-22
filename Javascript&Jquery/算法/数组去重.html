@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数组去重最优解</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var a = [1,2,3,'a','a','2','1'];
+			/*创建一个空数组,向空数组push值，创建{}记录数值*/
+			Array.prototype.delRepet = function(){
+				var arr = [];
+				var obj = {};
+				for(var i = 0;this[i];i++){
+					var item = this[i];
+					if(!obj[item]){
+						arr.push(item);
+						obj[item] = 1;
+					}
+				}
+				return arr;
+			}
+			alert(a.delRepet());
+		</script>
+	</body>
+</html>
