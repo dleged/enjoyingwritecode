@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数节流的实现</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var throttle = function(fn,interval){
+				var self = fn;
+				var timer;
+				var firstRun = true;
+				return function(){
+					var me = this;
+					var args = arguments || [];
+					if(firstRun){
+						self.apply(me,args);
+						return firstRun = false;
+					}
+					if(timer){
+						return false;
+					}
+					timer = setTimeout(function(){
+						clearTimeout(timer);
+						timer = null;
+						self.apply(me,args);
+					},interval || 500);
+				}
+			}
+			
+			window.onresize = throttle(function(){
+				console.log( 1 );
+			}, 500 ); 
+		</script>
+	</body>
+</html>

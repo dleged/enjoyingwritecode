@@ -33,6 +33,7 @@
 			取消DIV事件
 		</button>
 		<script type="text/javascript">
+		/*重写js事件模型*/
 			var i = 0;
 			var button = document.querySelectorAll('button');
 			var div = document.querySelector('div');
@@ -40,14 +41,10 @@
 				div.innerText = i;
 				i++;
 			}
-			function handler2(){
-				console.log('hello 事件模型！');
-			}
 			button[0].onclick = function(){
 				i = 0;
 				div.innerText = 'DIV添加了click事件!';
 				EventUtil.addListener(div,'click',handler);
-				EventUtil.addListener(div,'click',handler2);
 			}
 			button[1].onclick = function(){
 				i = 0;
@@ -56,23 +53,34 @@
 			}
 			
 			EventUtil = {
-				addListener: function(target,type,handler){
+				addListener: function(target,type,fn){
 					if(target.addEventListener){
-						target.addEventListener(type,handler);
+						this.addListener = function(target,type,handler){
+							target.addEventListener(type,handler);
+						}
 					}else if(target.attachEvent){ //ie8
-						target.attachEvent('on' + type,handler);
+						this.addListener = function(){
+							target.attachEvent('on' + type,handler);
+						}
 					}else{
 						target['on' + type] = handler; //0级dom绑定
 					}
+					return this.addListener.apply(target,arguments);
 				},
-				removeLinstener: function(target,type,handler){
+				removeLinstener: function(target,type,fn){
 					if(target.removeEventListener){
-						target.removeEventListener(type,handler);
+						this.removeLinstener = function(target,type,handler){
+							target.removeEventListener(type,handler);
+						}
+						
 					}else if(target.attachEvent){
-						target.detachEvent('on' + type,handler);
+						this.removeLinstener = function(target,type,handler){
+							target.detachEvent('on' + type,handler);
+						}
 					}else{
 						target['on' + type] = null; //0级dom绑定
 					}
+					return this.removeLinstener.apply(target,arguments);
 				},
 				getEvent: function(e){
 					return window.event ? window.event : e;
@@ -90,20 +98,44 @@
 				stopPropagation: function(e){  //停止冒泡
 					var evt = this.getEvent(e);
 					if(evt.stopPropagation){
-						evt.stopPropagation();
+						this.stopPropagation = function(evt){
+							evt.stopPropagation();
+						}
 					}else if(evt.cancelBubble){
-						evt.cancelBubble = true;
+						this.stopPropagation = function(evt){
+							evt.cancelBubble = true;
+						}
 					}
+					return this.stopPropagation.call(this,evt);
 				},
 				preDefaultEvent: function(e){ //阻值默认行为的发生
 					var evt = this.getEvent(e);
 					if(evt.preDefaultEvent){
-						evt.preDefaultEvent();
+						this.preDefaultEvent = function(evt){
+							evt.preDefaultEvent();
+						}
 					}else if(evt.cancelBubble){
-						evt.returnValue = false;
+						this.preDefaultEvent = function(evt){
+							evt.returnValue = false;
+						}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 					}
+					return this.preDefaultEvent.call(this,evt);
 				}
 			}
-		</script>
+			
+			function tt(){
+				console.log(11111);
+			}
+			/*$('body').on('click',function(){console.log(22222)});
+			$('body').on('click',function(){console.log(22222)});
+			$('body').on('click',tt);
+			$('body').on('click',tt);*/
+			/*上面都是多次出现,on的原理是,匿名函数里调用； 基于addEventListener(type,function(){hanlder()})*/
+			
+			$('body')[0].addEventListener('click',function(){console.log(22222)});
+			$('body')[0].addEventListener('click',function(){console.log(22222)});//输出2次22222 
+			$('body')[0].addEventListener('click',tt);
+			$('body')[0].addEventListener('click',tt); //同名的tt只能绑定一次 输出1次11111
+	</script>
 	</body>
 </html>

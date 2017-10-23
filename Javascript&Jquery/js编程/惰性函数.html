@@ -20,7 +20,6 @@
 				font-family: "agency fb";
 			}
 		</style>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	<body>
 		<pre>
@@ -28,7 +27,6 @@
 			在第一次调用过程中，
 			该函数会被覆盖为另一个按照合适方式执行的函数，
 			这样任何对原函数的调用就不用再经过执行的分支了
-			
 			1 应用频繁，如果只用一次，是体现不出它的优点出来的，用的次数越多，越能体现这种模式的优势所在；
 			2 固定不变，一次判定，在固定的应用环境中不会发生改变；
 			3 复杂的分支判断，没有差异性，不需要应用这种模式；
@@ -43,108 +41,26 @@
 			取消DIV事件
 		</button>
 	<script type="text/javascript">
-		/*重写js事件模型*/
-			var i = 0;
-			var button = document.querySelectorAll('button');
-			var div = document.querySelector('div');
-			function handler(){
-				div.innerText = i;
-				i++;
-			}
-			button[0].onclick = function(){
-				i = 0;
-				div.innerText = 'DIV添加了click事件!';
-				EventUtil.addListener(div,'click',handler);
-			}
-			button[1].onclick = function(){
-				i = 0;
-				div.innerText = 'DIV取消了click事件!';
-				EventUtil.removeLinstener(div,'click',handler);
-			}
-			
-			EventUtil = {
-				addListener: function(target,type,fn){
-					if(target.addEventListener){
-						this.addListener = function(target,type,handler){
-							target.addEventListener(type,handler);
-						}
-					}else if(target.attachEvent){ //ie8
-						this.addListener = function(){
-							target.attachEvent('on' + type,handler);
-						}
-					}else{
-						target['on' + type] = handler; //0级dom绑定
-					}
-					return this.addListener.apply(target,arguments);
-				},
-				removeLinstener: function(target,type,fn){
-					if(target.removeEventListener){
-						this.removeLinstener = function(target,type,handler){
-							target.removeEventListener(type,handler);
-						}
-						
-					}else if(target.attachEvent){
-						this.removeLinstener = function(target,type,handler){
-							target.detachEvent('on' + type,handler);
-						}
-					}else{
-						target['on' + type] = null; //0级dom绑定
-					}
-					return this.removeLinstener.apply(target,arguments);
-				},
-				getEvent: function(e){
-					return window.event ? window.event : e;
-				},
-				getTarget: function(e){
-					var evt = this.getEvent(e);
-					var target;
-					if(evt.target){
-						target = evt.target;
-					}else{
-						target = evt.srcElement;
-					}
-					return target;
-				},
-				stopPropagation: function(e){  //停止冒泡
-					var evt = this.getEvent(e);
-					if(evt.stopPropagation){
-						this.stopPropagation = function(evt){
-							evt.stopPropagation();
-						}
-					}else if(evt.cancelBubble){
-						this.stopPropagation = function(evt){
-							evt.cancelBubble = true;
-						}
-					}
-					return this.stopPropagation.call(this,evt);
-				},
-				preDefaultEvent: function(e){ //阻值默认行为的发生
-					var evt = this.getEvent(e);
-					if(evt.preDefaultEvent){
-						this.preDefaultEvent = function(evt){
-							evt.preDefaultEvent();
-						}
-					}else if(evt.cancelBubble){
-						this.preDefaultEvent = function(evt){
-							evt.returnValue = false;
-						}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-					}
-					return this.preDefaultEvent.call(this,evt);
+		function addEvent(eles,type,fn){
+			if(window.addEventListener){
+				addEvent = function(eles,type,fn){
+					eles.addEventListener(type,fn,false);
+				}
+			}else if(window.attachEvent){
+				addEvent = function(eles,type,fn){
+					addEvent = eles.attachEvent(type,fn,false);
 				}
 			}
-			
-			function tt(){
-				console.log(11111);
-			}
-			/*$('body').on('click',function(){console.log(22222)});
-			$('body').on('click',function(){console.log(22222)});
-			$('body').on('click',tt);
-			$('body').on('click',tt);*/
-			/*上面都是多次出现,on的原理是,匿名函数里调用； 基于addEventListener(type,function(){hanlder()})*/
-			
-			$('body')[0].addEventListener('click',function(){console.log(22222)});
-			$('body')[0].addEventListener('click',function(){console.log(22222)});//输出2次22222 
-			$('body')[0].addEventListener('click',tt);
-			$('body')[0].addEventListener('click',tt); //同名的tt只能绑定一次 输出1次11111
+		}
+		
+		addEvent(document.querySelector('div'),'click',function(){
+			console.log(1);
+		});
+		addEvent(document.querySelector('div'),'click',function(){
+			console.log(1);
+		});
+		addEvent(document.querySelector('div'),'click',function(){
+			console.log(1);
+		});
 	</script>
 </html>

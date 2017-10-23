@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>反柯里化</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			一个对象并不是只能调用自己的方法,通过函数反柯里化,提取this
+			Function.prototype.uncurrying = function(){
+				var	me = this;
+				return function(){
+					var obj = Array.prototype.shift.call(arguments);
+					return me.apply(obj,arguments);
+				}
+			}
+			
+			push = Array.prototype.push.uncurrying();
+			var arr = [1,2];
+			push(arr,3);
+			console.log(arr);
+		</script>
+	</body>
+</html>

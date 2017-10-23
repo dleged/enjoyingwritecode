@@ -16,7 +16,7 @@
 	<body>
 		<pre>
 			在JavaScript的世界里，
-			函数贯穿始终。
+			函数贯穿始终，函数柯里化可以用一个函数当参数；
 			我们开发的时候并不是每一个都是函数都是直接声明然后调用函数名字这么简单，
 			需要掌握很多高级的函数来帮助我们优化代码的性能以及书写出更加对整体业务有通用性的高级函数。 
 		</pre>
@@ -89,6 +89,35 @@
 				function(datas) {
 			    // done(datas)    
 			});*/
+			
+			/*每月最后一天统计话费,前面的每天我不需要统计结果*/
+			var currying = function(fn){
+				var args = [];
+				return function(){
+					if(arguments.length === 0){
+						return fn.apply(this,args);
+					}else{
+						[].push.apply( args, arguments );
+	 					return arguments.callee; 
+					}
+				}
+			}
+			
+			var cost = function(){
+				var money = 0;
+				return function(){
+					for ( var i = 0, l = arguments.length; i < l; i++ ){
+						money += arguments[ i ];
+					}
+					return money; 
+				}
+			}()
+			
+			cost = currying( cost ); // 转化成 currying 函数
+			cost( 100 ); // 未真正求值
+			cost( 200 ); // 未真正求值
+			cost( 300 ); // 未真正求值
+			alert(cost());
 		})(jQuery)
 	</script>
 </html>

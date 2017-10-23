@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>闭包实用技巧</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*闭包实现isArray isNumber isString函数*/
+			for(var i = 0,type;type = ['Array','Number','String'][i++];){
+				(function(obj){
+					Object['is' + type] = function(obj){
+						return Object.prototype.toString.call(obj) === '[object'+ type +']'
+					}
+				})(type)
+			}
+			
+			console.log(Object.isArray([]));
+			console.log(Object.isNumber(1));
+			console.log(Object.isString('1'));
+			
+			/*闭包可以储存技术变量,若有个计算方法,已经计算过的参数,不必每次都进行运算*/
+			var mult = function(){
+				var cache = {};
+				
+				var calculate = function(){
+					var a = 1;
+					for(var i = 0, len = arguments.length;i < len; i++){
+						a = a * arguments[i];
+					}
+					return  a;
+				}
+				
+				return function(){
+					var res = Array.prototype.join.call(arguments,',');
+					if(res in cache){
+						return cache[res];
+					}
+					
+					return cache[res] = calculate.apply(null,arguments);
+				}
+			}()
+			console.log(mult(1,2,3));
+			console.log(mult(1,2,3));
+		</script>
+	</body>
+</html>
