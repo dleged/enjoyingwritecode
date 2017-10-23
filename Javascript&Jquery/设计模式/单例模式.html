@@ -102,5 +102,39 @@
 			TOP.init();
 			BANNER.init();
 		</script>
+		<!--传统单例使用-->
+		<button>登陆</button>
+		<button>再次添加登陆</button>
+		<script>
+		/*比如要在页面创建一个登录模态窗*/
+		
+		function createDiv(){
+			var div = document.createElement('div');
+			div.innerHTML = '欢迎登录！';
+			document.body.append(div);
+			console.log('创建了一次div');
+			return div;
+		}
+		
+		/*惰性单例,确保下次弹出登陆窗的时候不再创建*/
+		/*在 getSinge 函数中，实际上也提到了闭包和高阶函数的概念。单例模式是一种简单但非常实
+		用的模式，特别是惰性单例技术，在合适的时候才创建对象，并且只创建唯一的一个。更奇妙的
+		是，创建对象和管理单例的职责被分布在两个不同的方法中，这两个方法组合起来才具有单例模
+		式的威力。*/
+		function getSinge(fn){
+			var result;
+			return function(){
+				return result || (result = fn.apply(this,arguments));
+			}
+		}
+		
+		var getDiv = getSinge(createDiv);
+		document.querySelectorAll('button')[0].onclick = function(){
+			var div = getDiv();
+		}
+		document.querySelectorAll('button')[1].onclick = function(){
+			var div = createDiv();
+		}
+		</script>
 	</body>
 </html>
