@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>验证validator</title>
+	</head>
+	<body>
+		<div action=".." method="post">
+			<div>用户名： <input type="text" name="name" /></div>
+			<div>密码： <input type="text" name="password" /></div>
+			<div>邮箱：  <input type="text" name="email" /></div>
+			<div>手机号：  <input type="text" name="phone" /></div>
+			<div>身份证：  <input type="text" name="idcard" /></div>
+			<button type="submit">提交</button>
+		</div>
+		<script src="pShine-validator.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			!function(){
+				function validatorForm(){
+					var validator = new Validator();
+					validator.add('name',[{
+						strategy: 'isEmpty',
+	 					errorMsg: '用户名不能为空' 
+					}]);
+					validator.add('password',[{
+						strategy: 'isEmpty',
+	 					errorMsg: '密码不能为空' 
+					}]);
+					validator.add('email',[{
+						strategy: 'isEmail',
+	 					errorMsg: '邮箱格式不正确' 
+					}]);
+					validator.add('phone',[{
+						strategy: 'isMobile',
+	 					errorMsg: '手机号格式不正确' 
+					}]);
+					validator.add('idcard',[{
+						strategy: 'isIdCard',
+	 					errorMsg: '身份证式不正确' 
+					}]);
+					
+					var errorMsg = validator.start();
+					return errorMsg;
+				}
+				
+				
+				document.querySelector('button').onclick = function(){
+					var errorMsg = validatorForm();
+					if(errorMsg){
+						console.log(errorMsg);
+					}
+				}
+			}()
+		</script>
+	</body>
+</html>
