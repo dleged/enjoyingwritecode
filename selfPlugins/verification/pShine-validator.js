@@ -26,7 +26,8 @@
 					//把需要验证的匿名函数追加到[]中，start中变量运行所有的方法
 					self.validatorCache.push(function(){
 						var strategy = strategyAry.shift();
-						var value = doc.getElementsByName(dom)[0].value;
+						var doms = dom.split(' ');
+						var value = doc.getElementsByName(doms[0])[0].value;
 						strategyAry.unshift(value);
 						strategyAry.push(errorMsg);
 						return validatoRules[strategy].apply(dom,strategyAry);

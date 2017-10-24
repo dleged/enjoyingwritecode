@@ -24,16 +24,20 @@
 					}]);
 					validator.add('password',[{
 						strategy: 'isEmpty',
-	 					errorMsg: '密码不能为空' 
+	 					errorMsg: '密码不能为空',
 					}]);
 					validator.add('email',[{
 						strategy: 'isEmail',
 	 					errorMsg: '邮箱格式不正确' 
 					}]);
 					validator.add('phone',[{
+						strategy: 'isEmpty',
+	 					errorMsg: '手机号不能为空' 
+					},{
 						strategy: 'isMobile',
 	 					errorMsg: '手机号格式不正确' 
-					}]);
+					}
+					]);
 					validator.add('idcard',[{
 						strategy: 'isIdCard',
 	 					errorMsg: '身份证式不正确' 
@@ -42,8 +46,6 @@
 					var errorMsg = validator.start();
 					return errorMsg;
 				}
-				
-				
 				document.querySelector('button').onclick = function(){
 					var errorMsg = validatorForm();
 					if(errorMsg){
