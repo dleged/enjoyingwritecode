@@ -6,11 +6,12 @@
 	</head>
 	<body>
 		<div action=".." method="post">
-			<div>用户名： <input type="text" name="name" /></div>
-			<div>密码： <input type="text" name="password" /></div>
-			<div>邮箱：  <input type="text" name="email" /></div>
-			<div>手机号：  <input type="text" name="phone" /></div>
-			<div>身份证：  <input type="text" name="idcard" /></div>
+			<div>用户名： <input type="text" id="name" /></div>
+			<div>密码： <input type="text" id="password" /></div>
+			<div>确认密码： <input type="text" id="surePassword" /></div>
+			<div>邮箱：  <input type="text" id="email" /></div>
+			<div>手机号：  <input type="text" id="phone" /></div>
+			<div>身份证：  <input type="text" id="idcard" /></div>
 			<button type="submit">提交</button>
 		</div>
 		<script src="pShine-validator.js" type="text/javascript" charset="utf-8"></script>
@@ -18,19 +19,31 @@
 			!function(){
 				function validatorForm(){
 					var validator = new Validator();
-					validator.add('name',[{
+					validator.addRule('name',[{
 						strategy: 'isEmpty',
 	 					errorMsg: '用户名不能为空' 
 					}]);
-					validator.add('password',[{
+					
+					validator.addRule('surePassword',[{
 						strategy: 'isEmpty',
-	 					errorMsg: '密码不能为空',
+	 					errorMsg: '确认密码不能为空'
 					}]);
-					validator.add('email',[{
+					
+					validator.addRule('password surePassword',[{
+						strategy: 'isEmpty',//传递2个dom时 会校验第一个空
+	 					errorMsg: '密码不能为空'
+					},
+					{
+						strategy: 'isSame', //需要传2个dom
+	 					errorMsg: '两次输入密码不相同'
+					}]);
+					
+					validator.addRule('email',[{
 						strategy: 'isEmail',
 	 					errorMsg: '邮箱格式不正确' 
 					}]);
-					validator.add('phone',[{
+					
+					validator.addRule('phone',[{
 						strategy: 'isEmpty',
 	 					errorMsg: '手机号不能为空' 
 					},{
@@ -38,11 +51,28 @@
 	 					errorMsg: '手机号格式不正确' 
 					}
 					]);
-					validator.add('idcard',[{
+					
+					validator.addRule('idcard',[{
 						strategy: 'isIdCard',
 	 					errorMsg: '身份证式不正确' 
 					}]);
 					
+					/*添加自定义规则,添加校验函数*/
+					validator.addCustomRule(function(){
+						//如若用户名只能为faithzzz
+						var val = document.querySelector('#name').value;
+						var name = 'faithzzz';
+						if(val !== name){
+							return '只能取名为faithzzz';
+						}
+					},function(){
+						//如若用户名只能为faithzzz
+						var val = document.querySelector('#phone').value;
+						var phone = '13237921921';
+						if(val !== phone){
+							return '手机号只能为13237921921';
+						}
+					})
 					var errorMsg = validator.start();
 					return errorMsg;
 				}

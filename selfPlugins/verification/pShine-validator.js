@@ -1,6 +1,6 @@
 /**
  * Created by faithzzz on 2017/10/24.
- * 
+ * github https://github.com/fanthzzz/
  */
 !function(W,doc){
 	'use static'
@@ -10,10 +10,10 @@
 	
 	PShineValidator.prototype = {
 		/*
-		 * dom: 节点name属性值
-		 * reules: 验证规则 [{},...]
+		 * dom <string> 节点name属性值
+		 * reules <Array> [{}[,{}]...] 验证规则 名字
 		 */
-		add: function(dom,rules){
+		addRule: function(dom,rules){
 			var self = this;
 			if(!rules){
 				console.error('The rules parameter format is incorrect');
@@ -27,7 +27,7 @@
 					self.validatorCache.push(function(){
 						var strategy = strategyAry.shift();
 						var doms = dom.split(' ');
-						var value = doc.getElementsByName(doms[0])[0].value;
+						var value = doc.getElementById(doms[0]).value;
 						strategyAry.unshift(value);
 						strategyAry.push(errorMsg);
 						return validatoRules[strategy].apply(dom,strategyAry);
@@ -35,6 +35,20 @@
 				}(rule)
 			}
 		},
+		/*
+		 * addCustomRule(fn[,fn][,fn])
+		 * fn <function> 验证规则函数，返回errorMsg
+		 * */
+		addCustomRule: function(){
+			var args = Array.prototype.slice.call(arguments);
+			for(var i = 0,arg;arg = args[i++];){
+				this.validatorCache.push(arg);
+			}
+		},
+		/*
+		 * 运行validatorCache队列中的验证函数，
+		 * 按照添加规则的顺序验证
+		 * */
 		start: function(){
 			var cache = this.validatorCache;
 			for(var i = 0,validatorFn;validatorFn = cache[i++];){
@@ -83,6 +97,13 @@
 		isEmail: function(val,errorMsg){
 			errorMsg = errorMsg || '邮箱格式不正确';
 			if( !/(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)/.test( val ) ){
+				return errorMsg;
+			}
+		},
+		isSame:function(val,errorMsg){
+			var domArr = this.split(' ');
+			var val2 = doc.getElementById(domArr[1]).value;
+			if(val !== val2){
 				return errorMsg;
 			}
 		}
