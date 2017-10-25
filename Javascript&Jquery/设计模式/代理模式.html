@@ -18,6 +18,10 @@
 			代理模式运用也非常广泛，
 			比如我们开发一个拳王97的游戏我们需要获得用户上下左右上的方向键的组合，
 			就可以使用代理模式来代理我们发送给控制中心的组合按键。
+			
+			代理模式包括许多小分类，在 JavaScript 开发中最常用的是虚拟代理和缓存代理。虽然代理
+			模式非常有用，但我们在编写业务代码的时候，往往不需要去预先猜测是否需要使用代理模式。
+			当真正发现不方便直接访问某个对象的时候，再编写代理也不迟。
 		</pre>
 		<script type="text/javascript">
 			~(function(){
@@ -42,6 +46,89 @@
 				
 				(new zhongjie)._maifang('500w');
 			})()
+		</script>
+		<!--代理模式实现懒加载-->
+		<script type="text/javascript">
+		/*用懒加载的方法,调用log方法*/
+			var MinLog = (function(){
+				var cache = [];
+				
+				handler = function(ev){
+					if(ev.keyCode = 13){
+						script = document.createElement('script');
+						script.innerHTML = `var MinLog = {
+							log: function(){
+								console.log('我是代理懒加载后的参数: '+arguments);
+							}
+						}`
+						document.body.appendChild(script);
+						script.onload = function(){//MinLog.log方法被重写
+							for(var i = 0,fn;fn = cache[i];){
+								fn();
+							}
+						}
+						document.body.removeEventListener('keydown',handler);//只加载一次
+					}
+				}
+				
+				document.body.addEventListener('keydown',handler,false);
+				
+				return {
+					log: function(){
+						var args = arguments;
+						cache.push(function(){//匿名函数被保存了，形成闭包
+							MinLog.log.apply(MinLog,args);
+						})
+					}
+				}
+			})()
+			
+			MinLog.log('代理模式懒加载log方法');
+		</script>
+		<script type="text/javascript">
+		/*通过传入高阶函数这种更加灵活的方式，可以为各种计算方法创建缓存代理。现在这些计算
+		方法被当作参数传入一个专门用于创建缓存代理的工厂中， 这样一来，我们就可以为乘法、加
+		法、减法等创建缓存代理，代码如下：*/
+		/**************** 计算乘积 *****************/
+		var mult = function(){
+		 	var a = 1;
+			for ( var i = 0, l = arguments.length; i < l; i++ ){
+				a = a * arguments[i];
+			}
+			return a;
+		};
+		/**************** 计算加和 *****************/
+		var plus = function(){
+			var a = 0;
+			for ( var i = 0, l = arguments.length; i < l; i++ ){
+				a = a + arguments[i];
+			}
+			return a;
+		};
+		/**************** 创建缓存代理的工厂 *****************/
+		ProxyFactory = function(fn){
+			var cache = {};
+			return function(){
+				var args = Array.prototype.join.call(arguments,',');
+				if(args in cache){
+					return cache[args];
+				}
+				return cache[args] = fn.apply(null,arguments);
+			}
+		}
+		
+		var plusFactory = ProxyFactory(plus);
+		var multFactory = ProxyFactory(mult);
+		console.time('测试代理缓存效率')
+			console.log(plusFactory(1,2,3,4));
+		console.timeEnd('测试代理缓存效率')
+		console.time('测试代理缓存效率2')
+			console.log(plusFactory(1,2,3,4));
+		console.timeEnd('测试代理缓存效率2')
+		console.log(plusFactory(1,2,3,4,5));
+		
+		console.log(multFactory(1,2,3,4));
+		console.log(multFactory(1,2,3,4));
 		</script>
 	</body>
 </html>
