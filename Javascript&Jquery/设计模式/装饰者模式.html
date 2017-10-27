@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>策略模式</title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			数据上报、统计函数的执行时间、动态改变函数参数以及插件式的表单验证这，
+			我们了解了装饰函数，它是 JavaScript 中独特的装饰者模式。这种模式在实际开发中非常
+			有用，除了上面提到的例子，它在框架开发中也十分有用。作为框架作者，我们希望框架里的函
+			数提供的是一些稳定而方便移植的功能，那些个性化的功能可以在框架之外动态装饰上去，这可
+			以避免为了让框架拥有更多的功能，而去使用一些 if、else 语句预测用户的实际需要。 
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				/*利用高阶函数（AOP面向切面）使用装饰者*/
+				
+				window.load = function(){
+					alert(1);
+				}
+				
+			/*	_load = window.load || function(){};
+				window.load = function(){
+					_load();
+					alert(2);
+				}
+				*/
+				Function.prototype.before = function( beforefn ){
+					var __self = this; // 保存原函数的引用
+					return function(){ // 返回包含了原函数和新函数的"代理"函数
+						beforefn.apply( this, arguments ); // 执行新函数，且保证 this 不被劫持，新函数接受的参数
+						// 也会被原封不动地传入原函数，新函数在原函数之前执行
+						return __self.apply( this, arguments ); // 执行原函数并返回原函数的执行结果，
+						// 并且保证 this 不被劫持
+					}
+				} 
+				
+				window.load.before(function(){
+					alert('利用AOP装饰后的window.load方法')
+				})();
+				
+			})()
+		</script>
+	</body>
+</html>

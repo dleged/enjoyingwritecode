@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>策略模式</title>
+		<style type="text/css">
+			pre{
+				margin: 0;
+				padding：10px;
+				font-family: "agency fb";
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			在 JavaScript 里，
+			策略模式运用也非常广泛，
+			比如我们计算不同等级的S，A，B，C的奖金，
+			等级不同的算法放在策略类（计算算法）中，奖金没有计算能力，奖金在发起环境类中调用策略类。
+		</pre>
+		<script type="text/javascript">
+			~(function(){
+				var strategyLeval = {
+					SLeval: function(money){
+						return money * 5;
+					},
+					ALeval: function(money){
+						return money * 4;
+					},
+					BLeval: function(money){
+						return money * 3;
+					},
+					CLeval: function(money){
+						return money * 2;
+					}
+				}
+				
+				function People(name){
+					this.name = 'alayoo';
+				}
+				People.prototype.getBouns = function(money,leval){
+					return strategyLeval[leval](money);
+				}
+				var alyoo = new People('alayoo');
+				console.log(alyoo.getBouns(10000,'SLeval'));
+			})()
+		</script>
+	</body>
+</html>
