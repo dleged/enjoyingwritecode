@@ -52,7 +52,6 @@
 		/*用懒加载的方法,调用log方法*/
 			var MinLog = (function(){
 				var cache = [];
-				
 				handler = function(ev){
 					if(ev.keyCode = 13){
 						script = document.createElement('script');
@@ -72,7 +71,6 @@
 				}
 				
 				document.body.addEventListener('keydown',handler,false);
-				
 				return {
 					log: function(){
 						var args = arguments;
@@ -82,7 +80,6 @@
 					}
 				}
 			})()
-			
 			MinLog.log('代理模式懒加载log方法');
 		</script>
 		<script type="text/javascript">
