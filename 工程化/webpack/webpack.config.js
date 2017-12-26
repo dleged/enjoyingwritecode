@@ -143,7 +143,7 @@ module.exports = {
             // 输出后html的名字，可以自定义
             filename: 'index.html',
             // html的模板,也可以是xxx.html
-            template: '../views/index.html'
+            //template: '../views/index.html'
 	    }),
 	    // 代码优化：合并以及压缩代码
 	    new webpack.optimize.UglifyJsPlugin({
@@ -164,6 +164,7 @@ module.exports = {
             disable:false,
             allChunks:true
         }),
+        new webpack.HotModuleReplacementPlugin(),
     	//new webpack.HotModuleReplacementPlugin(),
     	// new HtmlWebpackPlugin({
      	//     	template: __dirname + "/app/index.tmpl.html" //new 一个这个插件的实例，并传入相关的参数
