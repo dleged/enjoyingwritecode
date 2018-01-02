@@ -10,6 +10,7 @@
 	<body>
 		<div id="root"></div>
 		<div id="root2"></div>
+		<div id="root3"></div>
 	    <script type="text/babel">
     	    var HelloMessage = React.createClass({
 	        	render: function() {
@@ -21,20 +22,36 @@
 	    		document.getElementById('root')
 	    	);
 
+	    	
 	    	function tick(){
-	    		const element = <div>
-	    			<h4>hello,react</h4>
-	    			<p>{new Date().toString()}</p>
-	    		</div>
-
+	    		const element = (<div>
+	    				<h4>hello,react</h4>
+		    			<p>{new Date().toString()}</p>
+		    		</div>)
 	    		ReactDOM.render(
 		    		element,
 		    		document.getElementById('root2')
-
 		    	);
 	    	}
 	    	setInterval(function(){
 	    		tick();
+	    	},1000);
+
+	    	//重写时钟,组件可复用
+	    	function Clock(props){
+	    		return (<div>
+	    				<h4>hello,react</h4>
+		    			<p>{props.date.toString()}</p>
+		    		</div>)
+	    	}
+	    	function tick2(){
+	    		ReactDOM.render(
+		    		<Clock date={new Date()}/>,
+		    		document.getElementById('root3')
+		    	);
+	    	}
+	    	setInterval(function(){
+	    		tick2();
 	    	},1000);
 		</script>
 	</body>
