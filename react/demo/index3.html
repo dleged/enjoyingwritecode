@@ -16,7 +16,7 @@
 		<div id="root">
 		</div>
 	    <script type="text/babel">
-    	    var NodeList = React.createClass({
+    	   <!-- 	var NodeList = React.createClass({
 	        	render: function() {
 		       		return (
 			       			<ol>
@@ -34,6 +34,27 @@
 	    			<span>Hello</span>
 	    			<span>World</span>
 	    		</NodeList>,
+	    		document.getElementById('root')
+	    	); -->
+	    	var NodeList = React.createClass({
+	    		render: function(){
+	    	    	return (
+	    	    		<ol>
+	    	    		{
+	    	    			React.Children.map(this.props.children,function(child){
+	    	    				return <li>{child}</li>
+	    	    			})
+	    	    		}
+	    	    		</ol>
+	    	    	)
+    	    	}
+	    	});
+	    	ReactDOM.render(
+	    		<NodeList name="faithzzz">
+	    			<span>春风</span>
+					<span>花雨</span>
+					<span>暖我的心</span>	
+	    		</NodeList>,	
 	    		document.getElementById('root')
 	    	);
 		</script>
