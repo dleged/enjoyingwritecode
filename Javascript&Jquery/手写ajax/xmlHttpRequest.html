@@ -13,16 +13,16 @@
 			w.syncXml = function(type,url,data){
 				var data = data || null;
 				var type = type || 'GET';
-				xmlHttp = w.XMLHttpRequest ? 
-				new XMLHttpRequest() : w.activeXObject() ? //firefox opera 8.0+ safari ie 7+
+				xmlHttp = w.XMLHttpRequest ?
+				new XMLHttpRequest() : w.ActiveXObject() ? //firefox opera 8.0+ safari ie 7+
 				new ActiveXObject('Microsoft.XMLHTTP') : null; //internet explort
-				
+
 				if(xmlHttp){
 					xmlHttp.onreadystatechange = stateChange;
 					xmlHttp.open(type,url);
 					xmlHttp.send(data);
 				}
-				
+
 				function stateChange(){
 					if(xmlHttp.readyState == 4){
 						if(xmlHttp.status == 200){
@@ -34,7 +34,7 @@
 				}
 			}
 		})(window);
-		
+
 		var url = './data.json';
 		syncXml('get',url);
 	</script>

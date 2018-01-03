@@ -34,12 +34,12 @@
 			//当资源返回成功后会调用callBackFn方法，也就是调用data.success回调
 			script.src = data.url + '&callback=' + callBackFn;
 			head.appendChild(script);
-			
+
 		}
 
 		ajax_jsonp({
 			url: 'https://wapbaike.baidu.com/api/usercenter/login?msg=1&_=0.4648408465336522',
-			success: function(data){
+			success: function(data,a){
 				console.log(data)
 			}
 		})
