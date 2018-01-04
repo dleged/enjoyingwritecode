@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>状态提升</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			
+		</pre>
+		<div id="root"></div>
+	    <script type="text/babel">
+	    	function BoiLingVerdict(props){
+	    		if(props.celsius >= 100){
+	    			return <p>水烧开了</p>
+	    		}else{
+	    			return <p>水还没烧开</p>
+	    		}
+	    	}
+
+	    	class Caculator extends React.Component{
+	    		constructor(props){
+	    			super(props);
+	    			this.state = {value: ''}
+	    		}
+
+	    		onChange = (event) => {
+	    			this.setState({value: event.target.value.toUpperCase()})
+	    		}
+
+	    		onSubmit = (event) => {
+	    			alert('your name is：' + this.state.value)
+	    			event.preventDefault();
+	    		}
+
+	    		render(){
+	    			return (
+		    			<fieldset>
+		    				<legend>
+		    					输入一个摄氏温度
+		    				</legend>
+						    <input value={this.state.value} onChange={this.onChange}/>
+						  	<BoiLingVerdict celsius={this.state.value}/>
+						</fieldset>
+					)
+	    		}
+	    	}
+	    	ReactDOM.render(
+	    		<Caculator />,
+	    		document.getElementById('root')
+	    	)
+		</script>
+	</body>
+</html>
