@@ -9,12 +9,18 @@
 	</head>
 	<body>
 		<pre>
-			
+			来分析示例2的实现过程
+			1 Temperature中input触发onChange方法，
+			2 调用父组件render方法，同时将input的value传入Caculater2中
+			的onTemperatureChange属性
+			3 出发Caculater2中对应计算温度方法，改变状态setState的值
+			4 最终Caculater更新render方法，设置2个input的值
 
 		</pre>
 		<div id="root"></div>
 		<div id="root2"></div>
 	    <script type="text/babel">
+	    	<!-- 示例1 -->
 	    	function BoiLingVerdict(props){
 	    		if(props.celsius >= 100){
 	    			return <p>水烧开了</p>
@@ -58,7 +64,7 @@
 
 
 
-
+	    	<!-- 示例2 -->
 	    	//计算温度华氏摄氏度
 	    	function getCelsius(fahrenheit) {
 			  return (fahrenheit - 32) * 5 / 9;
@@ -124,16 +130,16 @@
 					const fahrenheit = scale === '温度' ?  
 									tryConvert(getFahrenheit,temperature) : temperature
 					return(
-					<div>
-						<Temperature
-							scale='温度'	
-							temperature={celsius} 
-							onTemperatureChange={this.toCelsius} />
-						<Temperature 
-							scale='华摄氏度'
-							temperature={fahrenheit} 
-							onTemperatureChange={this.toFahrenheit} />
-					</div>
+						<div>
+							<Temperature
+								scale='温度'	
+								temperature={celsius} 
+								onTemperatureChange={this.toCelsius} />
+							<Temperature 
+								scale='华摄氏度'
+								temperature={fahrenheit} 
+								onTemperatureChange={this.toFahrenheit} />
+						</div>
 					)
 				}				
 			}
