@@ -10,8 +10,10 @@
 	<body>
 		<pre>
 			
+
 		</pre>
 		<div id="root"></div>
+		<div id="root2"></div>
 	    <script type="text/babel">
 	    	function BoiLingVerdict(props){
 	    		if(props.celsius >= 100){
@@ -52,6 +54,91 @@
 	    		<Caculator />,
 	    		document.getElementById('root')
 	    	)
+
+
+
+
+
+	    	//计算温度华氏摄氏度
+	    	function getCelsius(fahrenheit) {
+			  return (fahrenheit - 32) * 5 / 9;
+			}
+			//计算温度
+			function getFahrenheit(celsius) {
+			  return (celsius * 9 / 5) + 32;
+			}
+			function tryConvert(fn){
+				var args = Array.prototype.concat.apply(arguments)
+				typeof(fn) == 'function' && fn.apply(fn,args.shift())
+			}
+			var scaleNames ={
+				fahrenheit: '华摄氏度',
+				celsius: '温度'
+			}
+			class Temperature extends React.Component{
+
+				constructor(props){
+					super(props)
+				}
+
+				onChange = (e) =>(
+					this.props.onTemperatureChange(e.target.value)
+				)
+
+				render(){
+					return(
+						<fieldset>
+		    				<legend>
+		    					输入一个{this.props.scale}
+		    				</legend>
+						    <input value={this.props.temperature} 
+						    	onChange={this.onChange}/>
+						  	<BoiLingVerdict celsius={this.props.value} />
+						</fieldset>
+					)
+				}
+			}
+
+			class Caculator2 extends React.Component{
+				constructor(props){
+					super(props)
+					this.state = {temperature: 0, scale: '温度'}
+				}
+
+				toCelsius = (temperature) =>{
+					this.setState({scale: 'celsius',temperature: Number(temperature)})
+				}
+
+				toFahrenheit = (temperature) =>{
+					this.setState({scale: 'ahrenheit',temperature: Number(temperature)})
+				}
+
+				render(){
+					const temperature = this.state.temperature
+					const scale = this.state.scale
+					const celsius = scale === '华摄氏度' ? 
+									tryConvert(getFahrenheit,temperature) : temperature
+					const fahrenheit = scale === '温度' ?  
+									tryConvert(getCelsius,temperature) : temperature
+					return(
+					<div>
+						<Temperature
+							scale='温度'	
+							temperature={celsius} 
+							onTemperatureChange={this.toCelsius} />
+						<Temperature 
+							scale='华摄氏度'
+							temperature={fahrenheit} 
+							onTemperatureChange={this.toFahrenheit} />
+					</div>
+					)
+				}				
+			}
+
+			ReactDOM.render(
+				<Caculator2 />,
+				document.getElementById('root2')
+			)
 		</script>
 	</body>
 </html>
