@@ -68,8 +68,11 @@
 			  return (celsius * 9 / 5) + 32;
 			}
 			function tryConvert(fn){
-				var args = Array.prototype.concat.apply(arguments)
-				typeof(fn) == 'function' && fn.apply(fn,args.shift())
+				var args = Array.prototype.slice.apply(arguments);
+				args.shift()
+				if(typeof(fn) == 'function'){ 
+					return fn.apply(fn,args)
+				}
 			}
 			var scaleNames ={
 				fahrenheit: '华摄氏度',
@@ -106,20 +109,20 @@
 				}
 
 				toCelsius = (temperature) =>{
-					this.setState({scale: 'celsius',temperature: Number(temperature)})
+					this.setState({scale: '温度',temperature: Number(temperature)})
 				}
 
 				toFahrenheit = (temperature) =>{
-					this.setState({scale: 'ahrenheit',temperature: Number(temperature)})
+					this.setState({scale: '华摄氏度',temperature: Number(temperature)})
 				}
 
 				render(){
 					const temperature = this.state.temperature
 					const scale = this.state.scale
 					const celsius = scale === '华摄氏度' ? 
-									tryConvert(getFahrenheit,temperature) : temperature
-					const fahrenheit = scale === '温度' ?  
 									tryConvert(getCelsius,temperature) : temperature
+					const fahrenheit = scale === '温度' ?  
+									tryConvert(getFahrenheit,temperature) : temperature
 					return(
 					<div>
 						<Temperature
