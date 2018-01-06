@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组合&&继承</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			
+		</pre>
+		<div id="root"></div>
+	    <script type="text/babel">
+	    	class Dialog extends React.Component{
+	    		constructor(props){
+	    			super(props)
+	    			this.testF()
+	    		}
+	    		testF=()=>{
+	    			console.log(this);
+	    		}
+	    		render(){
+	    			return (
+	    				<div onClick={this.testF}>
+	    					{this.props.title}
+	    					{this.props.body}			
+	    				</div>
+	    			)	
+	    		}
+	    	}
+
+			class Title extends React.Component{
+				constructor(props){
+	    			super(props)
+	    		}
+	    		render(){
+		    		return (
+		    			<h2>
+		    				我是Dialog窗			
+		    			</h2>
+		    		)
+		    	}	
+			}
+
+			class Body extends React.Component{
+				constructor(props){
+	    			super(props)
+	    		}
+	    		render(){
+	    			return (
+		    			<div>
+		    				我是Dialog窗的body部分			
+		    			</div>
+	    			)
+	    		}
+			}	
+
+			ReactDOM.render(
+				<Dialog title={<Title />} body={<Body />} />,
+				document.getElementById('root')
+			) 
+		</script>
+	</body>
+</html>
