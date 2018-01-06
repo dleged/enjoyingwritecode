@@ -13,17 +13,23 @@
 		</pre>
 		<div id="root"></div>
 	    <script type="text/babel">
+	    	//抽象输出组件对象的方法
+	    	function cosoleFn(fn){
+	    		console.log(fn)
+	    	}
+
 	    	class Dialog extends React.Component{
-	    		constructor(props){
-	    			super(props)
-	    			this.testF()
+	    		constructor(){
+	    			//说明constructor在内部实现的时候被默认第一个参数其实就是props
+	    			//console.log(Array.prototype.slice.apply(arguments)[0])
+	    			super(Array.prototype.slice.apply(arguments)[0])
 	    		}
-	    		testF=()=>{
-	    			console.log(this);
+	    		testFn = () => {
+	    			cosoleFn(this)
 	    		}
 	    		render(){
 	    			return (
-	    				<div onClick={this.testF}>
+	    				<div onClick={this.testFn}>
 	    					{this.props.title}
 	    					{this.props.body}			
 	    				</div>
@@ -35,9 +41,15 @@
 				constructor(props){
 	    			super(props)
 	    		}
+
+	    		testFn2 = (e) => {
+	    			cosoleFn(this)
+	    			e.preventDefault()
+	    		}
+
 	    		render(){
 		    		return (
-		    			<h2>
+		    			<h2 onClick={this.testF2}>
 		    				我是Dialog窗			
 		    			</h2>
 		    		)
