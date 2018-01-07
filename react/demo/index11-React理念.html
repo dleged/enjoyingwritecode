@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>React 理念</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			
+		</pre>
+		<div id="root">
+		</div>
+	    <script type="text/babel">
+	    	var json = [
+			  {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+			  {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+			  {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+			  {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+			  {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+			  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+			]
+
+			function typeOfGoods(json){
+				var result = {};
+				for(var i = 0;i < json.length;i++){
+					var name = json[i].category;
+					var value = {name: json[i].name,stocked: json[i].stocked,price:json[i].price};
+					if(!result[name]){
+						result[name] = [value];
+					}else{
+						result[name].push(value);
+					}
+				}
+				return result;
+			}
+
+			var json = typeOfGoods(json);
+
+			class Goodsseach extends React.Component{
+				constructor(props){
+					super(porps)
+					this.state = {value: ''}
+				}
+				onChange = (e) = >{
+					this.setState({value: e.target.value})
+				}
+				render(){
+					return(
+
+					)
+				}
+			}
+
+			class Goodsseach extends React.Component{
+				constructor(props){
+					super(porps)
+					this.state = {value: ''}
+				}
+				onChange = (e) = >{
+					this.setState({value: e.target.value})
+				}
+				render(){
+					return(
+
+					)
+				}
+			}
+	    	
+	    	ReactDOM.render(
+	    		<div>
+	    			<Goodsseach onChange="this.onChange" />
+	    			<Goodslist />
+	    		</div> ,	
+	    		document.getElementById('root')
+	    	);
+		</script>
+	</body>
+</html>
