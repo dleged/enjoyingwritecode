@@ -6,6 +6,7 @@
 		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
     	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
     	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    	<script src="https://cdn.bootcss.com/require.js/2.3.5/require.js"></script>
 	</head>
 	<body>
 		<pre>
@@ -19,19 +20,24 @@
 		<div id="root2">
 		</div>
 	    <script type="text/babel">
+
 	    	var Li = React.createClass({
 	    		render: function(){
-	    			return <li>{this.props.text}</li>
+	    			return <li>{[this.props.text],[this.props.name]}</li>
 	    		}
 	    	})
 
+	    	// 为属性指定默认值:
+			Li.defaultProps = {
+			  name: 'Stranger'
+			};
 	    	var NodeList = React.createClass({
 	    		render: function(){
 	    	    	return (
 	    	    		<ol>
 	    	    		{
 	    	    			React.Children.map(this.props.children,function(child){
-	    	    				return <Li text={child}/>
+	    	    				return <Li text={child} />
 	    	    			})
 	    	    		}
 	    	    		</ol>

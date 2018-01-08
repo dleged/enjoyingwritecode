@@ -8,8 +8,7 @@
     	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
 	</head>
 	<body>
-		<pre>
-			
+		<pre>	
 		</pre>
 		<div id="root">
 		</div>
@@ -49,7 +48,7 @@
 				}
 				render(){
 					return(
-
+						
 					)
 				}
 			}
@@ -57,12 +56,9 @@
 			class Goodsseach extends React.Component{
 				constructor(props){
 					super(porps)
-					this.state = {value: ''}
-				}
-				onChange = (e) = >{
-					this.setState({value: e.target.value})
 				}
 				render(){
+					var data = this.props.json;
 					return(
 
 					)
@@ -72,7 +68,7 @@
 	    	ReactDOM.render(
 	    		<div>
 	    			<Goodsseach onChange="this.onChange" />
-	    			<Goodslist />
+	    			<Goodslist data={json}/>
 	    		</div> ,	
 	    		document.getElementById('root')
 	    	);
