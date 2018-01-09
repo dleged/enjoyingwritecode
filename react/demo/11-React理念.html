@@ -22,6 +22,7 @@
 			  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 			]
 
+			//物品分类
 			function typeOfGoods(json){
 				var result = {};
 				for(var i = 0;i < json.length;i++){
@@ -36,42 +37,110 @@
 				return result;
 			}
 
-			var json = typeOfGoods(json);
 
-			class Goodsseach extends React.Component{
+			class FilterableProductTable extends React.Component{
 				constructor(props){
-					super(porps)
+					super(props)
+					this.state = {filterText: '',inStockOnly: false}
+				}
+				onSerach = (val) => {
+					this.setState({filterText: val})
+				}
+				onStock = (flag) => {
+					this.setState({inStockOnly: flag})
+				} 
+				render(){
+					return(
+						<div>
+							<GoodsSeach	onSerach={this.onSerach} onStock={this.onStock}/>
+							<GoodsTable product={this.props.product} filterText={this.state.filterText} stockOnly={this.state.inStockOnly} />
+						</div>
+					)
+				}
+			}
+
+			//检索功能组件
+			class GoodsSeach extends React.Component{
+				constructor(props){
+					super(props)
 					this.state = {value: ''}
 				}
-				onChange = (e) = >{
-					this.setState({value: e.target.value})
+				onChange = (e) => {
+					this.props.onSerach(e.target.value)//执行父组件的onSerach方法
+					e.preventDefault()
+				}
+				onClick = (e) => {
+					this.props.onStock(e.target.checked)//执行父组件的onStock方法
 				}
 				render(){
 					return(
-						
+						<div>
+							<input placeholder="Search..." type="text" val='' 	
+								onChange={this.onChange} />
+							<input ref={(input) => {this.checkBox = input}} 
+								onClick={this.onClick}
+								checked={this.props.stockOnly}
+								type="checkbox" />: 
+								<span>Only Show Product in stock
+							</span>
+						</div>
 					)
 				}
 			}
 
-			class Goodsseach extends React.Component{
+			//商品表格
+			class GoodsTable extends React.Component{
 				constructor(props){
-					super(porps)
+					super(props)
 				}
 				render(){
-					var data = this.props.json;
+					var products = this.props.product;
+					var productComponent = [];
+					var titleArr = [];
+					var filterText = this.props.filterText;
+					var stockOnly = this.props.stockOnly;
+					
+					products.forEach((product) => {
+						var category = product.category
+						var name = product.name
+						if(titleArr.indexOf(category) == -1 && titleArr.push(category)){
+							productComponent.push(<GoodsCategoryRow title={product.category} />)
+						}
+						if(product.stocked === stockOnly 
+							&& (!filterText || name.indexOf(filterText) > -1) ){
+							productComponent.push(
+								<GoodsRow name={name} price={product.price} />
+							)
+						}
+					})
+					
 					return(
-
+						<table>
+							<thead><tr><th>Name</th><th>Price</th></tr></thead>
+							<tbody>
+								{productComponent}
+							</tbody>
+						</table>
 					)
 				}
 			}
+
+			//商品分类标题
+			function GoodsCategoryRow(props){
+				return (<tr><td colspan="2">{props.title}</td></tr>)
+			}
+
+			//商品分类列表
+			function GoodsRow(props){
+				return(<tr><td>{props.name}</td><td>{props.price}</td></tr>)
+			}
+			
 	    	
 	    	ReactDOM.render(
-	    		<div>
-	    			<Goodsseach onChange="this.onChange" />
-	    			<Goodslist data={json}/>
-	    		</div> ,	
+	    		<FilterableProductTable	product={json}/>,
 	    		document.getElementById('root')
 	    	);
 		</script>
 	</body>
 </html>
+
