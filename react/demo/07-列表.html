@@ -4,7 +4,8 @@
 		<meta charset="UTF-8">
 		<title>列表</title>
 		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
-    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js">
+    	</script>
     	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
 	</head>
 	<body>
@@ -12,6 +13,7 @@
 			
 		</pre>
 		<div id="root"></div>
+		<div id="root2"></div>
 	    <script type="text/babel">
 	    	function ListItems(props){
 	    		return <li>{props.value}</li>
@@ -29,6 +31,49 @@
 	    	ReactDOM.render(
 	    		<NumbersList numbers={numbers}/>,
 	    		document.getElementById('root')
+	    	)
+
+
+	    	class Button extends React.Component{
+	    		render(){
+	    			return (
+	    				<button style={{backbground: this.props.color}}>
+	    					delete
+	    				</button>
+	    			)
+	    		}
+	    	}
+
+	    	class Message extends React.Component{
+	    		render(){
+	    			return(
+	    				<div>
+	    					{this.props.message} 
+	    					<Button color={this.props.color} />
+    					</div>
+	    			)
+	    		}
+	    	}
+
+	    	class MessgaeList extends React.Component{
+	    		render(){
+	    			const color = 'red';
+	    			const messages = this.props.messages.map((essage) => {
+	    				return <Message color={color} message={essage} />
+	    			})
+	    			return (
+	    				<div>
+	    					{messages}
+	    				</div>
+	    			)
+	    		}
+	    	}
+
+	    	var messageList = 
+	    		['1.我是消息一号','1.我是消息一号','2.我是消息二号','3.我是消息三号'];
+	    	ReactDOM.render(
+	    		<MessgaeList messages={messageList} />,
+	    		document.getElementById('root2')
 	    	)
 		</script>
 	</body>

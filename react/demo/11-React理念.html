@@ -41,7 +41,7 @@
 			class FilterableProductTable extends React.Component{
 				constructor(props){
 					super(props)
-					this.state = {filterText: '',inStockOnly: false}
+					this.state = {filterText: '',inStockOnly: true}
 				}
 				onSerach = (val) => {
 					this.setState({filterText: val})
@@ -52,8 +52,12 @@
 				render(){
 					return(
 						<div>
-							<GoodsSeach	onSerach={this.onSerach} onStock={this.onStock}/>
-							<GoodsTable product={this.props.product} filterText={this.state.filterText} stockOnly={this.state.inStockOnly} />
+							<GoodsSeach	onSerach={this.onSerach} 
+										onStock={this.onStock}  
+										stockOnly={this.state.inStockOnly} />
+							<GoodsTable product={this.props.product} 
+										filterText={this.state.filterText}
+										stockOnly={this.state.inStockOnly} />
 						</div>
 					)
 				}
