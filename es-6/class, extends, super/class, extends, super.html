@@ -15,9 +15,10 @@
 					console.log(this.type + ' say ' + say);
 				}
 			}
+			
 			let animal = new Animal();
 			animal.say('hellow');
-			
+
 			class Cat extends Animal{
 				constructor(){
 					super(); //调用会生成一个空对象，作为context来调用父类的constructor，返回this对象，作为子类constructor的context继续调用构造函数。
@@ -26,7 +27,7 @@
 			}
 			let cat = new Cat();
 			cat.say('hellow');
-			
+
 			class Bird extends Animal{
 				constructor(){
 					super();
@@ -39,7 +40,7 @@
 					/*setTimeout(function(){
 						console.log(this.type + ' say ' + say);
 					}.bind(this),1000);//bind改变指针*/
-					
+
 					setTimeout( () => {//箭头函数不会改变指针，强大***
 						console.log(this.type + ' say ' + say);
 					},1000);
@@ -47,7 +48,7 @@
 			}
 			let bird = new Bird();
 			bird.say('hellow');
-			
+
 			/*template 我们要用一堆的'+'号来连接文本与变量，而使用ES6的新特性模板字符串``后，我们可以直接这么来写：
 			destructuringES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。*/
 			let template = document.querySelector('.template');
@@ -58,7 +59,7 @@
 							   in your basket, <em>${basket.onSale}</em>
 							   are on sale!`
 			template.innerHTML = templateStr;
-			
+
 			/*default, rest
 			default很简单，意思就是默认值。大家可以看下面的例子，
 			调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || 'cat' 来指定默认值。*/
@@ -67,18 +68,18 @@
 			}
 			sayType();
 			sayType('bird');
-			
-			
+
+
 			/*ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
 			总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称 TDZ）。*/
 			if (true) {
 			  // TDZ开始
 			  tmp = 'abc'; // ReferenceError
 			  console.log(tmp); // ReferenceError
-			
+
 			  let tmp; // TDZ结束
 			  console.log(tmp); // undefined
-			
+
 			  tmp = 123;
 			  console.log(tmp); // 123
 			}

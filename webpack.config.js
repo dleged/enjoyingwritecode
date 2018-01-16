@@ -1,5 +1,6 @@
 const path = require('path');
 
+
 modules.exports = {
 	entry: './public/app.js',
 	output: {

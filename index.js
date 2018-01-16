@@ -677,6 +677,7 @@ define("search/esf/esfSearch", ["jquery", "search/mainSearch"], function(e, t, s
             return 0 !== e.indexOf("on") && (e = e[0] !== e[0].toUpperCase() ? "on" + e[0].toUpperCase() + e.substring(1) : "on" + e),
             e
         }
+        
         if (!(this instanceof s))
             return new s(a,i);
         var h = {
