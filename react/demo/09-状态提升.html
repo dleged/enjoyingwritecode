@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<title>状态提升</title>
 		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
-    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
-    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+  	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+  	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
 	</head>
 	<body>
 		<pre>
@@ -76,7 +76,7 @@
 			function tryConvert(fn){
 				var args = Array.prototype.slice.apply(arguments);
 				args.shift()
-				if(typeof(fn) == 'function'){ 
+				if(typeof(fn) == 'function'){
 					return fn.apply(fn,args)
 				}
 			}
@@ -100,7 +100,7 @@
 		    				<legend>
 		    					输入一个{this.props.scale}
 		    				</legend>
-						    <input value={this.props.temperature} 
+						    <input value={this.props.temperature}
 						    	onChange={this.onChange}/>
 						  	<BoiLingVerdict celsius={this.props.value} />
 						</fieldset>
@@ -125,23 +125,23 @@
 				render(){
 					const temperature = this.state.temperature
 					const scale = this.state.scale
-					const celsius = scale === '华摄氏度' ? 
+					const celsius = scale === '华摄氏度' ?
 									tryConvert(getCelsius,temperature) : temperature
-					const fahrenheit = scale === '温度' ?  
+					const fahrenheit = scale === '温度' ?
 									tryConvert(getFahrenheit,temperature) : temperature
 					return(
 						<div>
 							<Temperature
-								scale='温度'	
-								temperature={celsius} 
+								scale='温度'
+								temperature={celsius}
 								onTemperatureChange={this.toCelsius} />
-							<Temperature 
+							<Temperature
 								scale='华摄氏度'
-								temperature={fahrenheit} 
+								temperature={fahrenheit}
 								onTemperatureChange={this.toFahrenheit} />
 						</div>
 					)
-				}				
+				}
 			}
 
 			ReactDOM.render(

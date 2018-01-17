@@ -4,11 +4,11 @@
 		<meta charset="UTF-8">
 		<title>React 理念</title>
 		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
-    	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
-    	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+  	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+  	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
 	</head>
 	<body>
-		<pre>	
+		<pre>
 		</pre>
 		<div id="root">
 		</div>
@@ -48,14 +48,14 @@
 				}
 				onStock = (flag) => {
 					this.setState({inStockOnly: flag})
-				} 
+				}
 				render(){
 					return(
 						<div>
-							<GoodsSeach	onSerach={this.onSerach} 
-										onStock={this.onStock}  
+							<GoodsSeach	onSerach={this.onSerach}
+										onStock={this.onStock}
 										stockOnly={this.state.inStockOnly} />
-							<GoodsTable product={this.props.product} 
+							<GoodsTable product={this.props.product}
 										filterText={this.state.filterText}
 										stockOnly={this.state.inStockOnly} />
 						</div>
@@ -79,12 +79,12 @@
 				render(){
 					return(
 						<div>
-							<input placeholder="Search..." type="text" val='' 	
+							<input placeholder="Search..." type="text" val=''
 								onChange={this.onChange} />
-							<input ref={(input) => {this.checkBox = input}} 
+							<input ref={(input) => {this.checkBox = input}}
 								onClick={this.onClick}
 								checked={this.props.stockOnly}
-								type="checkbox" />: 
+								type="checkbox" />:
 								<span>Only Show Product in stock
 							</span>
 						</div>
@@ -103,21 +103,21 @@
 					var titleArr = [];
 					var filterText = this.props.filterText;
 					var stockOnly = this.props.stockOnly;
-					
+
 					products.forEach((product) => {
 						var category = product.category
 						var name = product.name
 						if(titleArr.indexOf(category) == -1 && titleArr.push(category)){
 							productComponent.push(<GoodsCategoryRow title={product.category} />)
 						}
-						if(product.stocked === stockOnly 
+						if(product.stocked === stockOnly
 							&& (!filterText || name.indexOf(filterText) > -1) ){
 							productComponent.push(
 								<GoodsRow name={name} price={product.price} />
 							)
 						}
 					})
-					
+
 					return(
 						<table>
 							<thead><tr><th>Name</th><th>Price</th></tr></thead>
@@ -138,8 +138,8 @@
 			function GoodsRow(props){
 				return(<tr><td>{props.name}</td><td>{props.price}</td></tr>)
 			}
-			
-	    	
+
+
 	    	ReactDOM.render(
 	    		<FilterableProductTable	product={json}/>,
 	    		document.getElementById('root')
@@ -147,4 +147,3 @@
 		</script>
 	</body>
 </html>
-
