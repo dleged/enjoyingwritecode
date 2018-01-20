@@ -1,13 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+var peoples = require('./people.js');
+var $ = require('jquery');
 
-let people = ['Henly','Anil','Casetd'];
+$.each(peoples,function(item,i){
+	$('body').append('<h1>'+ item[i] +'</h1>')
+})
 
-ReactDOM.render(
-	<ul>
-		<li>{people[0]}<li/>
-		<li>{people[1]}<li/>
-		<li>{people[2]}<li/>
-	<ul/>,
-	document.getElementById("root")
-);
+console.log($);
