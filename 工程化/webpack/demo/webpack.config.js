@@ -9,11 +9,8 @@ module.exports = {
 	},
 	//定义需要的插件或者加载器
 	module: {
-	   loaders: [
-		 {
-		   test: /\.(js|jsx)$/,
-		   use: ['css-loader']
-		 }
-	   ]
-	 }
+		rules: [
+	      { test: /\.css$/, use: ['style-loader','css-loader'] },
+	    ]
+	}
 }
