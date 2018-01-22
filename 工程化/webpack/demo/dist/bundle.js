@@ -67,28 +67,25 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var peoples = __webpack_require__(1);
+"use strict";
+
+
+var frontType = __webpack_require__(1);
 var $ = __webpack_require__(2);
 __webpack_require__(3);
 
-
-$.each(peoples,function(key,value){
-	$('body').append('<h1>' + value + '</h1>')
-})
-
-console.log($);
-
+$.each(frontType, function (key, value) {
+	$('body').append('<h1>' + value + '</h1>');
+});
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = [
-	'Caculator',
-	'Wodez',
-	'Ruzhi'
-]
+"use strict";
 
+
+module.exports = ['react', 'vue', 'angular', 'node', 'redux', 'glup', 'webpack'];
 
 /***/ }),
 /* 2 */
@@ -10463,99 +10460,9 @@ return jQuery;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "h1{\n\tfont-size: 14px;\n\tfont-family: cursive;\n\tcolor: red;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
+throw new Error("Module build failed: ModuleNotFoundError: Module not found: Error: Can't resolve '../images/2.png' in '/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo/src/style'\n    at factoryCallback (/usr/local/lib/node_modules/webpack/lib/Compilation.js:276:40)\n    at factory (/usr/local/lib/node_modules/webpack/lib/NormalModuleFactory.js:235:20)\n    at resolver (/usr/local/lib/node_modules/webpack/lib/NormalModuleFactory.js:60:20)\n    at asyncLib.parallel (/usr/local/lib/node_modules/webpack/lib/NormalModuleFactory.js:127:20)\n    at /usr/local/lib/node_modules/webpack/node_modules/async/dist/async.js:3874:9\n    at /usr/local/lib/node_modules/webpack/node_modules/async/dist/async.js:473:16\n    at iteratorCallback (/usr/local/lib/node_modules/webpack/node_modules/async/dist/async.js:1048:13)\n    at /usr/local/lib/node_modules/webpack/node_modules/async/dist/async.js:958:16\n    at /usr/local/lib/node_modules/webpack/node_modules/async/dist/async.js:3871:13\n    at resolvers.normal.resolve (/usr/local/lib/node_modules/webpack/lib/NormalModuleFactory.js:119:22)\n    at onError (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:65:10)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at runAfter (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:158:4)\n    at innerCallback (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:146:3)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at next (/usr/local/lib/node_modules/webpack/node_modules/tapable/lib/Tapable.js:252:11)\n    at /usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/UnsafeCachePlugin.js:40:4\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at runAfter (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:158:4)\n    at innerCallback (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:146:3)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at next (/usr/local/lib/node_modules/webpack/node_modules/tapable/lib/Tapable.js:252:11)\n    at innerCallback (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:144:11)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at next (/usr/local/lib/node_modules/webpack/node_modules/tapable/lib/Tapable.js:249:35)\n    at resolver.doResolve.createInnerCallback (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:44:6)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at afterInnerCallback (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/Resolver.js:168:10)\n    at loggingCallbackWrapper (/usr/local/lib/node_modules/webpack/node_modules/enhanced-resolve/lib/createInnerCallback.js:31:19)\n    at next (/usr/local/lib/node_modules/webpack/node_modules/tapable/lib/Tapable.js:252:11)");
 
 /***/ })
 /******/ ]);
