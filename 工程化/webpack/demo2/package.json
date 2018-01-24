@@ -1,0 +1,22 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "工程化",
+  "main": "index.js",
+  "dependencies": {
+    "css-loader": "^0.28.9",
+    "style-loader": "^0.19.1"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^2.30.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpackfile.js --display-modules --display-reasons --progress --colors --watch"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "faithzzz",
+  "license": "ISC"
+}

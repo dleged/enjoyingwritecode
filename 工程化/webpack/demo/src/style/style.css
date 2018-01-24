@@ -4,7 +4,7 @@ body{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	/* background: url('../images/2.png') repeat; */
+	background: url('../images/2.png') repeat;
 	transition: ease 1s all;
 }
 h1{

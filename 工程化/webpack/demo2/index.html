@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Webpack App Test</title>
+	<script src="./script/c.js" charset="utf-8"></script>
+	<script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>" charset="utf-8"></script>
+  </head>
+  <body>
+	  <%= htmlWebpackPlugin.options.date %>
+	  <% for(var key in htmlWebpackPlugin.files) { %>
+	  	<% key %>: <%= JSON.stringify(htmlWebpackPlugin.files[key]) %>
+      <% } %>
+	  <% for(var key in htmlWebpackPlugin.options) { %>
+	  	<% key %>: <%= JSON.stringify(htmlWebpackPlugin.options[key]) %>
+      <% } %>
+	  <script src="<%= htmlWebpackPlugin.files.chunks.a.entry %>" charset="utf-8"></script>
+  </body>
+</html>

@@ -14,26 +14,25 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		path: __dirname + '/dist',
-		publicPath: '/dist'
+		publicPath: '/'
 	},
 	//定义需要的插件或者加载器
 	module: {
 		rules: [
 	      {
 			  test: /\.css$/,
-			  use: ['style-loader','css-loader']
 			  //分离css文件配置
-			  // use: ExtractTextPlugin.extract({
-				//   fallback: 'style-loader',
-				//   use: [{
-				// 	  loader: 'css-loader',
-				// 	  options: {
-				// 		  minimize: true//启用css压缩
-				//   		}
-		  		// 	},
-				// 	'postcss-loader'
-				// ]
-			  // })
+			  use: ExtractTextPlugin.extract({
+				  fallback: 'style-loader',
+				  use: [{
+					  loader: 'css-loader',
+					  options: {
+						  minimize: true//启用css压缩
+				  		}
+		  			},
+					'postcss-loader'
+				]
+			  })
 		  },
 		  {
 			test: /\.js$/,
@@ -50,10 +49,8 @@ module.exports = {
 	          use:[{
 	              loader:'url-loader',//小于500000b的url-loader转换，大于的交给file-loader
 	              options:{//url内置了file 只需要引url-loader 大于的会自动交给file处理
-	                  limit:5, //将小于500000b的文件打成base64的格式写入js
-					  name: '[name].[ext]',
-					  output: 'images/',
-					  publicPath: './'
+	                  limit:50000, //将小于500000b的文件打成base64的格式写入js
+					  name: 'images/[name].[ext]'
 	              }
 	          }]
           },
