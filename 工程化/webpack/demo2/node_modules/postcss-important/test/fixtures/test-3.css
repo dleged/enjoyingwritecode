@@ -1,0 +1,9 @@
+.foo {
+  font-size: 12px;
+}
+
+.bar {
+  /* @important */
+  color: red;
+  padding: 10px;
+}

@@ -1,0 +1,8 @@
+.class {
+  /*
+   * @important color, padding
+   */
+  color: red;
+  font-size: 12px;
+  padding: 10px;
+}

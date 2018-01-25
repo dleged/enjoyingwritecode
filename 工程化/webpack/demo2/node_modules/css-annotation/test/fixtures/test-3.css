@@ -1,0 +1,11 @@
+@media screen and (min-width: 600px) {
+  /*
+   * @foo foo
+   */
+  .class {
+    /*
+     * @bar bar
+     */
+    color: red;
+  }
+}
