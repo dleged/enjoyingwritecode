@@ -1,5 +1,5 @@
-//import tpl form './layer.html';
-//import './layer.less';
+import tpl form './layer.html';
+import './layer.less';
 
 function layer(){
 	return ({

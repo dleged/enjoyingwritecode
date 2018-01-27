@@ -30,11 +30,7 @@ module.exports = {
 						loader: 'style-loader'
 					},
 					{
-						loader: 'css-loader',
-						options: {
-							minimist: true,
-							importLoaders: 1
-						}
+						loader: 'css-loader'
 					},
 					'postcss-loader',
 					{
@@ -61,7 +57,16 @@ module.exports = {
 				],
       			exclude: [path.resolve(__dirname,'node_modules')],
 				include: [path.resolve(__dirname,'src')]
-			}
+			},
+			{
+		    	test: /\.html$/,
+		    	use: [{
+		     		loader: 'html-loader',
+		      		options: {
+		        		minimize: true
+					}
+		      	}]
+		    }
 		]
 	},
 	plugins: [

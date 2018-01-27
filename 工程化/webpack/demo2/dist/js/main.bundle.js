@@ -540,27 +540,9 @@ new App();
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-//import tpl form './layer.html';
-// import './layer.less';
-function layer() {
-  return {
-    name: 'layer',
-    tpl: tpl
-  };
-}
-
-var _default = layer;
-exports.default = _default;
+throw new Error("Module build failed: SyntaxError: /Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/src/components/layer/layer.js: Unexpected token (1:11)\n\n> 1 | import tpl form './layer.html';\n    |            ^\n  2 | import './layer.less';\n  3 | \n  4 | function layer(){\n    at Parser.raise (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:840:15)\n    at Parser.unexpected (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:2236:16)\n    at Parser.expectContextual (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:2196:41)\n    at Parser.parseImport (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:5532:12)\n    at Parser.parseStatementContent (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4315:27)\n    at Parser.parseStatement (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4230:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4788:23)\n    at Parser.parseBlockBody (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4774:10)\n    at Parser.parseTopLevel (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4198:10)\n    at Parser.parse (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:5637:17)\n    at parse (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:10696:38)\n    at parser (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/normalize-file.js:106:33)\n    at normalizeFile (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/normalize-file.js:53:11)\n    at runSync (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/index.js:34:41)\n    at transformSync (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transform-sync.js:15:38)\n    at Object.transform (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transform.js:20:65)\n    at transpile (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/babel-loader/lib/index.js:55:20)\n    at Object.module.exports (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/babel-loader/lib/index.js:179:20)");
 
 /***/ }),
 /* 4 */
@@ -737,8 +719,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -749,9 +731,17 @@ if(false) {
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module 'less'\n    at Function.Module._resolveFilename (module.js:542:15)\n    at Function.Module._load (module.js:472:25)\n    at Module.require (module.js:585:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/less-loader/dist/index.js:7:13)\n    at Module._compile (module.js:641:30)\n    at Object.Module._extensions..js (module.js:652:10)\n    at Module.load (module.js:560:32)\n    at tryModuleLoad (module.js:503:12)\n    at Function.Module._load (module.js:495:3)\n    at Module.require (module.js:585:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/less-loader/dist/cjs.js:3:18)\n    at Module._compile (module.js:641:30)\n    at Object.Module._extensions..js (module.js:652:10)\n    at Module.load (module.js:560:32)\n    at tryModuleLoad (module.js:503:12)\n    at Function.Module._load (module.js:495:3)\n    at Module.require (module.js:585:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/usr/local/lib/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:169:2)");
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".layer {\n  width: 100%;\n  height: 200px;\n  background: red;\n}\n.layer div {\n  color: white;\n  background: blue;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
