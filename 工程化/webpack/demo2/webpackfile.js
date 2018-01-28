@@ -46,6 +46,28 @@ module.exports = {
 				]
 			},
 			{
+				test: /\.scss$/,
+				use:[
+					{
+						loader: 'style-loader'
+					},
+					{
+						loader: 'css-loader'
+					},
+					'postcss-loader',
+					{
+						loader: 'sass-loader',
+						options: {
+							strictMath: true,
+				  			noIeCompat: true,
+							paths: [
+		                        path.resolve(__dirname, "src")
+		                    ]
+						}
+					}
+				]
+			},
+			{
 				test: /\.js$/,
 				use:[
 					{
@@ -66,7 +88,16 @@ module.exports = {
 		        		minimize: true
 					}
 		      	}]
-		    }
+		    },
+			{
+				test:/\.tpl$/,
+				use: [{
+					loader: 'ejs-loader',
+					options: {
+						variable: 'data'
+					}
+				}]
+			}
 		]
 	},
 	plugins: [
@@ -75,6 +106,10 @@ module.exports = {
 			title: '使用babel',
 			filename: 'index.html',
 			inject: 'body'
-		})
+		}),
+		// 提供全局变量_
+        new webpack.ProvidePlugin({
+        	_: "underscore"
+        })
 	]
 }

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -147,6 +147,37 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(6);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -518,76 +549,71 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _layer = _interopRequireDefault(__webpack_require__(3));
-
-__webpack_require__(4);
+var _layer = _interopRequireDefault(__webpack_require__(4));
 
 __webpack_require__(8);
+
+__webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-  console.log(_layer.default);
+  var layer = new _layer.default();
+  document.getElementById('app').innerHTML = layer.tpl({
+    name: 'layer',
+    arr: ['apple', 'xiaomi', 'huawei']
+  });
 };
 
 new App();
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: SyntaxError: /Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/src/components/layer/layer.js: Unexpected token (1:11)\n\n> 1 | import tpl form './layer.html';\n    |            ^\n  2 | import './layer.less';\n  3 | \n  4 | function layer(){\n    at Parser.raise (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:840:15)\n    at Parser.unexpected (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:2236:16)\n    at Parser.expectContextual (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:2196:41)\n    at Parser.parseImport (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:5532:12)\n    at Parser.parseStatementContent (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4315:27)\n    at Parser.parseStatement (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4230:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4788:23)\n    at Parser.parseBlockBody (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4774:10)\n    at Parser.parseTopLevel (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:4198:10)\n    at Parser.parse (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:5637:17)\n    at parse (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/node_modules/babylon/lib/index.js:10696:38)\n    at parser (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/normalize-file.js:106:33)\n    at normalizeFile (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/normalize-file.js:53:11)\n    at runSync (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transformation/index.js:34:41)\n    at transformSync (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transform-sync.js:15:38)\n    at Object.transform (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/@babel/core/lib/transform.js:20:65)\n    at transpile (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/babel-loader/lib/index.js:55:20)\n    at Object.module.exports (/Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/babel-loader/lib/index.js:179:20)");
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+"use strict";
 
-// load the styles
-var content = __webpack_require__(5);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
 
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _layer = _interopRequireDefault(__webpack_require__(5));
+
+__webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function layer() {
+  return {
+    name: 'layer',
+    tpl: _layer.default
+  };
 }
+
+var _default = layer;
+exports.default = _default;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-exports.i(__webpack_require__(6), "");
+module.exports = function (obj) {
+obj || (obj = {});
+var __t, __p = '';
+with (obj) {
+__p += '<div class="layer">\n	<h1>\n		this is a {%= _.name %} template!\n	</h1>\n	<ul>\n		{% for (var i = 0; i< _.arr.length; i++;) { %}\n			<li> {%= arr[i] %} </li>\n		{% } %}\n	</ul>\n</div>\n';
 
-// module
-exports.push([module.i, "html,body{\n\tmargin: 0;\n\tpadding: 0;\n\tbackground: red;\n}\n", ""]);
-
-// exports
-
+}
+return __p
+}
 
 /***/ }),
 /* 6 */
@@ -598,7 +624,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".flex-div{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n}\n", ""]);
+exports.push([module.i, ".modal {\n  -webkit-transition: 1s all ease;\n  -o-transition: 1s all ease;\n  transition: 1s all ease;\n}\n.layer {\n  width: 100%;\n  height: 200px;\n  background: red;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.layer h1 {\n  color: white;\n  background: blue;\n}\n", ""]);
 
 // exports
 
@@ -713,14 +739,14 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less");
+		module.hot.accept("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -735,10 +761,24 @@ if(false) {
 
 exports = module.exports = __webpack_require__(0)(false);
 // imports
+exports.i(__webpack_require__(10), "");
+
+// module
+exports.push([module.i, "html,body{\n\tmargin: 0;\n\tpadding: 0;\n\tbackground: red;\n}\n#app{\n\twidth: 100%;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
 
 
 // module
-exports.push([module.i, ".layer {\n  width: 100%;\n  height: 200px;\n  background: red;\n}\n.layer div {\n  color: white;\n  background: blue;\n}\n", ""]);
+exports.push([module.i, ".flex-div{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-transition: 1s all ease;\n\t-o-transition: 1s all ease;\n\ttransition: 1s all ease;\n}\n", ""]);
 
 // exports
 
