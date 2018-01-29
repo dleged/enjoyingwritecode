@@ -166,8 +166,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--1-3!./layer.less");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--3-3!./layer.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/less-loader/dist/cjs.js??ref--3-3!./layer.less");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -565,10 +565,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var App = function App() {
   var layer = new _layer.default();
-  document.getElementById('app').innerHTML = layer.tpl({
+  var tpl = layer.tpl({
     name: 'layer',
     arr: ['apple', 'xiaomi', 'huawei']
   });
+  document.getElementById('app').innerHTML = tpl; //$('body').html('webpack providePlugin!');
 };
 
 new App();
@@ -605,13 +606,9 @@ exports.default = _default;
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = function (obj) {
-obj || (obj = {});
+module.exports = function (data) {
 var __t, __p = '';
-with (obj) {
-__p += '<div class="layer">\n	<h1>\n		this is a {%= _.name %} template!\n	</h1>\n	<ul>\n		{% for (var i = 0; i< _.arr.length; i++;) { %}\n			<li> {%= arr[i] %} </li>\n		{% } %}\n	</ul>\n</div>\n';
-
-}
+__p += '<div class="layer">\n	<h1>\n		this is a {%= name %} template!\n	</h1>\n	<ul>\n		{% for (var i = 0; i < arr.length; i++;) { %}\n			<li> {%= arr[i] %} </li>\n		{% } %}\n	</ul>\n</div>\n';
 return __p
 }
 
@@ -745,8 +742,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js??ref--0-1!../../node_modules/postcss-loader/lib/index.js!./common.css");
+		module.hot.accept("!!../../node_modules/css-loader/index.js??ref--2-1!../../node_modules/postcss-loader/lib/index.js!./common.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js??ref--2-1!../../node_modules/postcss-loader/lib/index.js!./common.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
