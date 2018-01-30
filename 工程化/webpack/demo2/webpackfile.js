@@ -21,12 +21,7 @@ module.exports = {
 		    },
 			{
                 test: /\.ejs$/,
-                loader: 'ejs-loader',
-                query: {
-                    variable: 'data',
-                    interpolate : '\\{\\{(.+?)\\}\\}',
-                    evaluate : '\\[\\[(.+?)\\]\\]'
-                }
+                loader: 'ejs-loader'
             },
 			{
 				test: /\.css$/,
@@ -103,6 +98,18 @@ module.exports = {
 				],
       			exclude: [path.resolve(__dirname,'node_modules')],
 				include: [path.resolve(__dirname,'src')]
+			},
+			{
+				test: /\.(jpg|png|gif|svg)$/i,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							name: 'images/[name]-[hash].png'
+			            }
+					},
+					'image-webpack-loader'
+				]
 			}
 		]
 	},
@@ -115,7 +122,7 @@ module.exports = {
 		}),
 		// 提供全局变量_
         new webpack.ProvidePlugin({
-        	_: 'underscore',
+        	_: 'lodash',
 			$: 'jquery'
         })
 	]

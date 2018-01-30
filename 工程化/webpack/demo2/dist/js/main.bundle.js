@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -147,12 +147,18 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: spawn /Users/fanduanduan/Desktop/FRONT-END/node/front-end-demo/工程化/webpack/demo2/node_modules/optipng-bin/vendor/optipng ENOENT\n    at _errnoException (util.js:1031:13)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:201:19)\n    at onErrorNT (internal/child_process.js:389:16)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -160,7 +166,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(3)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -177,7 +183,7 @@ if(false) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -233,7 +239,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(7);
+var	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -549,33 +555,40 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _layer = _interopRequireDefault(__webpack_require__(4));
+var _layer = _interopRequireDefault(__webpack_require__(5));
 
-__webpack_require__(8);
+__webpack_require__(10);
 
-__webpack_require__(1);
+__webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import _ from 'lodash';
 var App = function App() {
   var layer = new _layer.default();
+  console.info(layer.tpl);
   var tpl = layer.tpl({
-    name: 'layer',
-    arr: ['apple', 'xiaomi', 'huawei']
-  });
-  document.getElementById('app').innerHTML = tpl; //$('body').html('webpack providePlugin!');
+    'name': 'layer',
+    'types': ['apple', 'xiaomi', 'huawei']
+  }); //var compiled = _.template('<b> hello <%- user %>! </b>');
+  // var text = compiled({
+  // 	'user': 'world'
+  // });
+
+  document.getElementById('app').innerHTML = tpl; // document.getElementById('app').innerHTML = text;
+  //$('body').html('webpack providePlugin!');
 };
 
 new App();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -586,9 +599,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _layer = _interopRequireDefault(__webpack_require__(5));
+var _layer = _interopRequireDefault(__webpack_require__(6));
 
-__webpack_require__(1);
+__webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -603,31 +616,69 @@ var _default = layer;
 exports.default = _default;
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = function (data) {
-var __t, __p = '';
-__p += '<div class="layer">\n	<h1>\n		this is a {%= name %} template!\n	</h1>\n	<ul>\n		{% for (var i = 0; i < arr.length; i++;) { %}\n			<li> {%= arr[i] %} </li>\n		{% } %}\n	</ul>\n</div>\n';
+module.exports = function (obj) {
+obj || (obj = {});
+var __t, __p = '', __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="layer">\n	<h1>\n		this is a ' +
+((__t = ( name )) == null ? '' : __t) +
+' template!\n	</h1>\n	<!-- <img src="../../images/bg.png" width="30%" alt=""> 地址无效 -->\n	<img src="' +
+((__t = ( __webpack_require__(1) )) == null ? '' : __t) +
+'" width="30%" alt="">\n	<ul>\n		';
+ for(var i=0;i<types.length;i++){ ;
+__p += '\n			<li>' +
+((__t = ( types[i] )) == null ? '' : __t) +
+'</li>\n		';
+ } ;
+__p += '\n	</ul>\n</div>\n';
+
+}
 return __p
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var escape = __webpack_require__(8);
 exports = module.exports = __webpack_require__(0)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".modal {\n  -webkit-transition: 1s all ease;\n  -o-transition: 1s all ease;\n  transition: 1s all ease;\n}\n.layer {\n  width: 100%;\n  height: 200px;\n  background: red;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.layer h1 {\n  color: white;\n  background: blue;\n}\n", ""]);
+exports.push([module.i, ".modal {\n  -webkit-transition: 1s all ease;\n  -o-transition: 1s all ease;\n  transition: 1s all ease;\n}\n.layer {\n  width: 100%;\n  height: 200px;\n  background: red;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.layer h1 {\n  color: white;\n  background-image: url(" + escape(__webpack_require__(1)) + ");\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = function escape(url) {
+    if (typeof url !== 'string') {
+        return url
+    }
+    // If url is already wrapped in quotes, remove them
+    if (/^['"].*['"]$/.test(url)) {
+        url = url.slice(1, -1);
+    }
+    // Should url be wrapped?
+    // See https://drafts.csswg.org/css-values-3/#urls
+    if (/["'() \t\n]/.test(url)) {
+        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
+    }
+
+    return url
+}
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -722,13 +773,13 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -736,7 +787,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(3)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -753,12 +804,12 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
 // imports
-exports.i(__webpack_require__(10), "");
+exports.i(__webpack_require__(12), "");
 
 // module
 exports.push([module.i, "html,body{\n\tmargin: 0;\n\tpadding: 0;\n\tbackground: red;\n}\n#app{\n\twidth: 100%;\n}\n", ""]);
@@ -767,7 +818,7 @@ exports.push([module.i, "html,body{\n\tmargin: 0;\n\tpadding: 0;\n\tbackground: 
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
