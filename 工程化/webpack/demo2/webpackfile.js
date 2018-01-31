@@ -1,6 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const extractCSS = new ExtractTextPlugin('style/[name]-[hash].css');
+
+
 module.exports = {
 	context: __dirname,
 	entry: './src/app.js',
@@ -25,20 +32,24 @@ module.exports = {
             },
 			{
 				test: /\.css$/,
-				use: [
-			          'style-loader',
-			          {
-						  loader: 'css-loader',
-						  options: {
-							  importLoaders: 1 //css-loader后面指定一个loader（即postcss）来处理import来的css文件
-						  }
-					  },
-					  //style-loader!css-loader 解析使用
-	                  // css postcss-loader后端浏览器优化（加前缀）
-	                  //要先加载 postcss-loader写在后面
-	                  //?importLoaders=1 css import 'xxx.css
-			          'postcss-loader'
-		        ]
+				use: extractCSS.extract({
+					fallback: 'style-loader',
+					use: ['css-loader?importLoaders=1&minimize=true', 'postcss-loader']
+				})
+				// use: [
+			    //       'style-loader',
+			    //       {
+				// 		  loader: 'css-loader',
+				// 		  options: {
+				// 			  importLoaders: 1 //css-loader后面指定一个loader（即postcss）来处理import来的css文件
+				// 		  }
+				// 	  },
+				// 	  //style-loader!css-loader 解析使用
+	            //       // css postcss-loader后端浏览器优化（加前缀）
+	            //       //要先加载 postcss-loader写在后面
+	            //       //?importLoaders=1 css import 'xxx.css
+			    //       'postcss-loader'
+		        // ]
 			},
 			{
 				test: /\.less$/,
@@ -107,19 +118,39 @@ module.exports = {
 						options: {
 							name: 'images/[name]-[hash].png'
 			            }
-					},
-					'image-webpack-loader'
+					}
+					//'image-webpack-loader'
 				]
 			}
 		]
 	},
+	devtool: 'inline-source-map',
+	devServer: {
+		contentBase: './dist',
+		hot: true
+	},
 	plugins: [
+		new CleanWebpackPlugin(['./dist']),
+		new webpack.NamedModulesPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			template: './index.html',
 			title: '使用babel',
 			filename: 'index.html',
 			inject: 'body'
 		}),
+		extractCSS,
+		new UglifyJsPlugin({
+			test: /\.js($|\?)/i,
+		    cache: true,
+		    parallel: 4,
+		    sourceMap: true,
+		    uglifyOptions: {
+				output: {
+				   beautify: false
+				}
+		   }
+	   }),
 		// 提供全局变量_
         new webpack.ProvidePlugin({
         	_: 'lodash',
