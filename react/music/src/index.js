@@ -32,15 +32,5 @@ $.ajax({
 	}
 })
 
-// $.ajax({
-// 	url: 'https://www.imooc.com/index/getstarlist',
-// 	type: 'get',
-// 	dataType: 'jsonp',
-// 	success: function(data){
-// 		console.log('******:' + JSON.stringify(data));
-// 	}
-// })
-
-
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
