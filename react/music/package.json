@@ -91,7 +91,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "axios": "^0.17.1",
     "http-proxy-middleware": "^0.17.4",
     "jquery": "^3.3.1"
-  }
+    }
 }
