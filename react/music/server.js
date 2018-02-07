@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const open = require('opn');
 const app = express();
 const port = 9000;
 
@@ -19,6 +20,8 @@ app.listen(9000,function(err){
 
             `
         );
+
+        open(`http://192.168.11.100:${port}/`);
     }
 
 });
