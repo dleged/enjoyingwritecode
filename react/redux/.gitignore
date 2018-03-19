@@ -1,8 +1,0 @@
-.DS_Store
-*.log
-node_modules
-dist
-lib
-es
-coverage
-_book
