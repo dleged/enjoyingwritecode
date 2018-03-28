@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组合&&继承</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	  	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	  	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+
+		</pre>
+		<div id="root"></div>
+	    <script type="text/babel">
+	    	//抽象输出组件对象的方法
+	    	function cosoleFn(fn){
+	    		console.log(fn)
+	    	}
+
+	    	class Dialog extends React.Component{
+	    		constructor(){
+	    			//说明constructor在内部实现的时候被默认第一个参数其实就是props
+	    			//console.log(Array.prototype.slice.apply(arguments)[0])
+	    			super(Array.prototype.slice.apply(arguments)[0])
+	    		}
+	    		testFn = () => {
+	    			cosoleFn(this)
+	    		}
+	    		render(){
+	    			return (
+	    				<div onClick={this.testFn}>
+	    					{this.props.title}
+	    					{this.props.body}
+	    				</div>
+	    			)
+	    		}
+	    	}
+
+			class Title extends React.Component{
+				constructor(props){
+	    			super(props)
+	    		}
+
+	    		testFn2 = (e) => {
+	    			cosoleFn(this)
+	    			e.preventDefault()
+	    		}
+
+	    		render(){
+		    		return (
+		    			<h2 onClick={this.testF2}>
+		    				我是Dialog窗
+		    			</h2>
+		    		)
+		    	}
+			}
+
+			class Body extends React.Component{
+				constructor(props){
+	    			super(props)
+	    		}
+	    		render(){
+	    			return (
+		    			<div>
+		    				我是Dialog窗的body部分
+		    			</div>
+	    			)
+	    		}
+			}
+
+			ReactDOM.render(
+				<Dialog title={<Title />} body={<Body />} />,
+				document.getElementById('root')
+			)
+		</script>
+	</body>
+</html>

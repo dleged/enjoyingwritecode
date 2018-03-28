@@ -1,0 +1,14 @@
+.class {
+  padding: 10px !important;
+  color: blue !important;
+}
+
+.class {
+  font-size: 12px !important;
+}
+
+.class {
+  /* @important */
+  margin: 10px !important;
+}
+

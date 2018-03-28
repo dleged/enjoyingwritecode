@@ -1,0 +1,10 @@
+/*
+ * @foo foo
+ */
+
+.class {
+  /*
+   * @bar bar
+   */
+  font-size: 12px;
+}

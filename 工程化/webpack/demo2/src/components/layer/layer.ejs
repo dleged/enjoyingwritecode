@@ -1,0 +1,12 @@
+<div class="layer">
+	<h1>
+		this is a <%= name %> template!
+	</h1>
+	<!-- <img src="../../images/bg.png" width="30%" alt=""> 地址无效 -->
+	<img src="${ require('../../images/bg.png') }" width="30%" alt="">
+	<ul>
+		<% for(var i=0;i<types.length;i++){ %>
+			<li><%= types[i] %></li>
+		<% } %>
+	</ul>
+</div>

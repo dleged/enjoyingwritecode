@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Refs&DOM</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	</head>
+	<body>
+		<pre>
+			Refs在原生html标签和class组件上才有效
+		</pre>
+		<div id="root">
+		</div>
+	    <script type="text/babel">
+    		function CustomTextInput(){
+    			let textInput = null;
+					console.log(textInput)
+    			function handleClick(){
+    				textInput.focus();
+    			}
+
+					function consoleVal(val){
+						console.log('input value is: ' + textInput.value)
+					}
+
+				return (<div>
+					<input type="text" ref={ (node) => { textInput = node;console.log('点击button获取我的焦点') } } />
+					<input type="button" value="获取input的焦点" onClick={ handleClick } />
+					<input type="button" value="获取input的值" onClick={ consoleVal } />
+				</div>)
+    		}
+
+    		ReactDOM.render(<CustomTextInput />,document.getElementById('root'))
+
+		</script>
+	</body>
+</html>

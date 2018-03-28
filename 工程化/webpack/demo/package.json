@@ -1,0 +1,36 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "初入webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "打包工具",
+    "webpack-dev-server"
+  ],
+  "author": "faithZZZ",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "i": "^0.3.6",
+    "jquery": "^3.3.0",
+    "postcss-loader": "^2.0.10",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2"
+  },
+  "dependencies": {
+    "glob": "^7.1.2",
+    "html-webpack-plugin": "^2.30.1",
+    "purifycss-webpack": "^0.7.0",
+    "uglifyjs-webpack-plugin": "^1.1.6"
+  }
+}

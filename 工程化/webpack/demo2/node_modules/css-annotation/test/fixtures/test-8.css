@@ -1,0 +1,11 @@
+.class {
+  /*
+   * @foo
+   * @foo bar1
+   * @foo bar2
+   * @piyo piyo, poyo
+   * @foo bar3, bar4
+   * @piyo
+   */
+  color: red;
+}

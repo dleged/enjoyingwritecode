@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>高阶组件</title>
+		<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	  	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	  	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	</head>
+	<body>
+		<pre>
+			组件的数据来源，通常是通过 Ajax 请求从服务器获取，可以使用 componentDidMount 方法设置 Ajax 请求，等到请求成功，
+      再用 this.setState 方法重新渲染 UI
+		</pre>
+		<div id="root">
+		</div>
+    <script type="text/babel">
+      //https://api.github.com/users/octocat/gists
+      class Link extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            github: []
+          }
+        }
+
+        componentDidMount (){
+          let url = this.props.source;
+          $.get(url,function(result){
+            var data = result.map(child => {
+              return {'username': child.owner.login,'lastGistUrl': child.owner.html_url}
+            })
+            this.setState({
+              github: data
+            });
+          }.bind(this))
+        }
+
+        render(){
+          let data = this.state.github;
+          let liList = data.map(item => {
+            return <li>{item.username + ': ' + item.lastGistUrl}</li>
+          })
+          console.log(liList)
+          return (
+            <ul>
+              {liList}
+            </ul>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        <Link source='https://api.github.com/users/octocat/gists' />,
+        document.getElementById('root')
+      )
+		</script>
+	</body>
+</html>

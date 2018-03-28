@@ -1,0 +1,10 @@
+.foo {
+  font-size: 12px;
+}
+
+.bar {
+  /* @important */
+  color: red !important;
+  padding: 10px !important;
+}
+
