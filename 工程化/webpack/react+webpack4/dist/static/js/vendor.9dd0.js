@@ -66,21 +66,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/******/ ([
+/* 0 */
+/*!*********************************!*\
+  !*** multi ./scripts/jquery.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-eval("\n\n$('body').append(React.createElement(\n  'div',\n  { style: 'text-align: center;' },\n  '\\u6211\\u5728index.js\\u4E2D\\u4F7F\\u7528\\u4E86jquery'\n));\n\nconsole.log('IndexJS');//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaW5kZXguanM/YjYzNSJdLCJuYW1lcyI6WyIkIiwiYXBwZW5kIiwiY29uc29sZSIsImxvZyJdLCJtYXBwaW5ncyI6Ijs7QUFBQUEsRUFBRSxNQUFGLEVBQVVDLE1BQVYsQ0FBaUI7QUFBQTtBQUFBLElBQUssT0FBTSxxQkFBWDtBQUFBO0FBQUEsQ0FBakI7O0FBRUFDLFFBQVFDLEdBQVIsQ0FBWSxTQUFaIiwiZmlsZSI6Ii4vc3JjL2luZGV4LmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiJCgnYm9keScpLmFwcGVuZCg8ZGl2IHN0eWxlPVwidGV4dC1hbGlnbjogY2VudGVyO1wiPuaIkeWcqGluZGV4Lmpz5Lit5L2/55So5LqGanF1ZXJ5PC9kaXY+KTtcblxuY29uc29sZS5sb2coJ0luZGV4SlMnKVxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/index.js\n");
+!(function webpackMissingModule() { var e = new Error("Cannot find module \"./scripts/jquery.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
 
 /***/ })
-
-/******/ });
+/******/ ]);
