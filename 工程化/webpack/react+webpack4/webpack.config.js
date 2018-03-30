@@ -9,12 +9,19 @@ module.exports = {
 		devtool: 'eval-source-map',
 		mode: 'develoment',
 		entry: {
+			vendor: ['./src/scripts/jquery.js'],
 			app: './src/app.js',
 			index: './src/index.js'
 		},
 		output: {
 			path: path.resolve(__dirname, "dist"), // string,
 			filename: 'static/js/[name].[hash:4].js'
+		},
+		resolve: {
+			extensions: ['.js', '.less', '.css', '.png', '.jpg'], //第一个是空字符串! 对应不需要后缀的情况.
+			alias: {
+				jquery: path.resolve(__dirname,'./src/scripts/jquery.js')
+			}
 		},
 		module: {
 			rules: [
@@ -56,9 +63,8 @@ module.exports = {
 		},
 		optimization: {
 			splitChunks: {
-				chunks: "initial",
-				name: "manifest",// 将公共模块提取，生成名为`manifest`的chunk
-			  minChunks: 1
+				name: "vendor",// 将entry名为vendor的公共模块提取，生成名为`manifest`的chunk
+        minChunks: Infinity //Infinity
 			}
 		},
 		plugins: [
@@ -75,12 +81,12 @@ module.exports = {
       	inject: 'body',
 				cache: true //默认值是 true。表示只有在内容变化时才生成一个新的文件
 			}),
-			new OptimizeCssAssetsPlugin({
-	      assetNameRegExp: /\.optimize\.css$/g,
-	      cssProcessor: require('cssnano'),
-	      cssProcessorOptions: { discardComments: { removeAll: true } },
-	      canPrint: true
-	    }),
+			// new OptimizeCssAssetsPlugin({
+	    //   assetNameRegExp: /\.optimize\.css$/g,
+	    //   cssProcessor: require('cssnano'),
+	    //   cssProcessorOptions: { discardComments: { removeAll: true } },
+	    //   canPrint: true
+	    // }),
 			new ExtractTextPlugin('static/css/main.css')
 		]
 }
