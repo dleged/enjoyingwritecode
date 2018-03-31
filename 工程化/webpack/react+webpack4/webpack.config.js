@@ -3,7 +3,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");//cnpm i -D extract-text-webpack-plugin@next
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const glob = require('glob-all');
+const PurifyCSSPlugin = require('purifycss-webpack-plugin');
+const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const happypack = require('happypack');
+// 去除无用的css
+plugins: [
+    new PurifyCSSPlugin({
+      // 路劲扫描 nodejs内置 路劲检查
+      paths: glob.sync(path.join(__dirname, 'pages/*/*.html'))
+    })
+]
 
 module.exports = {
 		devtool: 'eval-source-map',
@@ -23,13 +33,24 @@ module.exports = {
 				jquery: path.resolve(__dirname,'./src/scripts/jquery.js')
 			}
 		},
+		devServer: {
+			contentBase: path.join(__dirname, 'dist'),
+			port: 9090,
+			host: 'localhost',
+			overlay: true,
+			compress: true // 服务器返回浏览器的时候是否启动gzip压缩
+	 	},
 		module: {
 			rules: [
 				{
 					test: /\.(jsx|js)$/,
 					exclude: /node_modules/,
 					include: path.resolve(__dirname, "src"),
-					use: 'babel-loader'
+					use: [
+						{
+							loader: 'babel-loader'
+						}
+					]
 				},
 				{
 					test: /\.(css|sass)$/,
@@ -37,7 +58,8 @@ module.exports = {
 					use: ExtractTextPlugin.extract({
 	          fallback: 'style-loader',
 	          //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-	          use: [{
+	          use: [
+							{
 									loader: 'css-loader',
 									options: {
                     url: false,
@@ -81,12 +103,26 @@ module.exports = {
       	inject: 'body',
 				cache: true //默认值是 true。表示只有在内容变化时才生成一个新的文件
 			}),
-			// new OptimizeCssAssetsPlugin({
-	    //   assetNameRegExp: /\.optimize\.css$/g,
-	    //   cssProcessor: require('cssnano'),
-	    //   cssProcessorOptions: { discardComments: { removeAll: true } },
-	    //   canPrint: true
-	    // }),
-			new ExtractTextPlugin('static/css/main.css')
-		]
+			new WebpackParallelUglifyPlugin({
+	     		uglifyJS: {
+		        output: {
+	          beautify: false, //不需要格式化
+		          comments: false //不保留注释
+	        },
+	        compress: {
+	          warnings: false, // 在UglifyJs删除没有用到的代码时不输出警告
+	          drop_console: true, // 删除所有的 `console` 语句，可以兼容ie浏览器
+	          collapse_vars: true, // 内嵌定义了但是只用到一次的变量
+	          reduce_vars: true // 提取出出现多次但是没有定义成变量去引用的静态值
+	        }
+      }
+    	}),
+			new ExtractTextPlugin('static/css/main.css'),
+			//必须放在ExtractTextPlugin后
+			new PurifyCSSPlugin({
+				minimize: true,
+				// 路劲扫描 nodejs内置 路劲检查
+				paths: glob.sync(path.join(__dirname, 'dist/*.html'))
+			})
+	]
 }
