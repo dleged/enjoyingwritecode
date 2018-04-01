@@ -4,9 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");//cnpm i -D extract-text-webpack-plugin@next
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const glob = require('glob-all');
-const PurifyCSSPlugin = require('purifycss-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const happypack = require('happypack');
+console.log(path.join(__dirname, 'dist/index.html'));
 // 去除无用的css
 plugins: [
     new PurifyCSSPlugin({
@@ -25,7 +26,7 @@ module.exports = {
 		},
 		output: {
 			path: path.resolve(__dirname, "dist"), // string,
-			filename: 'static/js/[name].[hash:4].js'
+			filename: 'static/js/[name]_bundle.js'
 		},
 		resolve: {
 			extensions: ['.js', '.less', '.css', '.png', '.jpg'], //第一个是空字符串! 对应不需要后缀的情况.
@@ -78,7 +79,8 @@ module.exports = {
 									}
 								}
 							},
-							'sass-loader']
+							'sass-loader'
+            ]
 	        })
 				}
 			]
@@ -90,7 +92,7 @@ module.exports = {
 			}
 		},
 		plugins: [
-			new CleanWebpackPlugin(['dist/']),
+			new CleanWebpackPlugin(['dist/static'],{ exclude:  ['index.html'],}),
 			new HtmlWebpackPlugin({
 				title: 'webpack.V4 react',
 				favicon: './src/icon.png',
@@ -122,7 +124,7 @@ module.exports = {
 			new PurifyCSSPlugin({
 				minimize: true,
 				// 路劲扫描 nodejs内置 路劲检查
-				paths: glob.sync(path.join(__dirname, 'dist/*.html'))
+				paths: glob.sync(path.join(__dirname, 'dist/index.html'))
 			})
 	]
 }
