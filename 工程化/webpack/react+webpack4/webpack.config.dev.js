@@ -1,3 +1,20 @@
+// 1.在开发环境不使用babel转码，仅在生产环境使用。本地开发的chrome的es6的兼容性足够好，不需要babel转码，经测试，这一操作可以减少25%的构建时间。如果使用babel，可以开启babel的缓存
+//
+// 2.在开发环境不使用post-css，关闭压缩css，可以提升10%的速度。
+//
+// 3.在entry中仅引入当前开发的页面，这一举措可以提升一倍的构建速度，在其他步奏完成后，还需要12秒左右的构建速度，完成该步骤后，仅需五秒的构建时间。
+//
+// 4.启用代码热更新，想办法捕获热更新，避免热更新时刷新浏览器
+//
+// 5.启动happypack，并行编译
+//
+// 6.第三方代码库使用cdn
+//
+// 7.使用resolve.alias 优化资源的搜索路径，noParse忽略。
+//
+// 8.使用dll
+
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,13 +25,7 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const happypack = require('happypack');
 console.log(path.join(__dirname, 'dist/index.html'));
-// 去除无用的css
-plugins: [
-    new PurifyCSSPlugin({
-      // 路劲扫描 nodejs内置 路劲检查
-      paths: glob.sync(path.join(__dirname, 'pages/*/*.html'))
-    })
-]
+
 
 module.exports = {
 		devtool: 'eval-source-map',
@@ -73,17 +84,6 @@ module.exports = {
                     sourceMap: true
                 	}
 							},
-							{
-								loader: 'postcss-loader',
-								options: {
-									options: {
-										importLoaders: 1,
-										plugin: [
-											require('autoprefixer')
-										]
-									}
-								}
-							},
 							'sass-loader'
             ]
 	        })
@@ -97,7 +97,7 @@ module.exports = {
 			}
 		},
 		plugins: [
-			new CleanWebpackPlugin(['dist/static'],{ exclude:  ['index.html'],}),
+			// new CleanWebpackPlugin(['dist/static'],{ exclude:  ['index.html'],}),
 			new HtmlWebpackPlugin({
 				title: 'webpack.V4 react',
 				favicon: './src/icon.png',
@@ -107,30 +107,10 @@ module.exports = {
 					minifyJS: true,
 					removeAttributeQuotes: true //移除属性的引号 可解决#Cannot use 'in' operator to search for 'html5' in true
 				},
-      	inject: 'body',
-				cache: true //默认值是 true。表示只有在内容变化时才生成一个新的文件
+				cache: true, //默认值是 true。表示只有在内容变化时才生成一个新的文件
+        inject: 'body'
 			}),
-			new WebpackParallelUglifyPlugin({
-	     		uglifyJS: {
-		        output: {
-	          beautify: false, //不需要格式化
-		          comments: false //不保留注释
-	        },
-	        compress: {
-	          warnings: false, // 在UglifyJs删除没有用到的代码时不输出警告
-	          drop_console: true, // 删除所有的 `console` 语句，可以兼容ie浏览器
-	          collapse_vars: true, // 内嵌定义了但是只用到一次的变量
-	          reduce_vars: true // 提取出出现多次但是没有定义成变量去引用的静态值
-	        }
-      }
-    	}),
 			new ExtractTextPlugin('static/css/main.css'),
-			//必须放在ExtractTextPlugin后
-			new PurifyCSSPlugin({
-				minimize: true,
-				// 路劲扫描 nodejs内置 路劲检查
-				paths: glob.sync(path.join(__dirname, 'dist/index.html'))
-			})
 	  ],
     stats: { //object
      assets: true,
