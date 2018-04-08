@@ -8,12 +8,9 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-
 		// <1>.初始状态：无序区为R[1..n]，有序区为空；
 		// <2>.第i趟排序(i=1,2,3...n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前无序区中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区；
 		// <3>.n-1趟结束，数组有序化了。
-
-
 		function xuanzhe(arr){
 		    var index,temp;
 		    for(var i = 0,len = arr.length; i<len;i++ ){
@@ -21,7 +18,6 @@
 		        for(var j = i+1;j< len;j++){
 		            if(arr[j] < arr[minIndex]){
 		                minIndex = j;
-
 		            }
 		        }
 		        temp = arr[i];
@@ -34,7 +30,6 @@
 
 		var arr = [32,1,123,566,99,56,34,67,23]
 		console.log(xuanzhe(arr))
-
 
 
 		</script>
