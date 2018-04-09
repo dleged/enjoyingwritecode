@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>css houdini</title>
+		<style>
+			:root{
+				--mainColor: green;
+			}
+			body{
+				background: var(--mainColor);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test"></div>
+		<pre>
+			1.parser api
+			2.paint api
+			3.layout api
+			4.worklet -> js 按照一定的语法 animation api
+			5.type om -> css typed Object Model
+			6.属性值
+		</pre>
+	</body>
+	<script>
+			var el = document.getElementById('test');
+			// el.attributesStyleMap.set('background','red');
+
+	</script>
+</html>
