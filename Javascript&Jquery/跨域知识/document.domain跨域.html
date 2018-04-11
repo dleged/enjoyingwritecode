@@ -1,0 +1,35 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<pre>
+
+		Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。
+		但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie。
+
+		举例来说，A网页是http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。
+
+
+		document.domain = 'example.com';
+		现在，A网页通过脚本设置一个 Cookie。
+
+
+		document.cookie = "test1=hello";
+		B网页就可以读到这个 Cookie。
+
+
+		注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB 无法通过这种方法，规避同源政策，而要使用下文介绍的PostMessage API。
+
+		另外，服务器也可以在设置Cookie的时候，指定Cookie的所属域名为一级域名，比如.example.com。
+
+		Set-Cookie: key=value; domain=.example.com; path=/
+		这样的话，二级域名和三级域名不用做任何设置，都可以读取这个Cookie。
+
+		参考：http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html
+	</pre>
+</body>
+</html>

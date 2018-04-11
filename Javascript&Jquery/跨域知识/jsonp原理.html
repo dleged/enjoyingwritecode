@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+	  //https://apis.map.qq.com/ws/location/v1/ip?callback=window._JSONP_callback.JSONP7803&ip=223.93.170.115&key=TKUBZ-D24AF-GJ4JY-JDVM2-IBYKK-KEBCU&output=jsonp&t=1523427651521
+		//https://wapbaike.baidu.com/api/usercenter/login?msg=1&_=0.4648408465336522
+
+
+		// callback的用法：url后面跟的关键参数callback，会在资源返回后调用fn
+		function randomStr(len){
+			var str = 'abcdefghijklmnopqrstuvwsyz0123456789';
+			var maxStr = str.length;
+			var _randomStr = '';
+			for(var i = 0;i < len;i++){
+				_randomStr += str[Math.floor(Math.random()*maxStr)];
+			}
+			return _randomStr;
+		}
+
+
+		function ajax_jsonp(data){
+			var callBackFn = 'jquery_callback_' + randomStr(8);
+			var head = document.head;
+			var script = document.createElement('script');
+
+			//随机生成的函数赋值为传入的data.success方法
+			eval(callBackFn + '=data.success;');
+			//当资源返回成功后会调用callBackFn方法，也就是调用data.success回调
+			script.src = data.url + '&callback=' + callBackFn;
+			head.appendChild(script);
+			
+		}
+
+		ajax_jsonp({
+			url: 'https://wapbaike.baidu.com/api/usercenter/login?msg=1&_=0.4648408465336522',
+			success: function(data){
+				console.log(data)
+			}
+		})
+
+
+
+	</script>
+</html>
