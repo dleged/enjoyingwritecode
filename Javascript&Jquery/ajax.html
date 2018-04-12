@@ -8,15 +8,20 @@
 	<body>
 		<div><div id="demo">1</div></div>
 		<script type="text/javascript">
-			$.ajax({
+
+			//可以设置ajax默认的一些参数
+			$.ajaxSetup({
 				type: 'get',
 				dataType: 'jsonp',
+				error:function(err){
+					console.log(err);
+				}
+			})
+
+			$.ajax({
 				url:'http://www.imooc.com/course/getcomment?mid=15349&page=1&r=0.3053194771748564',
 				success:function(data){
 					console.log(JSON.parse(data));
-				},
-				error:function(err){
-					console.log(err);
 				}
 			});
 			$(document).bind('click','#demo',function(){console.log('is on click')})

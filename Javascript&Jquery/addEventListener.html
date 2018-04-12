@@ -1,0 +1,84 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>addEventListener</title>
+	<style>
+		div,p,span{
+			border: 1px solid red;
+		}
+
+		div{
+			width: 200px;
+			height: 200px;
+		}
+		p{
+			display: flex;
+			margin: auto;
+			margin-top: 10%;
+			width: 80%;
+			height: 80%;
+			justify-content: center;
+			align-items: center;
+		}
+
+	</style>
+</head>
+<body>
+	<pre>
+		addEventListener(en,fn,useCapture)第三个参数的作用
+		useCapture：
+			true - 事件句柄在捕获阶段执行
+			false- false- 默认。事件句柄在冒泡阶段执行
+
+		div.addEventListener('click',onClickFn,true);
+
+		p.addEventListener('click',onClickFn,false);
+
+		span.addEventListener('click',onClickFn,true);
+
+		eventPhase: 属性返回事件传播的当前阶段。它的值是下面的三个常量之一，它们分别表示捕获阶段、正常事件派发和起泡阶段。
+			Event.CAPTURING_PHASE	1
+			Event.AT_TARGET	2
+			Event.BUBBLING_PHASE	3
+
+
+
+	</pre>
+	<div>
+		<p>
+			<span>我是目标</span>
+		</p>
+	</div>
+
+	<script type="text/javascript" async>
+		var div = document.querySelector('div');
+		var p = document.querySelector('p');
+		var span = document.querySelector('span');
+
+		function onClickFn(event) {
+			var tagName = event.currentTarget.tagName;
+			var phase = event.eventPhase;
+			console.log(tagName, phase);
+		}
+		div.addEventListener('click',onClickFn,true);
+		p.addEventListener('click',onClickFn,false);
+		p.addEventListener('click',onClickFn,true);
+		span.addEventListener('click',onClickFn,true);
+
+
+		//先执行捕获的事件div -> p -> span 然后冒泡阶段的 p
+
+
+
+		// span.addEventListener('click',function(event) {
+		// 	var tagName = event.currentTarget.tagName;
+		// 	var phase = event.eventPhase;
+		// 	console.log(tagName, phase);
+		// 	event.stopPropagation(); //如果div再捕获阶段，设置无效
+		// },true);
+
+	</script>
+</body>
+</html>
