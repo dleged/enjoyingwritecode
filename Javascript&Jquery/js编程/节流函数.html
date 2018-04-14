@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>节流函数</title>
+</head>
+<body>
+	<pre>
+		函数节流(throttle)：
+		函数节流就是预定一个函数只有在大于等于执行周期时才执行，周期内调用不执行。好像水滴攒到一定重量才会落下一样。
+
+		如果频繁调用函数，必然会加大内存占用。
+		比如调用onresize，onscroll，onmousemove，频繁点击事件引发对dom的操作。
+		操作dom触发回流，可能会占用cpu，而触发重绘，则可能调用GPU占用。
+	</pre>
+	<div id="root">
+
+	</div>
+</body>
+<script type="text/javascript">
+	function throttle(fn,interval){
+		var thro = 0;
+		return function(){
+			var args = [].slice.apply(arguments);
+			if(thro) return;
+			thro = setTimeout(() => {
+				thro = 0;
+				//fn.apply(this,args);函数调用放定时器内，第一次调用会有延长感
+			},interval);
+				fn.apply(this,args);
+		}
+	}
+
+	//使用节流函数，生成onresize的句柄函数。
+	var resizeFn = throttle(function(num){
+		var div = document.createElement('div');
+		div.innerHTML = num;
+		document.getElementById('root').appendChild(div);
+	},1000);
+
+	window.onresize = function(){
+		resizeFn(100);
+	};
+
+</script>
+</html>
