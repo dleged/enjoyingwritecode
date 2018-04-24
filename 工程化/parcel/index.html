@@ -1,0 +1,54 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="./src/style/main.css">
+	<title>parcel</title>
+</head>
+<body>
+	<section>
+      <h2>Hello World</h2>
+      <p>先从你应用的入口 HTML 文件开始。Parcel 跟随着文件的依赖去构建你的整个应用。</p>
+      <div class="examples">
+      <div class="example">
+        <p><strong>✏️ index.html</strong></p>
+        <pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+      </div>
+
+      <div class="example">
+        <p><strong>🛠 index.js</strong></p>
+        <pre class="hljs"><code><span class="hljs-comment">// 引入另一个组件</span>
+<span class="hljs-keyword">import</span> main <span class="hljs-keyword">from</span> <span class="hljs-string">'./main'</span>;
+
+main();</code></pre>
+      </div>
+
+      <div class="example">
+        <p><strong>🛠 main.js</strong></p>
+        <pre class="hljs"><code><span class="hljs-comment">// 引入一个 CSS 模块</span>
+<span class="hljs-keyword">import</span> classes <span class="hljs-keyword">from</span> <span class="hljs-string">'./main.css'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; {
+  <span class="hljs-built_in">console</span>.log(classes.main);
+};</code></pre>
+      </div>
+
+      <div class="example">
+        <p><strong>💅 main.css</strong></p>
+        <pre class="hljs"><code><span class="hljs-selector-class">.main</span> {
+  <span class="hljs-comment">/* 引用一张图片 */</span>
+  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">'./images/background.png'</span>);
+  <span class="hljs-attribute">color</span>: red;
+}</code></pre></div>
+      </div>
+
+      <p>只需要运行 <code>parcel index.html</code> 去启动一个开发服务器。引入 JavaScript, CSS, images和更多的资源，然后便大功告成！ 👌</p>
+    </section>
+</body>
+<script src="./src/script/index.js" charset="utf-8"></script>
+</html>
