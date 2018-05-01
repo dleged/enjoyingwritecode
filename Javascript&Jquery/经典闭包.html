@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            pre {
+                margin: 0;
+                padding：10px;
+                font-family:"agency fb";
+            }
+        </style>
+        <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    </head>
+    <body>
+			<pre>
+            闭包，通俗的讲就是一个函数内部返回一个函数，内部函数可以永久访问上层函数的作用域；
+
+						闭包通常用来创建内部变量，使得这些变量不能被外部随意修改，同时又可以通过指定的函数接口来操作；
+
+						闭包的特点很鲜明，闭包内，变量无法释放，无法被直接访问，闭包可以被延迟执行。所以可以用它来做一些事情;
+						管理私有变量和私有方法，将对变量（状态）的变化封装在安全的环境中;
+						将代码封装成一个闭包形式，等待时机成熟的时候再使用，比如实现柯里化和反柯里化;
+						需要注意的，由于闭包内的部分资源无法自动释放，容易造成内存泄露;
+
+						闭包使用场景：
+							函数柯里化，引用技术，节流函数;
+        </pre>
+        <script type="text/javascript">
+						function test(){
+							var i = 0;
+							return function(){
+								return ++i;
+							}
+						}
+						for(var i = 0;i<4;i++){
+							console.log(test()());//1,1,1,1
+						}
+						console.log(test()()); //1
+						//不足以产生一个必报，没有对内部函数产生一个持续的引用；
+
+						var test2 = (function(){
+							var i = 0;
+								return function(){
+									return ++i;
+								}
+							}
+						}())
+						for(var i = 0;i<4;i++){
+							console.log(test2()());
+						}
+						console.log(test2()()); //1
+        </script>
+    </body>
+
+</html>
