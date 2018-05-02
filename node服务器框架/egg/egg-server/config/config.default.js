@@ -15,7 +15,6 @@ module.exports = appInfo => {
     preload: false,
     maxAge: 31536000, //in prod env, 0 in other envs
     buffer: true //in prod env, false in other envs
-
   }
 
   // 添加 view 配置
@@ -23,7 +22,7 @@ module.exports = appInfo => {
     defaultViewEngine: 'nunjucks',
     mapping: {
       '.tpl': 'nunjucks',
-    },
+    }
   };
   config.middleware = [];
 
