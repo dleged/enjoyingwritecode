@@ -38,7 +38,7 @@
 							console.log(test()());//1,1,1,1
 						}
 						console.log(test()()); //1
-						//不足以产生一个必报，没有对内部函数产生一个持续的引用；
+						//不足以产生一个闭包，没有对内部函数产生一个持续的引用；
 
 						var test2 = (function(){
 							var i = 0;
@@ -51,6 +51,27 @@
 							console.log(test2()());
 						}
 						console.log(test2()()); //1
+
+
+            //节流函数
+            function throttle(fn,ms){
+              var isRun = true;
+              return function(){
+                if(isRun){
+                  isRun = false;
+                  setTimeout(function(){
+                      isRun = true;
+                      var args = Array.prototype.slice.call(arguments);
+                      fn.apply(null,args);
+                  },ms || 300,arguments);
+                }
+              }
+            }
+
+            window.onresize = throttle(function(){
+              console.log('窗口大小发生变化！');
+            },300)
+
         </script>
     </body>
 
