@@ -10,7 +10,7 @@
 			<button type="button">dom0级事件</button>
 		</a>
 		<script>
-			/*像上面把onclick写在标签内，都是dom0级事件，fn和fn1依次执行; 
+			/*像上面把onclick写在标签内，都是dom0级事件，fn和fn1依次执行;
 			第二种获取元素，绑定onclick事件也是dom0级，
 			第二个会覆盖第一个onclick，也会覆盖行内的onclick，只会弹出2。*/
 			function fn(){
@@ -27,8 +27,8 @@
 				alert('DOM0级事件2');
 			};
 		</script>
-		
-		
+
+
 		<a href="#" id="hash1" onclick="fn();fn1();">
 			<button type="button">dom2级事件</button>
 		</a>
@@ -51,8 +51,7 @@
 				alert('原生dom2级第二次click')
 			},false)
 		</script>	
-		
-		
+
 		<a href="#" id="hash2" onclick="fn();fn1();">
 			<button type="button">DOM0和DOM2级共存</button>
 		</a>
