@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>构造继承</title>
+		<script src="./super.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<pre>
+			核心：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）
+			优点：
+				1.子类可以向父类构造函数传惨
+				2.子类共享父亲类
+				3.可以继承多个父类，多次调用call
+
+			缺点：
+				1.子类只是子类构造器的实例，不是父类的构造器的实例
+				2.无法实现函数复用，每个子类都有父类实例函数的副本，影响性能
+				3.只能继承父类的实例属性和方法，不能继承原型属性/方法
+
+		</pre>
+	</body>
+	<script type="text/javascript">
+		function Dog(name){
+			Animal.call(this,name);
+		}
+
+		let dog = new Dog('dog');
+		dog.sleep();
+		try{
+			dog.eating('骨头');//报错
+		}catch(err){
+			console.error(err.mess);
+		}
+
+		console.log(dog instanceof Dog);
+		console.log(dog instanceof Animal);
+
+	</script>
+</html>

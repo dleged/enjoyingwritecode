@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>拷贝继承</title>
+		<script src="./super.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<pre>
+			核心：拷贝父类实例可枚举的属性和方法
+			优点：
+				1.支持多继承
+
+			缺点：
+				1.子类只是子类构造器的实例，不是父类的构造器的实例
+				2.不能继承父类不可枚举的属性和方法
+				3.非常消耗性能不推荐
+
+		</pre>
+	</body>
+	<script type="text/javascript">
+		function Dog(name){
+			var instance = new Animal();
+			for(var i in instance){
+				Dog.prototype[i] = instance[i];
+			}
+			this.name = name;
+		}
+
+
+		Animal.prototype.cry = function(){//父类新加原型方法
+			console.log(this.name + '正在哭。。。');
+		}
+
+		let dog = new Dog('dog');
+		dog.sleep();
+		dog.cry();
+		dog.eating('骨头');
+
+		console.log(dog instanceof Dog);
+		console.log(dog instanceof Animal);
+
+	</script>
+</html>
