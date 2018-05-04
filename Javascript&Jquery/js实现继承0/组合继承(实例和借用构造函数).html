@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>组合继承(实例和借用构造函数)</title>
+		<script src="./super.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<pre>
+			核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
+			优点：
+				1.弥补了方式2的缺陷，可以继承实例属性/方法，也可以继承原型属性/方法
+				2.既是子类的实例，也是父类的实例
+				3.不存在引用属性共享问题
+				4.可传参
+				5.函数可复用
+
+			缺点：
+				1.调用了两次父类构造函数，生成了两份实例（子类实例将子类原型上的那份屏蔽了）
+
+		</pre>
+	</body>
+	<script type="text/javascript">
+		function Dog(name){
+			Animal.call(this,name);//继承实例上的方法和属性
+		}
+
+		Dog.prototype = new Animal();//继承原型上的属性和方法
+		let dog = new Dog('dog');
+		dog.sleep();
+		try{
+			dog.eating('骨头');//报错
+		}catch(err){
+			console.error(err.mess);
+		}
+
+		console.log(dog instanceof Dog);
+		console.log(dog instanceof Animal);
+
+	</script>
+</html>

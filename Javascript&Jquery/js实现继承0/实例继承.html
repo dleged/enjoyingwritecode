@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>实例继承</title>
+		<script src="./super.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<pre>
+			核心：为父类实例添加新特性，作为子类实例返回
+
+			优点：
+				1.不管调用方式，new 子类和子类()调用效果一样
+<<<<<<< HEAD
+				2.共享父类的原型方法
+=======
+				2.共享父类的原型方法，不共享实例方法
+>>>>>>> 93251da484f998407a20f7f105e7dcf038a21cae
+
+			缺点：
+				1.子类不是子类构造器的实例，是父类的构造器的实例
+				2.不支持多继承
+<<<<<<< HEAD
+				3.不共享实例方法
+				4.每次调用子类构造器，都要调用一次父类构造器
+=======
+				3.每次调用子类构造器，都要调用一次父类构造器
+>>>>>>> 93251da484f998407a20f7f105e7dcf038a21cae
+
+		</pre>
+	</body>
+	<script type="text/javascript">
+		function Dog(name){
+			var instance = new Animal(name);
+			return instance;
+		}
+
+		let dog = new Dog('dog');
+		dog.sleep();
+		try{
+			dog.eating('骨头');//报错
+		}catch(err){
+			console.error(err.mess);
+		}
+
+		console.log(dog instanceof Dog);
+		console.log(dog instanceof Animal);
+
+	</script>
+</html>
