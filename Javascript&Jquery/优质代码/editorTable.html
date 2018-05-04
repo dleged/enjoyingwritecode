@@ -29,7 +29,9 @@
 			</tbody>
 		</table>
 		<script type="text/javascript">
-		 //所有的方法都有命名空间，一看清晰了很多。但是还有瑕疵，像bind没有私有方法的区别。当代码量特别特别多的时候，很容易出现变量重复，或被修改的问题
+			//作用域隔离
+
+		  //所有的方法都有命名空间，一看清晰了很多。但是还有瑕疵，像bind没有私有方法的区别。当代码量特别特别多的时候，很容易出现变量重复，或被修改的问题
 			~function($){//局部变量$,减少查找时间
 				var index = {
 					init: function(){
@@ -98,9 +100,9 @@
 
 				return contextFn;
 			})()
+			// new EditorTable().render('table td').init();
 
-			new EditorTable().render('table td').init();
-
+			//面向对象
 			}(jQuery)
 		</script>
 	</body>
