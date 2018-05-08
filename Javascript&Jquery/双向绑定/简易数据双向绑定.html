@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>简易数据双向绑定</title>
+	</head>
+	<body>
+		<input type="text" id="input" />
+		<p>
+			双向绑定值：<span id="show"></span>
+		</p>
+	</body>
+	<script type="text/javascript">
+		var _input = document.querySelector('#input');
+		var _span = document.querySelector('#show');
+		var obj = {val: ''};
+		Object.keys(obj).forEach(function(item){
+			Object.defineProperty(obj,item,{
+				enumerable: true,
+	 			configurable: true,
+				set: function(val){
+					_span.innerText = val;
+				},
+				get: function(val){
+					console.log(val);
+				}
+			})
+		})
+
+	_input.addEventListener('input',function(e){
+			obj.val = e.target.value;
+	})
+
+	</script>
+</html>
