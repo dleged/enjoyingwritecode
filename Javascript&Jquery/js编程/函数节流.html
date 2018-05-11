@@ -27,10 +27,31 @@
 					},interval || 500);
 				}
 			}
-			
-			window.onresize = throttle(function(){
-				console.log( 1 );
-			}, 500 ); 
+
+
+			/**
+			 * 2018-5-11
+			 */
+			 var throttle = function(fn,interval){
+				 var flag = true;
+				 var timer = 0;
+				 return function(){
+					 if(flag){
+						 flag = false;
+						 setTimeout(function(){
+							 	 timer = interval;
+								 flag = true;
+								 fn.apply(this,arguments);
+						 },timer || 500);
+				 	 }
+				 }
+			 }
+
+
+			 window.onresize = throttle(function(){
+ 				console.log( 1 );
+ 			}, 2500 );
+
 		</script>
 	</body>
 </html>
