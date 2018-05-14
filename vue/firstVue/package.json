@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "express": "^4.16.3",
+    "vue": "^2.5.16"
+  }
+}
