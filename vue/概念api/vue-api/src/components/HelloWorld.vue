@@ -4,81 +4,28 @@
     <h2>Essential Links</h2>
     <ul>
       <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
+        <input type="text" name="" :value="num1">
+        <button type="button" name="button" v-on:click="num1+=1">+</button>
+        <button type="button" name="button" v-on:click="num1-=1">-</button>
       </li>
       <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
+          <input type="text" name="" :value="num2">
+          <button type="button" name="button" v-on:click="num2+=1">+</button>
+          <button type="button" name="button" v-on:click="num2-=1">-</button>
+        </li>
+        <br/>
+        <li>
+          <label for="">之➕：</label><span>{{num1 + num2}}</span>
+        </li>
+        <li>
+          <label for="">之➖：</label><span>{{num1 - num2}}</span>
+        </li>
+        <li>
+          <label for="">之✖️：</label><span>{{num1 * num2}}</span>
+        </li>
+        <li>
+          <label for="">之➗：</label><span>{{num2 == 0 ? 0 :num1/num2}}</span>
+        </li>
     </ul>
   </div>
 </template>
@@ -88,7 +35,9 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      num1: 0,
+      num2: 0
     }
   }
 }
@@ -104,7 +53,7 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
+  display: block;
   margin: 0 10px;
 }
 a {
