@@ -5,11 +5,22 @@ import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
-
+var name = 'yimu'
 /* eslint-disable no-new */
-new Vue({
+let vue = new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data () {
+    return {
+      name
+    }
+  }
 })
+vue.$watch('name', function (newValue, oldValue) {
+  console.log(`新值为${newValue}`)
+  console.log(`旧值为${oldValue}`)
+})
+console.log(vue.name = '一木')
+console.dir(vue)
