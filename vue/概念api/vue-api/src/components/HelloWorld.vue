@@ -4,6 +4,7 @@
     <h2>Essential Links</h2>
     <ul>
       <li>
+<<<<<<< HEAD
         <input :id="'input' + num1" type="text" name="" :value="num1">
         <button type="button" name="button" @click="num1+=1">+</button>
         <button type="button" name="button" v-on:click="num1-=1">-</button>
@@ -11,6 +12,15 @@
       <li>
           <input v-bind:id="'input' + num2" type="text" name="" :value="num2">
           <button type="button" name="button" @click="num2+=1">+</button>
+=======
+        <input type="text" name="" :value="num1">
+        <button type="button" name="button" v-on:click="num1+=1">+</button>
+        <button type="button" name="button" v-on:click="num1-=1">-</button>
+      </li>
+      <li>
+          <input type="text" name="" :value="num2">
+          <button type="button" name="button" v-on:click="num2+=1">+</button>
+>>>>>>> 2fd07b08230737a06559f01c594e6c0b21131360
           <button type="button" name="button" v-on:click="num2-=1">-</button>
         </li>
         <br/>

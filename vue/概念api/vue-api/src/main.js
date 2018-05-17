@@ -19,8 +19,18 @@ let vue = new Vue({
   }
 })
 vue.$watch('name', function (newValue, oldValue) {
+<<<<<<< HEAD
   console.log(`新值为${newValue}`)
   console.log(`旧值为${oldValue}`)
+=======
+
+  console.log(`新值为${newValue}`)
+  console.log(`旧值为${oldValue}`)
+  setTimeout(
+    () => (vue.name = Math.random()),
+    1000)
+
+>>>>>>> 2fd07b08230737a06559f01c594e6c0b21131360
 })
 console.log(vue.name = '一木')
 console.dir(vue)
