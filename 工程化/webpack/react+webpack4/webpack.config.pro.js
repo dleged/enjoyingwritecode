@@ -8,13 +8,6 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const happypack = require('happypack');
 console.log(path.join(__dirname, 'dist/index.html'));
-// 去除无用的css
-plugins: [
-    new PurifyCSSPlugin({
-      // 路劲扫描 nodejs内置 路劲检查
-      paths: glob.sync(path.join(__dirname, 'pages/*/*.html'))
-    })
-]
 
 module.exports = {
 		mode: 'develoment',
@@ -111,6 +104,7 @@ module.exports = {
     	}),
 			new ExtractTextPlugin('static/css/main_[hash:4].css'),
 			//必须放在ExtractTextPlugin后
+      //去除无用的css
 			new PurifyCSSPlugin({
 				minimize: true,
 				// 路劲扫描 nodejs内置 路劲检查

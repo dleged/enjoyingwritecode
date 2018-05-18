@@ -1,13 +1,13 @@
-var gulp = require('gulp'),
-	less = require('gulp-less'), //less
-	minify = require('gulp-minify-css'), //压缩css
-	rename = require('gulp-rename'), //文件重命名
-	uglify = require('gulp-uglify'), //js压缩
-    notify = require('gulp-notify'),   //提示
-	baseLess = './static/less/',
-	baseJs = './lib/',
-	baseCss = './static/css/';
-	
+const gulp = require('gulp'),
+const less = require('gulp-less'), //less
+const	minify = require('gulp-minify-css'), //压缩css
+const	rename = require('gulp-rename'), //文件重命名
+const	uglify = require('gulp-uglify'), //js压缩
+const  notify = require('gulp-notify'),   //提示
+const	baseLess = './static/less/',
+const	baseJs = './lib/',
+const	baseCss = './static/css/';
+
 
 /*less转css*/
 gulp.task('less',getLess('app.less'));
@@ -29,7 +29,7 @@ function minCss(){
 		.pipe(notify({message:'minCss task ok'})); //提示成功
 }
 
- 
+
 /*压缩js文件*/
 gulp.task('minJs',minJs());
 function minJs(){
@@ -58,7 +58,7 @@ function revrev(){
         .pipe(revCollector())                                   //- 执行文件内css名的替换
         .pipe(gulp.dest(htmlSrc))                    //- 替换后的文件输出的目录
         .pipe(notify({message:'revrev task ok'})); //提示成功
-    
+
 }*/
 
 gulp.task('one',function(){
