@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Von from '@/components/v-on'
+import VueRsource from 'vue-resource'
+//组件
+const HelloWorld = resolve => require(['../components/HelloWorld'], resolve)
+const Von = resolve => require(['../components/v-'], resolve)
+
 
 Vue.use(Router)
+Vue.use(VueRsource)
 
 export default new Router({
   routes: [
@@ -13,8 +17,8 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/v-on',
-      name: 'v-on指令',
+      path: '/v-',
+      name: 'v-指令',
       component: Von
     }
   ]
