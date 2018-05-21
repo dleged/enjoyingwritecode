@@ -1,14 +1,25 @@
 <template>
 	<div v-on:click="showSome({msg},$event)">
-		<button v-on:click.stop="showSome(msg,$event)">v-on指令</button> ： 使用事件修饰符
-		<input class="btn" @keyup.enter.space="keyUp"> : 使用按键修饰符
+		<div class="row">
+			<button v-on:click.stop="showSome(msg,$event)">v-on指令</button> ： 使用事件修饰符,阻止事件冒泡
+		</div>
+		<div class="row">
+			<input class="btn" @keyup.enter.space="keyUp"> : 使用enter/space按键修饰符
+		</div>
+		<div class="row">
+			<button type="button" name="button" @click.stop='show = !show'>control show</button>
+			<span v-if="show == false">
+				v-if指令
+			</span>
+		</div>
 	</div>
 </template>
 <script>
 	export default{
 		data() {
 			return {
-				msg: 'v-on指令绑定js原生事件'
+				msg: 'v-on指令绑定js原生事件',
+				show: false
 			}
 		},
 		methods: {
@@ -22,3 +33,8 @@
 		}
 	}
 </script>
+<style media="screen">
+	.row{
+		margin: 20px;
+	}
+</style>
