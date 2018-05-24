@@ -4,7 +4,7 @@ import VueRsource from 'vue-resource'
 //组件
 const HelloWorld = resolve => require(['../components/HelloWorld'], resolve)
 const Von = resolve => require(['../components/v-'], resolve)
-const Index = resolve => require(['../components/button'], resolve)
+const Index = resolve => require(['../page/index'], resolve)
 
 
 Vue.use(Router)

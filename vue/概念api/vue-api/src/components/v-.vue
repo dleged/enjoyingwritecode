@@ -13,7 +13,7 @@
 			</span>
 		</div>
 		<div class="row">
-			<input type="text" v-model="message" name="" value="">: 
+			<input type="text" v-model="message" name="" value="">:
 			<span v-if="show == false">
 				v-model指令： message is {{message}}
 			</span>
