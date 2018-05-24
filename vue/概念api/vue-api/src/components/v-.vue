@@ -12,6 +12,12 @@
 				v-if指令
 			</span>
 		</div>
+		<div class="row">
+			<input type="text" v-model="message" name="" value="">: 
+			<span v-if="show == false">
+				v-model指令： message is {{message}}
+			</span>
+		</div>
 	</div>
 </template>
 <script>
@@ -19,6 +25,7 @@
 		data() {
 			return {
 				msg: 'v-on指令绑定js原生事件',
+				message: 'message',
 				show: false
 			}
 		},
