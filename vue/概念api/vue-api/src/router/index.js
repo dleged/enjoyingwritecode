@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueRsource from 'vue-resource'
+
 //组件
 const HelloWorld = resolve => require(['../components/HelloWorld'], resolve)
 const Von = resolve => require(['../components/v-'], resolve)

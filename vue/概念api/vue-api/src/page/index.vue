@@ -6,10 +6,15 @@
 </template>
 
 <script>
-	import Button from '../components/button';
-	import List from '../components/list';
+	import Button from '../components/button'
+	import List from '../components/list'
+
 	export default {
-		name: 'index'
+		name: 'index',
+		components: {
+    	Button,
+			List
+  	}
 	}
 </script>
 
