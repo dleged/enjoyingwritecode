@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 	<button type="button" @click="count += 1" name="button" >you clicked me {{count}} times</button>
 </template>
 
