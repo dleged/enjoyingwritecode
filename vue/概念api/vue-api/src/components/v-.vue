@@ -13,7 +13,7 @@
 			</span>
 		</div>
 		<div class="row">
-			<input type="text" v-model="message" name="" value="">:
+			<input type="text" v-focus v-model="message" name="" value="">:
 			<span v-if="show == false">
 				v-model指令： message is {{message}}
 			</span>
@@ -21,6 +21,8 @@
 	</div>
 </template>
 <script>
+
+
 	export default{
 		data() {
 			return {
@@ -37,8 +39,17 @@
 			keyUp: function(event){
 				alert(`输入了${event.currentTarget.value}`);
 			}
+		},
+		directive: {// 注册一个全局自定义指令 `v-focus`
+			focus: {
+			  // 当被绑定的元素插入到 DOM 中时……
+			  inserted: function (el) {
+			    // 聚焦元素
+			    el.focus()
+			  }
+			}
 		}
-	}
+	}	
 </script>
 <style media="screen">
 	.row{
