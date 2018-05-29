@@ -29,7 +29,7 @@ export default {
 		// push会更新视图
 		this.map.push({name: '盗墓笔记',officeRecords: 5000000});
 	},
-	computed(){
+	computed: {
 		mpas: function() {
 			return this.map.map((item,index) => {
 				return {
