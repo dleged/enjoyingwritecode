@@ -9,23 +9,28 @@
         <button type="button" name="button" v-on:click="num1-=1">-</button>
       </li>
       <li>
-          <input type="text" name="" :value="num2">
-          <button type="button" name="button" v-on:click="num2+=1">+</button>
-          <button type="button" name="button" v-on:click="num2-=1">-</button>
-        </li>
-        <br/>
-        <li>
-          <label for="">之➕：</label><span>{{num1 + num2}}</span>
-        </li>
-        <li>
-          <label for="">之➖：</label><span>{{num1 - num2}}</span>
-        </li>
-        <li>
-          <label for="">之✖️：</label><span>{{num1 * num2}}</span>
-        </li>
-        <li>
-          <label for="">之➗：</label><span>{{num2 == 0 ? 0 :num1/num2}}</span>
-        </li>
+        <input type="text" name="" :value="num2">
+        <button type="button" name="button" v-on:click="num2+=1">+</button>
+        <button type="button" name="button" v-on:click="num2-=1">-</button>
+      </li>
+      <br/>
+      <li>
+        <label for="">之➕：</label><span>{{num1 + num2}}</span>
+      </li>
+      <li>
+        <label for="">之➖：</label><span>{{num1 - num2}}</span>
+      </li>
+      <li>
+        <label for="">之✖️：</label><span>{{num1 * num2}}</span>
+      </li>
+      <li>
+        <label for="">之➗：</label><span>{{num2 == 0 ? 0 :num1/num2}}</span>
+      </li>
+      <li>
+        fullName: <input v-model="fullName"> <br>
+        firstName: <input v-model="firstName"> <br>
+        lastName: <input v-model="lastName"> <br>
+      </li>
     </ul>
   </div>
 </template>
@@ -37,7 +42,22 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       num1: 0,
-      num2: 0
+      num2: 0,
+      firstName: '范',
+      lastName: '端端'
+    }
+  },
+  computed: {
+    fullName: {
+      get(){
+        console.log('触发get get get 方法');
+        return this.firstName + this.lastName;
+      },
+      set(val){//更改fullName，会触发set方法
+        console.log('触发set set set 方法');
+        this.firstName = val[0];
+        this.lastName = val.substr(1,val.length);
+      }
     }
   }
 }
