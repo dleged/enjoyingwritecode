@@ -19,10 +19,10 @@ let vue = new Vue({
     }
   }
 })
-// vue.$watch('name', function (newValue, oldValue) {
-//   console.log(`新值为${newValue}`)
-//   console.log(`旧值为${oldValue}`)
-// })
-// console.log(vue.name = '一木')
+vue.$watch('name', function (newValue, oldValue) {
+  console.log(`新值为${newValue}`)
+  console.log(`旧值为${oldValue}`)
+})
+console.log(vue.name = '一木')
 
 console.dir(vue)
