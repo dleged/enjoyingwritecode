@@ -69,12 +69,12 @@ module.exports = {
 						}
 					]
 				},
+				//如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
 				{
 					test: /\.(css|sass)$/,
 					include: path.resolve(__dirname, "src"),
 					use: ExtractTextPlugin.extract({
 	          fallback: 'style-loader',
-	          //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
 	          use: [
 							{
 									loader: 'css-loader',
