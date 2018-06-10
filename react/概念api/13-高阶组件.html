@@ -15,7 +15,28 @@
 		<div id="root">
 		</div>
 	    <script type="text/babel">
-				
+				 var HightObjectComponent = (com) => class embaer extends React.Component{
+					constructor(props){
+						super(props)
+					}
+					render(){
+						return(
+							<com />
+						)
+					}
+				}
+
+				function Children(){
+					return(
+						<header>
+							<h1>高阶组件</h1>
+						</header>
+					)
+				}
+
+				let Header = HightObjectComponent(Children);
+
+				ReactDOM.render(<Header />,document.getElementById('app'))
 		</script>
 	</body>
 </html>
