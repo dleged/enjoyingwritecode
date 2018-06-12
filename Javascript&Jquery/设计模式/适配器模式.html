@@ -25,16 +25,16 @@
 					},
 					go: funciton(){}
 				}*/
-				
+
 				function newFn(){
 					this.test = function(){
 						console.log('我是新的test！');
 					}
 					this.go = function(){
-						
+
 					}
 				}
-				
+
 				/*代码给改了，要改回来，如下适配器操作*/
 				function oldFn(){
 					var fn = new newFn();
@@ -46,14 +46,12 @@
 							fn.go();
 						}
 					}
-					
 					return result;
 				}
-				
+
 				var old = new oldFn();
 				old.test();
 			})()
 		</script>
 	</body>
 </html>
-

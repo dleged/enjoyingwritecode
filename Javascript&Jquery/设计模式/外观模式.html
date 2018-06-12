@@ -17,8 +17,7 @@
 			外观模式不仅简化类中的接口，
 			而且对接口与调用者也进行了解耦。
 			外观模式经常被认为开发者必备，
-			它可以将一些复杂操作封装起来，并创建一个简单的接口用于调用。 
-			
+			它可以将一些复杂操作封装起来，并创建一个简单的接口用于调用。
 				首先，在设计初期，应该要有意识地将不同的两个层分离，
 			比如经典的三层结构，在数据访问层和业务逻辑层、业务逻辑层和表示层之间建立外观Facade。
 				其次，在开发阶段，子系统往往因为不断的重构演化而变得越来越复杂，
@@ -29,10 +28,9 @@
 		<script type="text/javascript">
 			~(function(){
 			   	function stopEvent(e){
-					e.stopPropagation();
-					e.preventDefault();
-				}
-			   	
+						e.stopPropagation();
+						e.preventDefault();
+					}
 			   	$('#a').click(funciton(){
 			   		stopEvent(e);//外观
 			   	});
@@ -40,4 +38,3 @@
 		</script>
 	</body>
 </html>
-
