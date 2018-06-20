@@ -1,5 +1,6 @@
 const fs = require('fs');
 const colors = require('colors');
+const express = require('express');
 
 //异步读取
 fs.readFile('../http/server.js','utf-8',(error,data) => {
