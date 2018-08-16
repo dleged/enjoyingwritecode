@@ -13,7 +13,85 @@
 			FaceBook建议在数据在必须达到嵌套层次非常深的组件的情况下使用context。
 		</pre>
 		<div id="root"></div>
-	  <script type="text/babel">
+		<script src="https://cdn.bootcss.com/react/15.6.1/react.js"></script>
+		<script src="https://cdn.bootcss.com/react-dom/16.4.0/cjs/react-dom-server.browser.development.js"></script>
+  	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+		<script type="text/babel">
+		//子元素
+		class Son extends React.Component{
+			constructor(){
+				super();
+			}
+
+			render(){
+				return(
+					<div className="son">
+						name: {this.contenxt.name}
+					</div>
+				)
+			}
+		}
+
+		Son.contextType = {
+			name: React.PropTypes.string
+		}
+
+
+		//父元素
+		class Farther extends React.Component{
+			constructor(){
+				super();
+			}
+
+			render(){
+				return(
+					<div className="farther">
+						name: {this.contenxt.name}
+						<Son />
+					</div>
+				)
+			}
+		}
+
+		Farther.contextType = {
+			name: React.PropTypes.string
+		}
+
+		//根元素
+		class Index extends React.Component {
+			constructor() {
+				super();
+				console.log(arguments);
+				console.log(this);
+				this.state = {
+					name: 'contenxt 上下文'
+				}
+			}
+
+			getChildContext() {
+		    return {name: this.state.name};
+		  }
+
+			render(){
+				return (
+					<div className="root">
+						Hello World
+						<Farther />
+					</div>
+				);
+			}
+		}
+
+		Index.childContextTypes = {
+			name: React.PropTypes.string
+		}
+
+
+		ReactDOM.render(
+			<Index /> ,
+			document.getElementById('root')
+		);
+
 
 		</script>
 	</body>
