@@ -5,7 +5,7 @@ const buttonStyles = {
 		color: 'black',
 	},
 	disable: {
-		background: '#fff',
+		background: '#ccc',
 		color: 'black',
 		cursor: 'no-drop'
 	}

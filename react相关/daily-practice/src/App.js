@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Button from './HOC/stylesWrapper'
 
+console.log(Button);
 class App extends Component {
   render() {
     return (
@@ -22,7 +23,7 @@ class App extends Component {
           </a>
         </header>
         <div>
-          <Button/>
+          <Button className='react-button' style={{background: 'blue',color: 'white'}} />
         </div>
       </div>
     );
