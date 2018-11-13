@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>isDeepEqual</title>
+	</head>
+	<body>
+		<pre>
+			1.基本类型: ===;
+			2.Date类型: 转化为时间戳(date.getTime(),+date);
+			3.Function类型: Fn.toString()转字符串后比较===;
+			4.obj对象: 比较类型,比较__proto,递归比较ownPrototype属性;
+		</pre>
+		<script type="text/javascript">
+			function isDeepEqual(tar1,tar2,isDeepEual){
+				if(tar1 === tar2){
+					return true;
+				}
+				if(tar1 instanceof 'Date' && tar2 instanceof 'Date'){
+					return tar1.getTime() === tar2.getTime();
+				}
+				if(tar1 instanceof 'Function' && tar2 instanceof 'Function'){
+					return tar1.toString() === tar2.toString();
+				}
+
+				if (
+			    	Object.prototype.toString.call(obj1) !== Object.prototype.toString.call(obj2)
+						||
+			    	typeof obj1  !== "object"
+			  ) {
+			    return false
+			  }
+
+				let tar1__proto = Object.getPrototypeOf(tar1);
+				let tar2__proto = Object.getPrototypeOf(tar2);
+
+				if(isDeepEual){
+					vars is__proto_Equal = isDeepEqual(tar1__proto,tar2__proto,isDeepEual);
+				}
+
+				let tar1Keys = tar1.getOwnPrototype(tar1);
+				let tar2Keys = tar1.getOwnPrototype(tar2);
+
+				if(
+					is__proto_Equal
+					&&
+					tar1Keys.length === tar2Keys.length
+					&&
+					tar1Keys.every((key) => isDeepEqual(tar1Keys[key],tar2Keys[key]))
+				){
+					return true;
+				}
+				return false;
+			}
+		</script>
+	</body>
+</html>
