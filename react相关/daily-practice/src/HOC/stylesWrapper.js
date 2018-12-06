@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../components/Button';
 import buttonStyles from '../styles/buttonStyles';
 
-
 const translateStyles = (props) => {
 	let _styles = buttonStyles.default;
 	if(props.disable){
