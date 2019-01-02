@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>快速排序</title>
+	</head>
+	<body>
+		<pre>
+			1.以数组中任意一个数为基准数；
+			2.大于基准数，放在右边数组；小于基准数的放在左边数组；
+			3.对左右边数组重复1，2步，最后concat左中右数组;
+		</pre>
+	</body>
+	<script type="text/javascript">
+		let arr = [12,1,323,4,35,6,23,23,534,324,54325,565,76,43,4];
+		function quickSort(arr){
+			if(arr.length <= 1){
+				return arr
+			}else{
+				var middleArr = arr.splice(0,1);
+				var leftArr = [];
+				var rightArr = [];
+				for(let i = 0,len = arr.length; i<len;i++){
+					let currentNum = arr[i];
+					if(currentNum > middleArr){
+						rightArr.push(currentNum);
+					}else if(currentNum < middleArr){
+						leftArr.push(currentNum);
+					}else{
+						middleArr.push(currentNum);
+					}
+				}
+			}
+			return quickSort(leftArr).concat(middleArr).concat(quickSort(rightArr))
+		}
+
+		console.log(quickSort(arr))
+	</script>
+</html>

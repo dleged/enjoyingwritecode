@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>斐波那契数列</title>
+	</head>
+	<body>
+		<pre>
+			斐波那契数列指的是这样一个数列 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233，377，610，987，1597，2584，4181，6765，10946，17711，28657，46368........
+			这个数列从第3项开始，每一项都等于前两项之和。
+		</pre>
+	</body>
+	<script type="text/javascript">
+			function fibonacci(i){
+				if( i <= 2){
+					return 1;
+				}else{
+					return fibonacci(i-2) + fibonacci(i-1)
+				}
+			}
+			console.log(fibonacci(6));
+	</script>
+</html>
