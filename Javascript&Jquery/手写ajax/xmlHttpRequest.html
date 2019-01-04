@@ -23,12 +23,15 @@
 					xmlHttp.send(data);
 				}
 
+
 				function stateChange(){
 					if(xmlHttp.readyState == 4){
-						if(xmlHttp.status == 200){
+						if(xmlHttp.status == 200 || xhr.status < 300 || xhr.status == 304){
 							var data = xmlHttp.response;
 							var body = document.querySelector('body');
 							body.innerHTML = data
+						}else{
+							throw new Error(xmlHttp.statusText)
 						}
 					}
 				}
