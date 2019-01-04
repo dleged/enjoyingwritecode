@@ -13,9 +13,9 @@
 	<script type="text/javascript">
 		var _input = document.querySelector('#input');
 		var _span = document.querySelector('#show');
-		var obj = {val: ''};
-		Object.keys(obj).forEach(function(item){
-			Object.defineProperty(obj,item,{
+		_input.obj = {val: ''};
+		Object.keys(_input.obj).forEach(function(item){
+			Object.defineProperty(_input.obj,item,{
 				enumerable: true,
 	 			configurable: true,
 				set: function(val){
@@ -28,7 +28,7 @@
 		})
 
 	_input.addEventListener('input',function(e){
-			obj.val = e.target.value;
+			_input.obj.val = e.target.value;
 	})
 
 	</script>
