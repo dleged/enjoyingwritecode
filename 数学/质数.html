@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>判断一个数是质数</title>
+	</head>
+	<body>
+		<script>
+			let maxNumber = 100000000;
+			let primseCount = 0;
+			console.time(`计算小于${maxNumber}中有多少个质？🤔`);
+			for(let i = 1; i <= maxNumber;i++){
+				if(isPrimse(i)) primseCount++;
+			}
+			function isPrimse(num){
+				if(typeof num !== 'number' || num%2 === 0 ){
+					return false;
+				}
+				//一个数如果不能被<其算数平方跟的数整除，就是素数
+				for(let i = 3; i<=Math.sqrt(num);i++){
+					if(num%2 === 0){
+						return false;
+					}
+					break;
+				}
+				return true;
+			}
+			console.timeEnd(`计算小于${maxNumber}中有多少个质？🤔`);
+			console.log(`小于${maxNumber}的数中有${primseCount}个质数😊`);
+		</script>
+	</body>
+</html>
