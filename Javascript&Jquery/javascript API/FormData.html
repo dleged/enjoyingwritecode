@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>FormData</title>
+	</head>
+	<body>
+		<pre>
+			FormData对象用以将数据编译成键值对，以便用XMLHttpRequest来发送数据。
+			其主要用于发送表单数据，但亦可用于发送带键数据(keyed data)，而独立于表单使用。
+			如果表单enctype属性设为multipart/form-data ，则会使用表单的submit()方法来发送数据，从而，发送数据具有同样形式。
+		</pre>
+		<form action="http://foo.com/submitform.php">
+			<input name='image' type="file">
+		</form>
+		<script type="text/javascript">
+			let formData = new formData();
+			formData.append('image',document.querySelector('input[type="file"]').files[0])
+			let xhr = new XMLHttpRequest();
+			xhr.open('post','http://foo.com/submitform.php');
+			xhr.onload = function(event){
+				if(event.status === 200 && event.state === 4){
+					console.log('上传图片成功');
+				}
+			}
+			xhr.send(formData);
+		</script>
+	</body>
+</html>
