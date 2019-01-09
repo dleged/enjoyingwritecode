@@ -22,8 +22,6 @@
 					xmlHttp.open(type,url);
 					xmlHttp.send(data);
 				}
-
-
 				function stateChange(){
 					if(xmlHttp.readyState == 4){
 						if(xmlHttp.status == 200 || xhr.status < 300 || xhr.status == 304){
@@ -37,8 +35,36 @@
 				}
 			}
 		})(window);
-
-		var url = './data.json';
-		syncXml('get',url);
+		// var url = './data.json';
+		// syncXml('get',url);
+	</script>
+	<script type="text/javascript">
+			!(function(w){
+				w.httpAjax = function({type,url,data,success,error}){
+					xhttp = w.XMLHttpRequest ?
+					new XMLHttpRequest() : w.ActiveXObject() ? //firefox opera 8.0+ safari ie 7+
+					new ActiveXObject('Microsoft.XMLHTTP') : null; //internet explort
+					xhttp.open(type,url);
+					xhttp.onload = (e) => {
+						let xmlResponse = e.target;
+						if(xmlResponse.readyState === 4 && xmlResponse.status === 200){
+							success(xmlResponse.responseText);
+						}
+					}
+					xhttp.onerror = (err) => error(err)
+					xhttp.send(data || '');
+				}
+				var url = './data.json';
+				httpAjax({
+					type: 'get',
+					url,
+					success: function(responseText){
+						console.log(responseText)
+					},
+					error: function(err){
+						console.log(err)
+					}
+				});
+			})(window);
 	</script>
 </html>
