@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>object深度拷贝</title>
+	</head>
+	<body>
+		<pre>
+			<article class="">
+				<section>1.es6</section>
+				<section>2.Object.assign()</section>
+				<section>3.JSON.stringify和JSON.parse</section>
+				<section>4.[].reduce</section>
+			</article>
+		</pre>
+		<script type="text/javascript">
+			let initObj = {name:'object深度拷贝',type: 'Object',key: 1};
+			let obj1 = {...initObj};
+			let obj2 = Object.assign({},initObj);
+			let obj3 = JSON.parse(JSON.stringify(initObj));
+			let obj4 = Object.keys(initObj).reduce((obj,key)=>(obj[key] = initObj[key],obj),{});
+			initObj = {name:'cloneObject深度拷贝',type: 'cloneObject',key: 2};
+			console.log(initObj,obj1,obj2,obj3,obj4);
+		</script>
+	</body>
+</html>
