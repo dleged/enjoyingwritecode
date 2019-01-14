@@ -19,5 +19,10 @@
 				}
 			}
 			console.log(fibonacci(6));
+
+			//返回数组
+			function fibonacciArr(n){
+				return [...Array(n)].reduce((acc,val,i) => acc.concat(i > 1 ? acc[i-1] + acc[i-2] : 1),[])
+			}
 	</script>
 </html>

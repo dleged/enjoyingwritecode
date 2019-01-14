@@ -16,11 +16,13 @@
 				if(tar1 === tar2){
 					return true;
 				}
-				if(tar1 instanceof 'Date' && tar2 instanceof 'Date'){
-					return tar1.getTime() === tar2.getTime();
-				}
-				if(tar1 instanceof 'Function' && tar2 instanceof 'Function'){
+
+				if(tar1 instanceof Function && tar2 instanceof Function){
 					return tar1.toString() === tar2.toString();
+				}
+
+				if(tar1 instanceof Date && tar2 instanceof Date){
+					return tar1.getTime() === tar2.getTime();
 				}
 
 				if (
@@ -35,7 +37,7 @@
 				let tar2__proto = Object.getPrototypeOf(tar2);
 
 				if(isDeepEual){
-					vars is__proto_Equal = isDeepEqual(tar1__proto,tar2__proto,isDeepEual);
+					var is__proto_Equal = isDeepEqual(tar1__proto,tar2__proto,isDeepEual);
 				}
 
 				let tar1Keys = tar1.getOwnPrototype(tar1);
