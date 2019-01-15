@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<pre>
+			ES5 的对象属性名都是字符串，这容易造成属性名的冲突。
+			比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。
+			如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。
+			这就是 ES6 引入Symbol的原因。
+		</pre>
+	</body>
+	<script type="text/javascript">
+
+			//获取方式和普通字符串属性差异
+			var logS = console.log
+			var person = {
+			name: 'es6',
+			born: 2015
+			}
+
+			var born = Symbol('2015')
+			person[born] = born.toString()
+
+			logS(person.born,person['born'])//2015,2015
+			logS(person[born]) //"Symbol(2015)"
+
+			//---Symbol 属性不可遍历 ---//
+			logS(Object.keys(person)) // ['name','born']
+			logS(Object.getOwnPropertyNames(person)) // ['name','born']
+			logS(Object.getOwnPropertySymbols(person)) //['Symbol(2015)']
+
+
+			//Symbol() 返回的值一定唯一
+			logS(Object.is(Symbol(1),Symbol(1))) //false
+			logS(Object.is(Symbol(1),Symbol(1))) //false
+
+			//Symbol.for(1) === Symbol.for(1)
+			logS(Object.is(Symbol.for(1),Symbol.for(1))) //true
+	</script>
+</html>
