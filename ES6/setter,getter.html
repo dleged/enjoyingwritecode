@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var persion = {
+				_name: '',
+				set name(val){
+					this._name = val;
+					this._logs.push(val);
+				},
+				get name(){
+					return this._name;
+				},
+				_logs: [],
+			}
+			persion.name = 'bar';
+			persion.name = 'baz';
+			console.log(persion._logs);
+			console.log(persion.name,persion._name);
+		</script>
+	</body>
+</html>
