@@ -6,8 +6,29 @@
 	</head>
 	<body>
 		<div>
-			<button onClick="clickHandle()">click me</button>
+			<button type="button" onClick="clickHandle()">click me</button>
+			<button type="button" onClick="handleCreateSomeElecment()">add some element</button>
 		</div>
 	</body>
 	<script src="./memory.leak.js" charset="utf-8"></script>
+	<script src="https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js" charset="utf-8"></script>
+	<script src="./index.js" charset="utf-8"></script>
+	<script>
+	// Check that service workers are registered
+	if ('serviceWorker' in navigator) {
+	  // Use the window load event to keep the page load performant
+	  window.addEventListener('load', () => {
+	    navigator.serviceWorker.register('/sw.js');
+	  });
+	}
+	if (workbox) {
+	  console.log(`Yay! Workbox is loaded 🎉`);
+		workbox.routing.registerRoute(
+		  new RegExp('.*\.js'),
+		  workbox.strategies.networkFirst()
+		);
+	} else {
+	  console.log(`Boo! Workbox didn't load 😬`);
+	}
+</script>
 </html>
