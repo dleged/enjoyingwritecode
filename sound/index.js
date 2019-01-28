@@ -1,40 +1,52 @@
 // 一百零1元                    101
 // 一百一十元点零二元							110.2
 
-class PlayMoneySound{
-	constructor(playText,type = '.mp3'){
+const path = require('path');
+
+class AmountPlaySound{
+	constructor({playText = null,preSound}){
 		this.playText = playText;
-		this.type = type;
 		this._init();
+		this.preSound = preSound;
 	}
 
 	_init(){
-		this.preSound = 'alipay_success.mp3'
-		this.amountSound = 'tts_$.mp3'
-		this.dotSound = 'tts_dot.mp3'
-		this.yuanSound = 'tts_yuan.mp3'
-		this.sequence = ['tts_thousand.mp3','tts_hundred.mp3','tts_ten.mp3','']
+		this.preSound = 'pay_success.mp3'
+		this.amountSound = '$.mp3'
+		this.dotSound = 'dot.mp3'
+		this.yuanSound = 'yuan.mp3'
+		this.sequence = ['ten_thousand.mp3','thousand.mp3','hundred.mp3','ten.mp3','']
 	}
 
 	_getUnitSound(num,index,preDotNumber){
 		let length = preDotNumber.length;
 		let amountSound = this.amountSound;
 		let sequence = this.sequence.slice(this.sequence.length-length);
-
-
 		return [amountSound.replace('$',num),(!!Number(num) ? sequence[index] : '')];
 	}
 
-	_getDecimalSound(num){
-		return this.amountSound.replace('$',num);
+	_getIntegerSound(num,len){
+		let _num = num[0];
+		let amountSound = this.amountSound;
+		let sequence = this.sequence.slice(this.sequence.length-len);
+		switch (len) {
+			case 2:
+				return [_num === '1' ? '' : amountSound.replace('$',_num),(!!Number(_num) ? sequence[0] : '')]
+				break;
+			default:
+				return [amountSound.replace('$',_num),(!!Number(_num) ? sequence[0] : '')];
+		}
+	}
+
+	_getDecimalSound(num,index){
+		return (index === 1 && num.toString() === '0') ? '' : this.amountSound.replace('$',num);//分位0过滤
 	}
 
 	_getPreDotSound(num = this.playText){
 		let _preDotNumber = this._getSplitSoundByDot(0);
 		let numberLen = _preDotNumber.length;
-
-    if(numberLen > 1 && !_preDotNumber%Math.pow(10,_preDotNumber)){  //处理整数
-        return this._getUnitSound(_preDotNumber)
+    if(numberLen > 1 && !(Number(_preDotNumber)%Math.pow(10,numberLen - 1))){  //处理整数
+        return this._getIntegerSound(_preDotNumber,numberLen)
     }else{
 				console.log(_preDotNumber.split(''));
         return _preDotNumber.split('').map((num,index) => {
@@ -44,13 +56,13 @@ class PlayMoneySound{
 	}
 
 	_getAfterDotSound(){
-		let _afterDotNumber = this._getSplitSoundByDot(1);
-		if(_afterDotNumber){
-			return [this.dotSound].concat(_afterDotNumber.split('').map((num,index) => {
-				return num !== 0 ? this._getDecimalSound(num) : null;
-			}))
-		}else{
+		let _afterDotNumber = this._getSplitSoundByDot(1) || [];
+		if(Number(_afterDotNumber) === 0){
 			return '';
+		}else{
+			return [this.dotSound].concat(_afterDotNumber.split('').map((num,index) => {
+				return num !== 0 ? this._getDecimalSound(num,index) : null;
+			}))
 		}
 	}
 
@@ -62,8 +74,7 @@ class PlayMoneySound{
 	_filterSound(sound){
 		sound = sound.filter((sound) => !!sound) //过滤无用的数据
 		sound = sound.filter((item,index) =>{
-			console.log();
-			if(item === 'tts_0.mp3' && sound[index-1] == 'tts_0.mp3'){
+			if(item === '0.mp3' && sound[index+1] === '0.mp3'){
 				return false;
 			}else{
 				return true;
@@ -77,60 +88,35 @@ class PlayMoneySound{
 		return this._filterSound(sound);
 	}
 
+	getPreSoundsPath(){
+		if(window.location.href.toLowerCase().includes('resources/app')){
+			return __dirname;
+		}else{
+			return process.cwd();
+		}
+	}
+
+	getShowCodesound(){
+		return [path.join(this.getPreSoundsPath(),`./raw/show_pay_code.mp3`)]
+	}
+
+	getRefundSuccess(){
+		return [path.join(this.getPreSoundsPath(),`./raw/refund_success.mp3`)]
+	}
+
 	getSound(){
-		return this._concatPreAndAfterDotSound().map((item) => `./raw/${item}`);
+		let playText = this.playText;
+		if(parseFloat(playText).toString() !== "NaN"){//金额
+			return this._concatPreAndAfterDotSound().map((item) =>{
+				return  path.join(this.getPreSoundsPath(),`./raw/${item}`)
+			});
+		}else if(typeof playText === 'string'){
+				return [path.join(this.getPreSoundsPath(),`./raw/${playText}.mp3`)]
+		}
 	}
-
-	saySound(){
-		return this.getSound();
-	}
-
-	// _getBit(num){//个位
-	// 	return num !== 0 ? `tts_${num}`: null;
-	// }
-	//
-	// _getPlace(num){//十元
-	//
-	// }
-	//
-	// _getHundred(num){//百位
-	//
-	// }
 
 }
 
+console.log(new AmountPlaySound(1.0).getSound());
 
-sound = new PlayMoneySound(1.01).getSound();
-var player = require('play-sound')(opts = {})
-
-console.log(sound);
-function curryPlayMp3(){
-	let from = 0;
-	return function playMp3(sound,i){
-		player.play(`${sound[i]}`,{ volume: 0.5 },function(index){
-			if(++from < sound.length){
-				playMp3(sound,from)
-			}else{
-				from = 0;
-			}
-		})
-	}
-}
-
-
-curryPlayMp3()(sound,0)
-
-
-// function playMp3List(sound){
-// 	let plays = []
-// 	for(let i = 0;i<sound.length;i++){
-// 		// plays.push(new Promise((res,rej) => {
-// 			player.play(`./raw/${sound[i]}`,function(){
-// 				console.log(111);
-// 			})
-// 			break;
-// 		// }))
-// 	}
-// 	return plays;
-// }
-// playMp3List(sound)
+module.exports = AmountPlaySound;
