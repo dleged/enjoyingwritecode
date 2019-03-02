@@ -1,4 +1,4 @@
-Frontend Knowledge Structure
+Frontend Knowledge Structure(转载)
 ========
 ## 项目起源
 还记得@jayli 的这幅前端知识结构图么。
