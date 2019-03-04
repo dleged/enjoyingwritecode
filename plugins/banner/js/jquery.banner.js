@@ -11,7 +11,7 @@
 			intervalTime: 3000,
 			pointPosition: 'right'
 		}
-	
+
 	var BannerSlider = function(options){
 		defalutOptions = $.extend(defalutOptions,options);
 		utils.initBannerSlider();
@@ -19,7 +19,7 @@
 			utils.setSlidersWidth();
 	    });
 	}
-	
+
 	var utils = {
 			setSlidersWidth: function(){
 				var Eles = BannerSlider.Eles,
@@ -75,7 +75,7 @@
 						sliders = that.sliders,
 						allW = sliders.width(),
 						left = that.parsentIntCss(sliders,'left');//当前sliders的left值
-					
+
 					//滑动距离超过一定距离
 					var now = defalutOptions.nowItem,
 						absL = Math.abs(l);
@@ -89,7 +89,7 @@
 					defalutOptions.nowItem = now;
 					utils.toggleItem(now);
 					utils.togglePoint(now);
-					
+
 				});
 			},
 			bannerMove: function(startX,endX){
@@ -119,6 +119,7 @@
 					img = $(Eles.imgItem),
 					w = img.width(),
 					cssLeft = -(img.width() * item) + 'px';
+				defalutOptions.nowItem = item;
 				sliders.animate(
 					{
 						left: cssLeft
@@ -144,13 +145,14 @@
 			},
 			bindClick: function(eles,fn){
 				eles.each(function(i,item){
-					$(item).bind('click',fn) 
+					$(item).bind('click',fn)
 				});
 			},
 			fnPointClick: function(){
 				var index = $(this).index();
 				utils.stopInterval();
-				utils.toggleItem(index)
+				console.log(index);
+				utils.toggleItem(index);
 				utils.togglePoint(index);
 			},
 			togglePoint: function(item){
@@ -190,13 +192,13 @@
 				this.startInterval();
 			}
 		}
-	
+
 	BannerSlider.positionCss = {
 		right: 'right',
 		middle: 'middle',
 		left: 'left',
 	}
-	
+
 	BannerSlider.Eles = {
 		sliders: '.sliders',
 		sliderItem: '.slider-item',
@@ -204,7 +206,7 @@
 		sliderTip: '.slider-tip',
 		sliderPoint: '.slider-point'
 	}
-	
+
 	var eventMap = {
 		touchStart: window.hasOwnProperty('onmousedown') ? 'mousedown' : 'touchstart',
 		touchmove: window.hasOwnProperty('onmousemove') ? 'mousemove' : 'touchmove',
