@@ -29,6 +29,7 @@ class HashTable{
 	}
 }
 
+
 let hash = new HashTable;
 
 hash.add('html');
