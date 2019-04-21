@@ -1,25 +1,22 @@
 {
-  "name": "react-with-react",
-  "version": "0.1.0",
-  "private": true,
+  "name": "todoapp-with-redux-and-normalized-store",
+  "version": "1.0.0",
+  "description": "A todo list app with React-Redux (with normalized store shape).",
+  "keywords": [],
+  "main": "src/index.js",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "classnames": "2.2.6",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
+    "react-redux": "5.0.7",
+    "react-scripts": "1.1.4",
+    "redux": "4.0.0"
   },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }
