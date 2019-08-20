@@ -11,6 +11,7 @@ gitDoAmend(){
     git push;
 }
 
+
 gitDoAmend
 
 # git pull
