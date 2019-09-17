@@ -7,10 +7,11 @@ let age = 18;
 function temlateParse(template){
   let reg = /\$\{(\w+)\}/;
   if(reg.test(template)){
-    let v = reg.exec(template)[1];
-    template.replace('${' + v + '}',eval(v));
-    return temlateParse(template);
+    let v = reg.exec(template);
+    template = template.replace(v[0],eval(v[1]));
+    return temlateParse(template)
   }
+  return template;
 }
 
 console.log(temlateParse(template));
