@@ -14,4 +14,15 @@ function temlateParse(template){
   return template;
 }
 
+function anthorTemlateParse(template){
+  let reg = /\$\{(\w+)\}/g;
+  if(reg.test(template)){
+    return template.replace(reg,function(v1,v2){
+      return eval(v2);
+    })
+  }
+  return template;
+}
+
 console.log(temlateParse(template));
+console.log(anthorTemlateParse(template));
