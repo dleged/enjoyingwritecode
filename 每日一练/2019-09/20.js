@@ -26,12 +26,12 @@ console.log(includes(c,d));
 
 //实现千位分隔符
 var money1 = 12334 // -> 12,334.000;
-var money2 = 999999.9 // -> 999,999.900;
+var money2 = 123456.9 // -> 999,999.900;
 function parseToMoney(money){
   if(!/^\d|.+$/.test(money)) return console.warn('arguments must be a number');
   money = Number(money).toFixed(3);
   let [integer,decimal] = money.toString().split('.');
-  integer.replace(/^\d(?=(\d{3})+$)/g,'$&,');
+  integer = integer.replace(/\d(?=(\d{3})+$)/g,"$`,");
   return integer + '.' + decimal;
 }
 
