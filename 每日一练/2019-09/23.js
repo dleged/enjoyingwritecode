@@ -62,10 +62,11 @@ function deepClone(target){
     _child = Object.create(_proto);
   }
 
+
+
   for(let i in parent){
     _child[i] = deepClone(_child[i]);
   }
-
 
   return _child;
 }
