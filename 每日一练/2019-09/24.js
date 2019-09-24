@@ -16,3 +16,20 @@ console.log(instanceOf(arr,Array)); //true
 let obj = {};
 console.log(instanceOf(obj,Object)); //true
 console.log(instanceOf(obj,Array)); //false
+
+
+/*
+*  实现new关键字
+* 1.创建一个新对象；
+* 2.该对象拥有构造函数的protptype；
+* 3.该对象具有构造函数的静态方法和属性
+* 4.如果执行构造函数，有返回一个object或者这个创建的对象；
+*/
+
+function newAchieve(){
+  let Constructor = Array.proptotype.shift.call(arguments);
+  let me = new Object();
+  me.__proto__ = Constructor.protptype;
+  let result = Constructor.apply(me,arguments);
+  return typeof result === 'object' ? result :  me;
+}
