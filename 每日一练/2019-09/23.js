@@ -43,15 +43,17 @@ function getRegExp(reg){
   return str;
 }
 
-function isNormal(tar){
-  return typeof target !== 'object';
+function isNormal(target){
+  return typeof target !== 'object' || target === null;
 }
 
 function deepClone(target){
   if(isNormal(target)) return target;
 
   var _child,_proto;
-  if(isType(target,'RegExp')){
+  if(isType(target,'Array')){
+    _child = [];
+  }else if(isType(target,'RegExp')){
     _child = new RegExp(target.source,getRegExp(target));
      if (parent.lastIndex) _child.lastIndex = _child.lastIndex;
   }else if(isType(target,'Date')){
