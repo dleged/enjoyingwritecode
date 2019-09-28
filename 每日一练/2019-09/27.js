@@ -8,6 +8,8 @@ Function.prototype._bind = function(context){
     context.apply(typeof this === fn ? tihs : _this,args.concat([].shift.call(arguments));
   }
 
+  
+
   return fn
 }
 
