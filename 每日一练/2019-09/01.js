@@ -1,0 +1,9 @@
+//Promise 的含义
+// Promise.prototype.then()
+// Promise.prototype.catch()
+// Promise.prototype.finally()
+// Promise.all()
+// Promise.race()
+// Promise.resolve()
+// Promise.reject()
+// Promise.try()
