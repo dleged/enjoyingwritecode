@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>css加载会造成阻塞吗</title>
+    <style media="screen">
+      h1{
+        color: blue;
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet" />
+  <script type="text/javascript">
+    function getH1(){
+      console.log(document.querySelector('h1'))
+    }
+    setTimeout(getH1,0)
+  </script>
+  <body>
+      <h1>我是一个h1大标题</h1>
+      <pre>
+        1.css不会阻塞dom树解析；
+        2.css会阻塞dom树的渲染；
+        3.css会阻塞js执行；
+        4.js会阻塞dom树的解析和渲染；
+      </pre>
+  </body>
+</html>
