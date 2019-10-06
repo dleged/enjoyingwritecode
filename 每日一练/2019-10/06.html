@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>css变量</title>
+    <style media="screen">
+      :root{
+        --base: red;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+      .box{
+        background: var(--base);
+        padding: var(--spacing);
+      }
+    </style>
+  </head>
+  <script type="text/javascript">
+    setTimeout(() => document.documentElement.style.setProperty('--base','blue'),2000);
+  </script>
+  <body>
+    <div class="box">
+        this is varable test
+    </div>
+  </body>
+</html>
