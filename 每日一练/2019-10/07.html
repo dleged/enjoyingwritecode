@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>为什么GUI和JS引擎线程互斥</title>
+    <style media="screen">
+      .box{
+        background: yellow;
+        padding: 30px 50px;
+      }
+      .animation{
+        transition: 1s all ease-in;
+        animation: scroll 3s linear infinite;
+      }
+      @keyframes scroll{
+        0% {
+          width: 100%;
+          background: yellow;
+        }
+        20% {
+          width: 20%;
+          background: blue;
+        }
+        80% {
+          width: 80%;
+          background: red;
+        }
+        100% {
+          background: white;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box animation">
+      为什么GUI和JS引擎线程互斥<br/>
+      js操作dom，dom会发生变化；<br/>
+      如果js引擎线程和渲染是异步的，那么获取到的dom很可能是不正确的；
+    </div>
+  </body>
+  <script type="text/javascript">
+    let count = 0;
+    //会阻塞css动画的重绘，卡顿感知很小
+    // let interVal = setInterval(() => {
+    //   count++;
+    //   console.log(Date.now());
+    //   if(count >= 10000) clearInterval(interVal);
+    // },0);
+
+    //会阻塞css动画的重绘
+    // for(let count1 = 0;count1 <= 100000;count1++){
+    //   console.log(Date.now() + ':for');
+    // }
+
+
+    //web Worker
+    let myWorker = new Worker('08.js');
+    myWorker.onmessage = function (res) {
+      console.log("08.js said : " + res.data);
+    };
+    myWorker.postMessage('hello world');
+    console.log(myWorker);
+  </script>
+</html>
