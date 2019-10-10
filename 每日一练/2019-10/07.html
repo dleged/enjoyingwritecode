@@ -39,6 +39,11 @@
       js操作dom，dom会发生变化；<br/>
       如果js引擎线程和渲染是异步的，那么获取到的dom很可能是不正确的；
     </div>
+    <pre>
+      如果要js单独执行，可以依赖webWorker或者sharedWorker；
+      1.webWorker是一个线程，为渲染线程服务，可以创建多个；
+      2.sharedWorker是一个进程，为浏览器服务，可以被共享，只可以创建一个；
+    </pre>
   </body>
   <script type="text/javascript">
     let count = 0;
