@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>rem的使用</title>
+    <style media="screen">
+      <!-- 第一种使用 -->
+      @media screen and(min-width: 325px;){
+        html{
+          font-size: 8px;
+        }
+      }
+      @media screen and(min-width: 750px;){
+        html{
+          font-size: 16px;
+        }
+      }
+      <!-- 第二种使用 -->
+      html{
+        /* 屏幕宽度的1/10的px大小，100vw就是屏幕宽度 */
+        font-size: 10vw;
+      }
+    </style>
+    <script type="text/javascript">
+      // 第三种
+      //750px宽度，1rem = 1px；方便计算
+      document.documentElement.style.fontSize = document.documentElement.clientWidth/750 + 'px';
+    </script>
+  </head>
+  <body>
+    <pre>
+      1rem等于html跟元素的font-size的大小;
+    </pre>
+  </body>
+</html>
