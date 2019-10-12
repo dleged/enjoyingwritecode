@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>双飞翼布局是对圣杯布局的一种改良。</title>
 		<style>
-			/*圣杯布局*/
+			/*双飞翼布*/
 			{
 				margin: 0;
 				padding: 0;
@@ -36,7 +36,7 @@
 				padding-bottom: 999px;
 			}
 			.right{
-				width: 200px;
+				width: 150px;
 				float: left;
 				background: #FF00FF;
 				margin-left: -200px;
@@ -55,6 +55,12 @@
 		</div>
 		<div class="atricle">
 			<!--浮动元素会影响正常的元素的布局-->
+			<pre>
+				middle 有个子div，有左右边距150px，
+
+				1 .left的margin-left: -100%,脱离文档流,居于middle左侧，刚好是middle子div左边距的150px的位置;
+				2 .right的margin-left: -150px,脱离文档流,居于middle右侧，刚好是middle子div右边距的150px的位置;
+			</pre>
 			<div class="middle">
 				<div class="inner"><!--和圣杯布局的差异-->
 					我是中间
