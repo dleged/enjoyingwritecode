@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>IntersectionObserver图片懒加载</title>
+    <style media="screen">
+      img{
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class='img-box'>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+      <li><img src='https://kentcdodds.com/static/3e4b46d2964e5c59a94f5efc9b643ccf/903c7/banner.webp' data-src='https://kentcdodds.com/static/1a21b281b81f8d1cd6c896c98d9f28cd/b0f0b/banner.webp' alt=''></li>
+    </ul>
+  </body>
+  <script type="text/javascript">
+      window.onload = function(){
+        let imgs = document.querySelectorAll('img');
+        let intersectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach((img) => {
+            let imgTarget = img.target;
+            if(!img.isIntersecting) return;
+            imgTarget.src = imgTarget.dataset.src;
+            intersectionObserver.unobserve(imgTarget);
+          })
+        });
+        imgs.forEach((img) => {
+          intersectionObserver.observe(img);
+        })
+      }
+  </script>
+</html>

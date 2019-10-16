@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>实现一个简单的vue</title>
+  </head>
+  <body>
+    <div id='root'>
+      <div class="">
+        hi,this is {{name}},age is {{age}}
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+
+    class Vue{
+      constructor(dom,config){
+        this.dom = dom;
+        this.config = config || {};
+        this.data = config.data || {};
+        this.oldHtmlText = this.dom.innerHTML;
+        this.compile();
+        this.observe();
+      }
+
+      compile(){
+        let htmlText = this.oldHtmlText;
+
+        let data = this.data;
+        let reg = /\{\{(\w+)\}\}/;
+        while(reg.test(htmlText)){
+          htmlText = htmlText.replace(reg,function(v0,v1){
+            return data[v1];
+          })
+        }
+
+        this.dom.innerHTML = htmlText;
+      }
+
+      datas = {}
+
+      observe(){
+        Object.keys(this.data).forEach((key) => {
+          this.datas['_' + key] = this.data[key];
+          Object.defineProperty(this.data,key,{
+            get: (val) => {
+              return this.datas['_' + key];
+            },
+            set: (newValue) => {
+              this.datas['_' + key] = newValue;
+              this.compile();
+            }
+          })
+        })
+      }
+
+      setState(key,val){
+          this.data[key] = val;
+      }
+
+    }
+
+    let vue = new Vue(document.getElementById('root'),{
+      data: {
+        name: 'cat',
+        age: 1
+      }
+    });
+
+    setTimeout(() => {
+      vue.setState('name','dog');
+      vue.setState('age','99');
+    },2000)
+  </script>
+</html>
