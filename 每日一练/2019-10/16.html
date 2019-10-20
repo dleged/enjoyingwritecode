@@ -2,8 +2,64 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>简单实现一个虚拟dom</title>
   </head>
   <body>
+    <div id='root'></div>
   </body>
+  <script type="text/javascript">
+    class Element{
+      constrouct(type,props,childs){
+        this.type = type;
+        this.props = props;
+        this.childs = children;
+      }
+    }
+
+    function createElement(type,props,childs){
+      return new Element(type,props,childs);
+    }
+
+    function renderDom(element){
+      let {type,props,children} = element;
+      let dom = document.createElement(element.type);
+      setAttr(dom,props,children);
+      if(children instanceof Array){
+        children.forEach(v => {
+          dom.appendChild(v instanceof Element ? renderDom(v): v);
+        })
+      }else{
+        children.append(children);
+      }
+
+      return dom;
+    }
+
+    function setAttr(dom,type,props){
+      Object.keys(props).forEach((v) => {
+        switch (expression) {
+          case 'value':
+            if(type.toLocaleLowerCase() === 'input' || type.toLocaleLowerCase() === 'textarea'){
+              dom.value = props[v];
+            }
+          break;
+          case 'style':
+            dom.style.cssText = props[v];
+          break;
+          default:
+           dom.setAttribute(v,props[v]);
+          break;
+        }
+      })
+    }
+
+    function render(root,element){
+      root.appendChild(renderDom(element));
+    }
+    render(window.root,createElement('div',{name: 'test',style: 'color: red;background: yellow'},[
+      createElement('span','','1'),
+      createElement('span','','2'),
+      createElement('span','','3'),
+    ]))
+  </script>
 </html>

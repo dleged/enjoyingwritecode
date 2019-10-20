@@ -13,7 +13,7 @@ Function.prototype._apply = function(contex){
 
   let result = contex.fn(...arg);
   delete contex.fn;
-  return typeof result ? result : this;
+  return typeof result === 'object' ? result : this;
 }
 
 exmple._apply(null,['yimu',18]);
