@@ -9,21 +9,21 @@
   </body>
   <script type="text/javascript">
     class Element{
-      constrouct(type,props,childs){
+      constructor(type,props,children){
         this.type = type;
         this.props = props;
-        this.childs = children;
+        this.children = children;
       }
     }
 
-    function createElement(type,props,childs){
-      return new Element(type,props,childs);
+    function createElement(type,props,children){
+      return new Element(type,props,children);
     }
 
     function renderDom(element){
       let {type,props,children} = element;
       let dom = document.createElement(element.type);
-      setAttr(dom,props,children);
+      setAttr(dom,type,props);
       if(children instanceof Array){
         children.forEach(v => {
           dom.appendChild(v instanceof Element ? renderDom(v): v);
@@ -36,8 +36,9 @@
     }
 
     function setAttr(dom,type,props){
+      //children
       Object.keys(props).forEach((v) => {
-        switch (expression) {
+        switch (v) {
           case 'value':
             if(type.toLocaleLowerCase() === 'input' || type.toLocaleLowerCase() === 'textarea'){
               dom.value = props[v];
