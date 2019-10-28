@@ -29,7 +29,7 @@
           dom.appendChild(v instanceof Element ? renderDom(v): v);
         })
       }else{
-        children.append(children);
+        dom.append(children);
       }
 
       return dom;
@@ -58,9 +58,9 @@
       root.appendChild(renderDom(element));
     }
     render(window.root,createElement('div',{name: 'test',style: 'color: red;background: yellow'},[
-      createElement('span','','1'),
-      createElement('span','','2'),
-      createElement('span','','3'),
+      createElement('h1',{name: 'test',style: 'color: white;background: red'},'我是一级标题！'),
+      createElement('h2',{name: 'test',style: 'color: red;background: blue'},'我是二级标题！'),
+      createElement('h3',{name: 'test',style: 'color: red;background: green'},'我是三级标题！'),
     ]))
   </script>
 </html>
