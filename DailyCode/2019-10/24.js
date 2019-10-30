@@ -1,4 +1,4 @@
-//工厂模式 🏭
+//工厂模式 🏭 或者 稳妥模式
 function createCar(name = 'car',color = 'black'){//当没传相应参数，就采用默认值car和black,若传了null,就是值null
   let o = Object.create(null);
   o.name = name;
@@ -29,3 +29,5 @@ console.log(bwa.running === benz.running); //false
 
   创建的对象属性和方法都不是共用的
 */
+
+//稳妥模式 可以在不支持this，new关键字的环境
