@@ -1,25 +1,31 @@
-//实现基本的继承
-function SuperType(){
-    this.property = true;
+//组合继承
+
+function SuperType(name){
+  console.log('%c调用了SuperType','color: red');
+  this.name = name;
 }
 
-SuperType.prototype.getSuperProperty = function(){
-  console.log(this);
-  return this.property;
+SuperType.prototype.setName = function(name){
+  this.name = name;
+  return this;
+}
+SuperType.prototype.sayName = function(){
+  return this.name;
 }
 
-
-function SubType(){
-    this.subproperty = false;
+function SubType(name){
+  SuperType.call(this,name); //执行Super的构造函数，赋值实例属性和方法；
 }
+
 SubType.prototype = new SuperType();
-SubType.prototype.getSubProperty = function(){
-  return this.property;
-}
+SubType.prototype.constructor = SubType;
 
-let sub = new SubType();
-console.log(sub.getSuperProperty()); //true SubType.getSuperProperty ->  SubType.prototype -> SuperType.prototype.getSuperProperty
+let subType = new SubType('first');
+console.log(subType.sayName());
+console.log(subType.setName('seconed').sayName());
 
-console.log(sub instanceof Object);//true
-console.log(sub instanceof SubType);//true
-console.log(sub instanceof SuperType);//true
+console.log(subType instanceof Object);//true
+console.log(subType instanceof SubType);//true
+console.log(subType instanceof SuperType);//true
+
+console.log(subType.sayName === SuperType.prototype.sayName);//true
