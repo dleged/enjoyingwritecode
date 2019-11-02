@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>line-hight</title>
+    <style media="screen">
+      div{
+        border: 1px solid blue;
+        height: 50px;
+        font-size: 10px;
+      }
+      .line-1{
+        line-height: 50px;
+      }
+      .line-2{
+        line-height: 50%;
+      }
+      .line-3{
+        line-height: 5;
+      }
+      .line-4{
+        line-height: 5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="line-1">
+      line-height 设置 px；
+    </div>
+    <div class="line-2">
+      line-height 设置 百分比；与元素自身的字体大小有关。计算值是给定的百分比值乘以元素计算出的字体大小。百分比值可能会带来不确定的结果
+    </div>
+    <div class="line-3">
+      line-height 设置 整数；计算值与指定值相同。大多数情况下，这是设置line-height的推荐方法，不会在继承时产生不确定的结果。
+    </div>
+    <div class="line-4">
+      line-height 设置 em；
+    </div>
+  </body>
+</html>

@@ -55,20 +55,26 @@ function deepClone(target){
     _child = [];
   }else if(isType(target,'RegExp')){
     _child = new RegExp(target.source,getRegExp(target));
-     if (parent.lastIndex) _child.lastIndex = _child.lastIndex;
+     if (target.lastIndex) _child.lastIndex = _child.lastIndex;
   }else if(isType(target,'Date')){
     let _date = +target;
     _child = new Date(_date);
   }else{
     _proto = Object.getPrototypeOf(target);
-    _child = Object.create(_proto);
+    _child = Object.create(_proto);//赋制原型
   }
 
-
-
-  for(let i in parent){
-    _child[i] = deepClone(_child[i]);
+  for(let i in target){
+    if(target.hasOwnProperty(i)){//原型链上的排除
+      _child[i] = deepClone(target[i]);
+    }
   }
-
   return _child;
 }
+
+var target = {a:1,b:[1,2,3],c:{d:'d'},c: function(){console.log('c')}}
+target.__proto__.sayA = function(){console.log(this.a);}
+
+var cloneTarget = deepClone(target);
+console.log(cloneTarget);
+cloneTarget.sayA();

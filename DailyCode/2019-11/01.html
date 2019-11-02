@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>background-size</title>
+    <style media="screen">
+      div{
+        width: 500px;
+        height: 250px;
+        border: 1px solid red;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2020-audi-rs7-106-1569274021.jpg?crop=0.865xw:0.865xh;0.0473xw,0.132xh&resize=980:*');
+      }
+      .background-size1{
+        background-size: 100%;
+      }
+      .background-size2{
+        background-size: contain;
+      }
+      .background-size3{
+        background-size: cover;
+      }
+      .background-size4{
+        background-size: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    background-size: 100%;
+    <div class='background-size1'>
+
+    </div>
+    background-size: contain;
+    <div class='background-size2'>
+
+    </div>
+    background-size: cover;
+    <div class='background-size3'>
+
+    </div>
+    background-size: 100px;
+    <div class='background-size4'>
+
+    </div>
+  </body>
+</html>
