@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>dfs 深度优先遍历</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let root = {
+        val: 1,
+        left: {
+          val: 2,
+          left: null,
+          right: null
+        },
+        right: {
+          val: 3,
+          left: {
+            val: 4,
+            left: null,
+            right: null
+          },
+          right: {
+            val: 5,
+            left: null,
+            right: null
+          }
+        }
+      }
+
+      /**
+       * Definition for a binary tree node.
+       */
+       function TreeNode(val) {
+            this.val = val;
+            this.left = this.right = null;
+        }
+
+      /**
+       * Encodes a tree to a single string.
+       *
+       * @param {TreeNode} root
+       * @return {string}
+       */
+      var serialize = function(root) {
+          let result = [];
+          if(root === null){
+             result.push(null);
+           }
+          let s_dfs = function(node){
+              if(node === null){
+                  result.push(null);
+              }else{
+                  result.push(node.val);
+                  s_dfs(node.left);
+                  s_dfs(node.right);
+              }
+          }
+          s_dfs(root);
+          console.log(result);//[1, 2, null, null, 3, 4, null, null, 5, null, null]
+          return JSON.stringify(result);
+      };
+
+      /**
+       * Decodes your encoded data to tree.
+       *
+       * @param {string} data
+       * @return {TreeNode}
+       */
+      var deserialize = function(data) {
+          data = JSON.parse(data);
+          let d_dfs = function(){
+              if(data.length === 0){
+                 return null;
+                }
+              let val = data.shift();
+              if(val === null){
+                 return null;
+               }
+              let node = new TreeNode(val);
+              node.left = d_dfs();
+              node.right = d_dfs();
+              return node;
+          }
+          return d_dfs();
+      };
+
+      /**
+       * Your functions will be called as such:
+       * deserialize(serialize(root));
+       */
+       console.log(deserialize(serialize(root)));
+    </script>
+  </body>
+</html>
