@@ -1,50 +1,47 @@
-/*
-  *发布-订阅模式
-  *发布-订阅是观察者的一种变体；
-  *发布者和订阅者之间还有第三个消息通道存在；
-  *解偶发布者和订阅者，属于一种架构模式，如node的Eventemitter
-  *
-*/
+//知乎看到的一个pr
+ReactComponent.prototype.setState = function(partialState, callback) {
+  invariant(
+    typeof partialState === 'object' ||
+      typeof partialState === 'function' ||
+      partialState == null,
+    'setState(...): takes an object of state variables to update or a ' +
+      'function which returns an object of state variables.',
+  );
+  this.updater.enqueueSetState(this, partialState, callback, 'setState');
+};
 
-class SubPub{
-  constructor(){
-    //创建一个纯净的对象，没有Prototype
-    this.events = Object.create(null);
-  }
-}
+//重写react 的setState方法，若没有传入callback，setState返回promise，很巧妙；
+//callback 赋值包装一个promise调用resolve的方法体，再将callback传给this.updater.enqueueSetState；
+//callback触发后，就会调用这个promise实例的then方法；
 
-SubPub.prototype.on = function(name,fn){
-  let events = this.events;
-  if(!events[name]){
-    events[name] = [];
-  }
-  events[name].push(fn);
-}
-
-SubPub.prototype.emit = function(){
-  let events = this.events;
-  let args = [].slice.call(arguments);
-  let name = args.shift();
-  if(name && events[name]){
-    events[name].forEach((fn) => {
-      fn(...args);
-    })
-  }
-}
-
-SubPub.prototype.remove = function(name){
-  let events = this.events;
-  if(name){
-    delete events[name];
-  }
-}
-
-let subPub = new SubPub();
-subPub.on('subPub1',console.log);
-subPub.on('subPub2',console.log);
-
-subPub.emit('subPub1',1,2);
-subPub.emit('subPub1',3,4);
-console.log('remove subPub1');
-subPub.remove('subPub1');
-subPub.emit('subPub1',5,6);
+//react官方回复这样是多此一举，因为通过回调已经有一个回调函数，增加复杂度和难度；
+//再者可能会在操作dom前调用setState方法，这样就保证不了这个顺序；
+ReactComponent.prototype.setState = function(partialState, callback) {
+   invariant(
+     typeof partialState === 'object' ||
+       typeof partialState === 'function' ||
+       partialState == null,
+      'setState(...): takes an object of state variables to update or a ' +
+        'function which returns an object of state variables.',
+    );
+ +  let callbackPromise;
+ +  if (!callback) {
+ +    class Deferred {
+ +      constructor() {
+ +        this.promise = new Promise((resolve, reject) => {
+ +          this.reject = reject;
+ +          this.resolve = resolve;
+ +        });
+ +      }
+ +    }
+ +    callbackPromise = new Deferred();
+ +    callback = () => {
+ +      callbackPromise.resolve();
+ +    };
+ +  }
+    this.updater.enqueueSetState(this, partialState, callback, 'setState');
+ +
+ +  if (callbackPromise) {
+ +    return callbackPromise.promise;
+ +  }
+  };
