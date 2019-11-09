@@ -14,9 +14,12 @@ function renderDom(element){
   let {type,props,children} = element;
   let dom = document.createElement(element.type);
   setAttr(dom,type,props);
+  if(typeof children === 'string'){
+    dom.append(document.createTextNode(children));
+  }
   if(children instanceof Array){
     children.forEach(v => {
-      dom.appendChild(v instanceof Element ? renderDom(v): v);
+      dom.appendChild(v instanceof Element ? renderDom(v): document.createTextNode(v));
     })
   }else{
     dom.append(children);

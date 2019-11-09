@@ -32,7 +32,7 @@ function walk(oldNode,newNode,index,patchs){
     current.push({type: 'TEXT',text: newNode});
   }else if(oldNode.type === newNode.type){
     let attr = diffAttr(oldNode,newNode);
-    current.push({attr});
+    current.push({type: 'ATTR',attr});
     isArray(oldNode.children) && diffChildren(oldNode.children,newNode.children,index,patchs);
   }else{
     current.push({type: 'REPLACE',newNode});
