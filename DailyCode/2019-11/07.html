@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>fetch</title>
+    <style media="screen">
+      body{
+        background: yellow;
+      }
+      .search-div{
+        background: #b7b5b5;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+      input{
+        width: 100%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 26px;
+        font-weight: bold;
+        background: white;
+        display: inline-block;
+        box-sizing: border-box;
+        border: none;
+      }
+      ul{
+        width: 200px;
+        position: relative;
+        margin: 0 auto;
+        list-style: none;
+      }
+      li{
+        border: 1px solid #b7b5b5;
+        background: white;
+        color: #666;
+        line-height: 30px;
+        padding: 5px;
+      }
+      li span{
+        background: yellow;
+        padding: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="search-div">
+        <input id='city' type="text" placeholder="city" name="" value="">
+      </div>
+      <ul id='match-city'>
+        <li>city in search</li>
+        <li>city in search</li>
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    let cityUrl = 'https://gist.githubusercontent.com/sroye98/c93a32631d60cfc444393038845f979b/raw/0b069448d1cb133b722f3c593a1c9389d4a9072f/cities.json'
+    const cities = [];
+
+    fetch(cityUrl).then(city => city.json()).then(data => cities.push(...data));
+    console.log(cities);
+
+    function wordToMatch(wordToMatch, cities){
+      cities = cities.splice(0,999);
+      return cities.filter((city) => {
+        let regx = new RegExp(wordToMatch,'gi');
+        return city.CityName && city.CityName.match(regx);
+      })
+    }
+
+    function displayMatch(){
+      let city = this.value;
+      let matchCities = wordToMatch(city,cities);
+
+      let html = matchCities.map((v) => {
+        let cityName = v.CityName;
+        const regx = new RegExp(city,'gi');
+        cityName = cityName.replace(city,`<span>${city}</span>`);
+        return `<li>${cityName}</li>`;
+      }).join('');
+      matchCityDom.innerHTML = html;
+
+    }
+
+    let cityMatchDom = document.getElementById('city');
+    let matchCityDom = document.getElementById('match-city');
+
+    cityMatchDom.addEventListener('keyup',displayMatch)
+
+  </script>
+</html>
