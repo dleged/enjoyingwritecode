@@ -21,8 +21,6 @@ function renderDom(element){
     children.forEach(v => {
       dom.appendChild(v instanceof Element ? renderDom(v): document.createTextNode(v));
     })
-  }else{
-    dom.append(children);
   }
 
   return dom;

@@ -16,9 +16,9 @@
 **/
 
 //生成码
+let index = 0;//所有节点的下标  帮助查深度优先遍历；
 function diff(oldNode,newNode){
   let patchs = [];
-  let index = 0;//所有节点的下标  帮助查深度优先遍历；
   walk(oldNode,newNode,index,patchs)
   return patchs;
 }
@@ -26,14 +26,16 @@ function diff(oldNode,newNode){
 function walk(oldNode,newNode,index,patchs){
   let current = [];
 
+  let oldNodeChildren = oldNode.children ? oldNode.children : null;
+  let newNodeChildren = newNode.children ? newNode.children : null;
+
   if(!newNode){
     current.push({type: 'REMOVE',index});
-  }else if(oldNode === newNode){
+  }else if(isString(oldNode) || oldNode === newNode){
     current.push({type: 'TEXT',text: newNode});
-  }else if(oldNode.type === newNode.type){
+  }else if(oldNode.type && oldNode.type === newNode.type){
     let attr = diffAttr(oldNode,newNode);
     current.push({type: 'ATTR',attr});
-    isArray(oldNode.children) && diffChildren(oldNode.children,newNode.children,index,patchs);
   }else{
     current.push({type: 'REPLACE',newNode});
   }
@@ -41,6 +43,17 @@ function walk(oldNode,newNode,index,patchs){
   if(current.length){
     patchs[index] = current;
   }
+
+  if(isString(oldNodeChildren)){
+    ++index
+    walk(oldNodeChildren,newNodeChildren,patchs)
+  }else if(isArray(oldNodeChildren)){
+    diffChildren(oldNodeChildren,newNodeChildren,patchs);
+    // oldNodeChildren.forEach((v,i) => {
+    //   walk(v,newNodeChildren[index],++index,patchs)
+    // })
+  }
+  // oldNode.children &&
 }
 
 function isString(v){
@@ -68,7 +81,12 @@ function diffAttr(oldNode,newNode){
 }
 
 function diffChildren(oldNode,newNode,index,patchs){
-  oldNode.forEach((v,i) => {
-    walk(v,newNode[index],++index,patchs)
-  })
+  if(isString(oldNode)){
+    walk(oldNode,newNode,++index,patchs)
+  }else{
+    oldNode.forEach((v,i) => {
+      ++index;
+      walk(v,newNode[index],patchs)
+    })
+  }
 }

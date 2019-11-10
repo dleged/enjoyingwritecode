@@ -39,7 +39,9 @@ function updateDom(node,patch){
               node.style.cssText = v;
             break;
             default:
-             node.setAttribute(key,v);
+            if(node.ATTRIBUTE_NODE !== 2){//如果不是文本节点
+              node.setAttribute(key,v);
+            }
             break;
           }
         }

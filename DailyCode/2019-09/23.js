@@ -48,6 +48,9 @@ function isNormal(target){
 }
 
 function deepClone(target){
+  //处理循环引用；
+  const parents = [];//纯粗
+  const children = [];//
   if(isNormal(target)) return target;
 
   var _child,_proto;
@@ -63,6 +66,16 @@ function deepClone(target){
     _proto = Object.getPrototypeOf(target);
     _child = Object.create(_proto);//赋制原型
   }
+
+  if(isType(target) === 'Object'){
+    let index = parents.indexOf(target);
+    if(index > -1){
+      return children(index);
+    }
+  }
+
+  parents.push(target);
+  children.push(_child);
 
   for(let i in target){
     if(target.hasOwnProperty(i)){//原型链上的排除
