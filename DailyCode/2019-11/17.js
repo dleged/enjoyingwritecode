@@ -1,5 +1,5 @@
 //归并排序
-// 复杂度 O(nlogn)
+// 复杂度 O(nlogn) 分而治之
 function mergeSort(arr){
   let len = arr.length;
   if(len < 2){
