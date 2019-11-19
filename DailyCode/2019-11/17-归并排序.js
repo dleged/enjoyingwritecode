@@ -26,7 +26,7 @@ function mergeSort(arr){
     while(right.length){
       result.push(right.shift());
     }
-
+    console.log(result);
     return result;
   }
 }
