@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>debounce</title>
+  </head>
+  <body>
+    click me write date!
+  </body>
+  <script type="text/javascript">
+  //immediate
+  //true时立即执行，在wait之内不会触发
+  //false时不会立即执行，只要超过wait后延迟触发
+    function debounce(func,wait = 1000,immediate = true){
+      let timeout = null;
+      return function(){
+        let context = this;
+        let args = arguments;
+        let later = function(){
+          timeout = null;
+          if(!immediate) func.apply(context,args);
+        }
+        let callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later,wait);
+        if(callNow) func.apply(context,args);
+      }
+    }
+
+    function writeDate(){
+      document.body.append(new Date());
+    }
+
+    let debounceWriteDate = debounce(writeDate,1000);
+    window.addEventListener('click',debounceWriteDate);
+
+  </script>
+</html>
