@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>排序列表</title>
+    <style media="screen">
+      body{
+        background: blue;
+      }
+      ul{
+        position: relative;
+        width: 200px;
+        margin: 50px auto;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      li{
+        background: white;
+        border-bottom: 1px solid #ccc;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+    <ul id='bands'></ul>
+  <body>
+    <script type="text/javascript">
+      let bands = ['parseInt','an hack','the video','the base name','hgroup head','case async','debug','a address'];
+
+      let strip = (str) => str.replace(/^(a |the |an )/i,'');
+
+      let sortBands = bands.sort((a,b) => strip(a) > strip(b) ? 1 : -1);
+
+      document.querySelector('#bands').innerHTML = sortBands.map((v) => `<li>${v}</li>`).join('');
+    </script>
+  </body>
+</html>
