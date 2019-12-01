@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        box-sizing: border-box;
+      }
+      html,body{
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+      }
+      .one{
+        background: #d1b2d2;
+      }
+      .two{
+        background: #fddbde;
+      }
+      .there{
+        background: #f3684a;
+      }
+      div{
+        padding: 100px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="one">
+      <div class="two">
+        <div class="there"></div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    let divs = document.querySelectorAll('div');
+
+    function logText(e){
+      e.stopPropagation();
+      console.log(this.classList.value);
+    }
+
+    divs.forEach((div) => {
+      div.addEventListener('click',logText,{capture: true,once: true});
+    })
+
+  </script>
+</html>
