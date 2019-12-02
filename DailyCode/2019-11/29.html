@@ -1,0 +1,32 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    let a = {x: 1};
+    let b = a;
+    a = a.x = {b: 1};
+    //输出啥子
+    console.log(a);
+    console.log(b);
+  </pre>
+  <pre>
+    1.a和b指向heap中的{x: 1};
+    2.a.x指向{b: 1},这个时候{x: 1} -> {x: {b: 1}};
+    3.a又指向{b: 1};
+    4,b还是指向最初引用，即{x: 1} -> {x: {b: 1}}；
+  </pre>
+</body>
+<script type="text/javascript">
+  let a = {x: 1};
+  let b = a;
+  a = a.x = {b: 1};
+
+  console.log(a);
+  console.log(b);
+</script>
+</html>
