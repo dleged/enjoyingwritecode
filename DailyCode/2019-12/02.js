@@ -6,9 +6,10 @@
 function find(nums,target){
   let start = 0;
   let end = nums.length - 1;
+  let mid = 0;
 
   while(start <= end){
-    let mid = start + (end - start) >> 1;
+    mid = start + ((end - start) >> 1);
     if(nums[mid] === target) return mid;
     //[start,mid]有序
     if(nums[start] <= nums[mid]){
@@ -32,6 +33,6 @@ function find(nums,target){
   }
   return -1;
 }
-// console.log(find([6,7,8,1,2,3,4,5],1));
-// console.log(find([6,7,8,1,2,3,4,5],7));
+console.log(find([6,7,8,1,2,3,4,5],1));
+console.log(find([6,7,8,1,2,3,4,5],7));
 console.log(find([6,7,8,1,2,3,4,5],4));
