@@ -3,6 +3,8 @@
   比如[6,7,8,1,2,3,4,5]就是一个循环有序数组。
 */
 
+//关键是2分查找后，一定有一端是有序的
+
 function find(nums,target){
   let start = 0;
   let end = nums.length - 1;

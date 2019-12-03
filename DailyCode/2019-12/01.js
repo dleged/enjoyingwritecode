@@ -17,3 +17,15 @@ c = (msg) => msg + ' c';
 
 let fns = compose(a,b,c);
 console.log(fns('hello word'));
+
+
+//用 reduce 实现 map
+
+Array.prototype._map = function(arr){
+  return this.reduce((result,val)=>{
+    result.push(val * 2);
+    return result;
+  },[])
+}
+
+console.log([1,2,3]._map());

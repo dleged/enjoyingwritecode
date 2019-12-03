@@ -27,7 +27,7 @@ function inherit(subType,superType){
   //寄生式组合继承是引用类型最理想的继承范式。
   instance.prototype = SuperType.prototype; //新函数的prototype被重载为Super的实例；
   subType.prototype = new instance(); //子类的原型指向新函数的实例
-  subType.prototype.constructor = subType;
+  subType.prototype.constructor = superType;
 }
 inherit(SubType,SuperType);
 
