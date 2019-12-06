@@ -1,20 +1,22 @@
 function throttleApply(fn,ms = 2000,immediate){
   let timer = null;
+  let isRun = false;
   return function(...args){
     let runNow = !timer && immediate;
     if(runNow){
       fn(...args);
     }
-    if(timer){
+    if(isRun){
       return false;
     }
+    isRun = true;
     timer = setTimeout(() => {
       fn(...args);
-      timer = null;
+      isRun = false;
     },ms);
   }
 }
-let throttleLog = throttleApply(console.log,5000,true);
+let throttleLog = throttleApply(console.log,2000,true);
 
 function debounceApply(fn,ms = 2000,immediate){
   let timer = null;
@@ -38,6 +40,6 @@ let interval = setInterval(() => {
     clearInterval(interval);
   }
   throttleLog('throttleLog:',Math.random());
-  debounceLog('debounceLog:',Math.random());
+  // debounceLog('debounceLog:',Math.random());
   tunTimes++;
 },10)
