@@ -6,7 +6,7 @@
 function lensProp(key,obj){
   let keys = key.split('.');
   return keys.reduce((result,v) => {
-    return result[v] ? result[v] : false;
+    return result ? result[v] : false;
   },obj);
 }
 
