@@ -20,3 +20,16 @@ function similarity(a,b){
 }
 
 console.log(similarity([1, 2, 3], [1, 2, 4])); // [1, 2]
+
+
+function factorial(n){
+  return n < 0 ?
+            (() => {throw new TypeError('负数不允许参与阶乘')})()
+            : n <= 1 ?
+              1
+              : n * factorial(n-1);
+
+}
+
+console.log(factorial(-6)); // TypeError: 负数不允许参与阶乘
+console.log(factorial(6)); // 720
