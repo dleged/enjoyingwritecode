@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      :root{
+        --c47135-color: #c47135
+      }
+      .button-border{
+        position: relative;
+        display: inline-block;
+      }
+      .button{
+        background: var(--c47135-color);
+        color: white;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-family: sans-serif;
+        border: none;
+      }
+      .button-border::before,
+      .button-border::after{
+        position: absolute;
+        content: '';
+        width: 30%;
+        height: 2px;
+        background: var(--c47135-color);
+        transition: width .3s ease-in-out;
+      }
+      .button-border::before{
+        top: -4px;
+      }
+      .button-border::after{
+        bottom: -4px;
+        right: 0px;
+      }
+      .button-border:hover::before,
+      .button-border:hover::after{
+        width: 100%;
+      }
+
+    </style>
+  </head>
+  <body>
+      <div class="button-border">
+        <button class="button">Submit</button>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>hamburger menu</title>
+    <style media="screen">
+      :root{
+        --back-color: black;
+        --blue-color: blue;
+      }
+      body{
+        transition: all .3s ease;
+        background: var(--back-color);
+        border-radius: .25rem;
+        padding: 1.375rem 1.25rem .75rem;
+        margin: -.5rem 0 1.5625rem;
+      }
+      .hamburger-menu{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        height: 2.5rem;
+        width: 2.5rem;
+        cursor: pointer;
+      }
+      .bar{
+        height: 5px;
+        background: black;
+        border-radius: 5px;
+        margin: 3px 0px;
+        transform-origin: left;
+        transition: all 0.5s;
+        background: white;
+      }
+      .hamburger-menu:hover .top{
+        transform: rotate(45deg);
+        background: var(--blue-color);
+      }
+      .hamburger-menu:hover .middle{
+        opacity: 0;
+        background: var(--blue-color);
+      }
+      .hamburger-menu:hover .bottom{
+        transform: rotate(-45deg);
+        background: var(--blue-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hamburger-menu">
+      <div class="bar top"></div>
+      <div class="bar middle"></div>
+      <div class="bar bottom"></div>
+    </div>
+  </body>
+</html>
