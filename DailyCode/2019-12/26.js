@@ -34,3 +34,25 @@ obServer.notify();
 
 
 //发布订阅模式
+class publishAndSubscribe{
+  list = {}
+  addListener(name,fn){
+    let fns = this.list[name];
+    if(typeof fns === Array){
+      this.list[name] = fns.push(fn);
+    }else if(fn){
+      this.list[name] = [fns,fn];
+    }else{
+      this.list[name] = fn;
+    }
+  }
+
+  removeListener(name){
+
+  }
+
+  notify(name){
+
+  }
+
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="root">
+      我是root😄
+    </div>
+  </body>
+  <script type="text/javascript">
+    let requsetAnimationFrame = function(){
+      return window.requestAnimationFrame ||
+             window.webkitRequestAnimationFrame ||
+             window.mozRequestAnimationFrame ||
+             function(callback){
+               setTimeout(callback,1000/60)
+             }
+
+    }
+
+    let root = document.getElementById('root');
+    let left = root.style.left;
+
+    function render(){
+      var left = Number(left);
+      left === 0 ? root.style.left = `${left++}px` : left === 100 ? root.style.left = `${left--}px` : root.style.left = `${left++}px`;
+    }
+
+    (function animation(){
+      render();
+      requsetAnimationFrame(animation)
+    })()
+  </script>
+</html>
