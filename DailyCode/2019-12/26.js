@@ -36,6 +36,7 @@ obServer.notify();
 //发布订阅模式
 class publishAndSubscribe{
   list = {}
+
   addListener(name,fn){
     let fns = this.list[name];
     if(typeof fns === Array){
@@ -48,11 +49,20 @@ class publishAndSubscribe{
   }
 
   removeListener(name){
-
+    let fns = this.list[name];
+    if(fns[name]) delete fns[name];
   }
 
   notify(name){
-
+    let fns = this.list([name]);
+    if(typeof fns === 'Array'){
+      for(let i = 0;i < fns.length; i++){
+        fns[i]();
+      }
+    }else if(fns){
+      fns(name);
+    }
   }
-
 }
+
+new
