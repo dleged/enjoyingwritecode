@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex 布局</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        html{height: 100%;width: 100%;}
+        body{height: 100%;/* width: 100%; */padding: 0;}
+        .page{
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .flex{
+            display: flex;
+        }
+        .title{
+            border: 1px solid #333;
+            text-align: center;
+            height: 50px;
+            display: flex;
+            font-size: 16px;
+        }
+        .banner{
+            border: 1px solid #333;
+            text-align: center;
+            height: 120px;
+            display: flex;
+        }
+        .container{
+            overflow: hidden;
+        }
+        .scroll-wrap{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+            flex: 1;
+        }
+        .middle-flex{
+            align-items: center;
+        }
+        .center-flex{
+            justify-content: center;
+        }
+        .flex-row{
+            display: flex;
+            flex-flow: row wrap;
+            /* width: 100%; */
+        }
+        .flex-column{
+            display: flex;
+            flex: 1;
+            flex-flow: column wrap;
+        }
+        .one{
+            height: 100px;
+            background-color: pink;
+        }
+        .two{
+            height: 210px;
+            background-color: yellow;
+        }
+        .there{
+            height: 150px;
+            background-color: blue;
+        }
+        .four{
+            height: 60px;
+            background-color: rgb(204, 180, 180);
+        }
+
+        .one > div,.two > div,.there > div,.four > div{
+            margin: 5px;
+            border: 1px solid #333;
+            flex: 1;
+        }
+        .footer{
+            border: 1px solid #333;
+            height: 40px;
+        }
+        .footer > div{
+            margin: 5px;
+            border: 1px solid #333;
+            display: flex;
+            flex: 1;
+        }
+        .one-2-1,.one-2-2{
+            background: powderblue;
+            border: 1px solid #ccc;
+            margin: 5px;
+            flex: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class='page flex-column'>
+        <div class="title middle-flex center-flex">我是Tittle</div>
+        <div class="container flex flex-column">
+            <div class="scroll-wrap">
+                <div class="banner middle-flex center-flex">我是Banner图</div>
+                <div class="one flex-row">
+                    <div class="one-1">
+        
+                    </div>
+                    <div class="one-2 flex-column">
+                        <div class="one-2-1 flex">
+        
+                        </div>
+                        <div class="one-2-2 flex">
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="two flex-row">
+                    <div class="two-1"></div>
+                    <div class="two-2"></div>
+                    <div class="two-3"></div>
+                </div>
+                <div class="there flex-row">
+                    <div class="there-1"></div>
+                    <div class="there-2"></div>
+                    <div class="there-3"></div>
+                    <div class="there-4"></div>
+                </div>
+                <div class="four flex-row">
+                    <div class="four-1"></div>
+                    <div class="four-2"></div>
+                    <div class="four-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer flex flex-row">
+            <div class="footer-1"></div>
+            <div class="footer-2"></div>
+            <div class="footer-3"></div>
+            <div class="footer-4"></div>
+        </div>
+    </div>
+</body>
+</html>
