@@ -1,11 +1,13 @@
 #!/bin/bash
-date='Fri June 10 20:00:00 2019'
+date='Fri June 23 20:00:00 2019'
+
+# git commit --amend --no-edit --date="Fri June 23 20:00:00 2019 -0600";
 
 echo ${date}
 
 gitDoAmend(){
-    git add .
     git pull
+    git add .
     git commit --amend --no-edit --date="${date} -0600";
     git push;
 }
