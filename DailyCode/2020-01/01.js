@@ -30,8 +30,27 @@ distinctFor = (arr) => {//String,{}不去重
     }
     return result;
 }
-
 timeLine('distinctFor',() => distinctFor(repeatArr),true);
+
+//////////////////////////////////
+distinctDoubleFor = (arr) => {//String,{}不去重
+    let seen = [],
+        length = arr.length; 
+        index = -1;
+    outer:   
+    while( ++index < length){
+        let value = arr[index],
+            seenLength = seen.length;
+        while(seenLength--){
+            if(value === seen[seenLength]){
+                continue outer;
+            }
+        }
+        seen.push(value);
+    } 
+    return seen;
+}
+timeLine('distinctDoubleFor',() => distinctDoubleFor(repeatArr),true);
 
 /////////////////////////////////
 distinctSet = (arr) => {//String,{}不去重
@@ -58,6 +77,7 @@ timeLine('distinctReduce',() => distinctReduce(repeatArr),true);
 console.log('--------------------');
 //测试大素组的耗时
 timeLine('distinctFor',() => distinctFor(bigArray));
+timeLine('distinctDoubleFor',() => distinctFor(bigArray));
 timeLine('distinctSet',() => distinctSet(bigArray));
 timeLine('distinctFilter',() => distinctFilter(bigArray));
 timeLine('distinctReduce',() => distinctReduce(bigArray));
@@ -68,3 +88,12 @@ timeLine('distinctReduce',() => distinctReduce(bigArray));
  * 2.还有 == 和 === 的比较；
  * 3.Set可以去重NaN,但是对对于引用类型不能去重复；
  */
+
+
+ /**
+  *  lodash中数组去重uniq实现
+  *  1.数组长度小于200，用双重for循环去重，会判断NaN的重复（v !== v）;
+  *  2.数组长度大于等于200，用Set去重，会判断NaN的重复（v !== v）;
+  *  3.如果不支持Set,会用Map去兼容;
+  * 
+  * */
