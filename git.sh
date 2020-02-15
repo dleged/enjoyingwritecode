@@ -1,5 +1,5 @@
 #!/bin/bash
-date='Fri Aug 22 20:00:00 2019'
+date='Fri Sep 18 20:00:00 2019'
 
 # git commit --amend --no-edit --date="Fri June 23 20:00:00 2019 -0600";
 

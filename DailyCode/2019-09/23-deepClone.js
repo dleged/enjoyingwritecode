@@ -49,7 +49,7 @@ function isNormal(target){
 
 function deepClone(target){
   //处理循环引用；
-  const parents = [];//纯粗
+  const parents = [];//
   const children = [];//
   if(isNormal(target)) return target;
 
@@ -57,14 +57,14 @@ function deepClone(target){
   if(isType(target,'Array')){
     _child = [];
   }else if(isType(target,'RegExp')){
-    _child = new RegExp(target.source,getRegExp(target));
+    _child = new RegExp(target.source,target(/\w*$/,target));
      if (target.lastIndex) _child.lastIndex = _child.lastIndex;
   }else if(isType(target,'Date')){
     let _date = +target;
     _child = new Date(_date);
   }else{
     _proto = Object.getPrototypeOf(target);
-    _child = Object.create(_proto);//赋制原型
+    _child = Object.create(_proto);//赋值原型
   }
 
   if(isType(target) === 'Object'){
