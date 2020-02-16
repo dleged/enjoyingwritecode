@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            height: 100%;
+            position: relative;
+        }
+        div{
+            border: 1px solid red;
+            height: 50vh;
+            vertical-align: middle;
+            display: inline-block;
+        
+        }
+        div span{
+            display: block;
+            height: 100%;
+            line-height: 50vh;
+        }
+        body::before{
+            content: '1';
+            vertical-align: middle;
+            display: inline-block;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span>
+            利用html css 编写样式，div垂直body居中、div内的text垂直居中，div高度等于body宽度的一半
+        </span>
+    </div>
+</body>
+</html>

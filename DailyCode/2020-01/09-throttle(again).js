@@ -9,7 +9,7 @@ function throttle(func,wait = 100,immediate){//每隔一段时间执行一次
     let timer,lastTime,thisTime,context,args;
     let lastFunc = () => {
         timer = setTimeout(() => {
-            if(thisTime - lastTime >= wait){// * 
+            if(now() - lastTime >= wait){// * 
                 func.apply(context,args);
                 lastTime = thisTime;
             }
