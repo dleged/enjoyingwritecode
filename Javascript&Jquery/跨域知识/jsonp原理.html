@@ -30,20 +30,26 @@
 			var script = document.createElement('script');
 
 			//随机生成的函数赋值为传入的data.success方法
-			eval(callBackFn + '=data.success;');
+			window[callBackFn] = data.success;
 			//当资源返回成功后会调用callBackFn方法，也就是调用data.success回调
 			script.src = data.url + '&callback=' + callBackFn;
+
+			/**
+			 * 当加载完script后，会向服务器发送请求;
+			 * 服务器发现参数有callback，就会启动其jsonp功能;
+			 * 然后返回给前端的值就是jquery_callback_??({status: 0,message: "query ok"...})，(可以去看network中的返回结果);
+			 * 就会调用本地先声明的jquery_callback_??方法;
+			 */ 
+			
 			head.appendChild(script);
 
 		}
-
 		ajax_jsonp({
-			url: 'https://wapbaike.baidu.com/api/usercenter/login?msg=1&_=0.4648408465336522',
+			url: 'https://apis.map.qq.com/ws/location/v1/ip?ip=223.93.170.115&key=TKUBZ-D24AF-GJ4JY-JDVM2-IBYKK-KEBCU&output=jsonp&t=1523427651521',
 			success: function(data,a){
 				console.log(data)
 			}
 		})
-
 
 
 	</script>
