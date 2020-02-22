@@ -27745,14 +27745,12 @@
         }
 
         {
-            debugger
             var isModernRoot = isContainerMarkedAsRoot(container) && container._reactRootContainer === undefined;
 
             if (isModernRoot) {
                 warningWithoutStack$1(false, 'You are calling ReactDOM.render() on a container that was previously ' + 'passed to ReactDOM.createRoot(). This is not supported. ' + 'Did you mean to call root.render(element)?');
             }
         }
-        debugger
         return legacyRenderSubtreeIntoContainer(null, element, container, false, callback);
     }
     function unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {

@@ -10,8 +10,21 @@
         constructor(props) {
             super(props);
             this.state = {
-                count: '2'
+                count:1
             }
+        }
+
+        componentDidMount(){
+            this.setState({count: this.state.count + 1});
+            console.log(this.state.count);
+            this.setState({count: this.state.count + 1});
+            console.log(this.state.count);
+            setTimeout(() =>{
+                this.setState({count: this.state.count + 1});
+                console.log(this.state.count);
+                this.setState({count: this.state.count + 1});
+                console.log(this.state.count);
+            },2000);
         }
 
         static defaultProps = {
@@ -25,20 +38,21 @@
         }
 
         addClickHandle = () => {
-            this.setState({ count: --this.state.count});
+            this.setState({ count: ++this.state.count});
         }
 
         minusClickHandle = () => {
-            this.setState({ count: ++this.state.count});
+            this.setState({ count: --this.state.count});
         }
 
         render(){
             let { count } = this.state;
             return createElement(
-                'div',{ style: {'border': '1px solid red'} },
-                createElement(Input,{count: this.state.count}),
-                createElement(Button,{text: '➕',count: count,onClick: this.addClickHandle}),
-                createElement(Button,{text: '➖',count: count,onClick: this.minusClickHandle}),
+                'div',{ style: {'border': '1px solid red'},onClick: this.addClickHandle },
+                count,
+                // createElement(Input,{count: this.state.count}),
+                // createElement(Button,{text: '➕',count: count,onClick: this.addClickHandle}),
+                // createElement(Button,{text: '➖',count: count,onClick: this.minusClickHandle}),
             );
         }
     }
