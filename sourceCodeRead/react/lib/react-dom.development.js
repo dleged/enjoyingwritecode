@@ -27657,6 +27657,7 @@
         var fiberRoot;
 
         if (!root) {
+            debugger
             // Initial mount
             root = container._reactRootContainer = legacyCreateRootFromDOMContainer(container, forceHydrate);
             fiberRoot = root._internalRoot;

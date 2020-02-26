@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterator</title>
+</head>
+<body>
+</body>
+<script>
+    let obj = {
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        index: 0, 
+        [Symbol.iterator]: function(){
+            return this;
+        },
+        next: function(){
+            let value = this[this.index];
+            if(this.hasOwnProperty(this.index)){
+                this.index++;
+                return {value: this[this.index],done: false};
+            }
+            return {value: false,done: true};
+        }
+    }
+
+//     console.log(obj.next());
+//     console.log(obj.next());
+//     console.log(obj.next());
+//     console.log(obj.next());
+//  当一个对象具有[Symbol.iterator]属性的方法，返回的对象具备next方法，则可以被for...of循环；
+//  第一步会调用[Symbol.iterator]方法，返回一个对象；
+//  第二布调用返回对象的next方法；
+    for(let key of obj){
+        console.log(key);
+    }
+
+
+ //another example
+
+ let anotherObj = {0: 'a',1: 'b',2: 'c',length: 3};
+ anotherObj[Symbol.iterator] = Array.prototype[Symbol.iterator];   
+ for(let key of anotherObj){
+        console.log(key);
+    }
+</script>
+</html>

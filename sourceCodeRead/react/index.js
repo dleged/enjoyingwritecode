@@ -41,9 +41,9 @@
             this.setState({ count: ++this.state.count});
         }
 
-        minusClickHandle = () => {
-            this.setState({ count: --this.state.count});
-        }
+        // minusClickHandle = () => {
+        //     this.setState({ count: --this.state.count});
+        // }
 
         render(){
             let { count } = this.state;
@@ -99,9 +99,9 @@
 
     window.onload = function(){
         let root = document.getElementById('root');
-        ReactDOM.render(createElement(Content,{
+        ReactDOM.render(createElement('div',{
                         name: 'div',
                         id: 'content'
-                    }),root);
+                    },'😄'),root);
     }
 })()
