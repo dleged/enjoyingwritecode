@@ -10,3 +10,12 @@
     - 抽离的 CSS 样式文件使用 contenthash
     - gif|png|jpe?g|eot|woff|ttf|svg|pdf 等使用 hash
     - 设置 namedChunks 为 true`
+
+
+
+
+
+
+
+    [Top Webpack plugins for faster development]https://codeburst.io/top-webpack-plugins-for-faster-development-a2f6accb7a3e;
+    [webpack 4: Code Splitting, chunk graph and the splitChunks optimization]https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
