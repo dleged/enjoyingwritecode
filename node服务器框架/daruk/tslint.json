@@ -1,0 +1,24 @@
+{
+  "extends": ["tslint-config-alloy", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": ["**/node_modules/**"]
+  },
+  "rules": {
+    "semicolon": true,
+    "eofline": false,
+    "indent": [true, "spaces", 2],
+    "no-empty-interface": false,
+    "no-import-side-effect": false,
+    "no-inferrable-types": false,
+    "no-redundant-jsdoc": false,
+    "no-magic-numbers": false,
+    "no-non-null-assertion": false,
+    "no-parameter-reassignment": false,
+    "forin": false,
+    "no-for-in-array": true,
+    "no-unused-expression": true,
+    "trailing-comma": false,
+    "arrow-parens": false,
+    "no-angle-bracket-type-assertion": false
+  }
+}
