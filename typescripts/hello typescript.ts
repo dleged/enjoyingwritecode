@@ -3,4 +3,3 @@ function helloPerson(person: string){
 }
 
 console.log(helloPerson('typescript'));
-
