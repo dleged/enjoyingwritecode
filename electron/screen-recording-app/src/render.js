@@ -86,9 +86,7 @@ async function onStopRecord(){
         defaultPath: `${selectSourceName}-${Date.now()}.webm`,
         buttonLabel: '保存视频'
     });
-
    
-
     try{
         fs.writeFileSync(pathName,buffer);
         notifyMe();
