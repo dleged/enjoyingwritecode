@@ -11,6 +11,11 @@ class PromiseA{
     this.reason = null;
 
     resolve = function(value){
+      try{
+
+      }catch{
+        
+      }
       if(this.status === 'pending'){
         this.value = value;
         this.status = FULLFILLED;
@@ -19,6 +24,7 @@ class PromiseA{
 
     reject = function(e){
       if(this.status === 'pending'){
+        this.error = true;
         this.value = e;
         this.status = REJECT;
       }
@@ -32,6 +38,16 @@ class PromiseA{
   }
 }
 
-PromiseA.prototype.then = function(fullfilled,rejected){
+PromiseA.prototype.then = function(callback){
+  if(this.error) {
+    callback(this.value);
+    this.value = undefined;
+    this.status = 'resolved';
+  };
+}
 
+PromiseA.prototype.catch = function(callback){
+  callback(this.value);
+  this.value = undefined;
+  this.status = 'resolved';
 }
