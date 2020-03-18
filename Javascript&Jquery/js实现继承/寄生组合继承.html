@@ -24,10 +24,9 @@
 
 		function clonePrototype(Super,Sub){
 			//创建没有实例属性和方法的构造函数，使其调用子类属性和方法不会影响父类原型上的属性和方法
-			function O(){}
-			O.prototype =  new Super();
-			//O作为子类的原型
-			Sub.prototype = new O();
+			let prototype = Object.create(Super);
+			prototype.constructor = Sub;
+			Sub.prototype = prototype;
 		}
 
 		let dog = new Dog('dog');
