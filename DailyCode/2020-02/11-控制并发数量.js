@@ -10,6 +10,7 @@ function asyncPromise(limt,array,iterator){
         let item = array[index++];
 
         let p = Promise.resolve().then(() => { 
+            console.log(item);
            return iterator(item);//A
         });
         result.push(p);
