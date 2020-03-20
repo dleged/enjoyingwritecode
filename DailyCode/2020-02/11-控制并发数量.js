@@ -9,11 +9,14 @@ function asyncPromise(limt,array,iterator){
         }
         let item = array[index++];
 
-        let p = Promise.resolve().then(() => iterator(item));
+        let p = Promise.resolve().then(() => { 
+           return iterator(item);//A
+        });
         result.push(p);
-
         let e = p.then((i) => {//执行promise    *A
+            
             executing.splice(executing.indexOf(e),1);
+            console.log(i,'e');
         });
 
         executing.push(e);
