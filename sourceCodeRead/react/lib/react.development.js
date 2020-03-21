@@ -2325,6 +2325,13 @@
         var _callback = null;
         var _timeoutID = null;
 
+        var initialTime = Date.now();
+
+        getCurrentTime = function () {
+            return Date.now() - initialTime;
+        };
+
+
         var _flushCallback = function () {
             if (_callback !== null) {
                 try {
@@ -2339,12 +2346,6 @@
                     throw e;
                 }
             }
-        };
-
-        var initialTime = Date.now();
-
-        getCurrentTime = function () {
-            return Date.now() - initialTime;
         };
 
         requestHostCallback = function (cb) {

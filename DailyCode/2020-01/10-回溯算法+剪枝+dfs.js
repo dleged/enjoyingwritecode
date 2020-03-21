@@ -18,7 +18,7 @@ function main(nums,target){
             return;
         }
 
-        for(let start = nums; start < length;start++){
+        for(let start = index; start < length;start++){
             //选值
             stack.push(nums[start]);
             //递归下一个决策

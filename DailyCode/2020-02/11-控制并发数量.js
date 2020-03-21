@@ -10,14 +10,14 @@ function asyncPromise(limt,array,iterator){
         let item = array[index++];
 
         let p = Promise.resolve().then(() => { 
-            console.log(item);
+            console.log(item,'item');//立马执行
            return iterator(item);//A
         });
         result.push(p);
         let e = p.then((i) => {//执行promise    *A
             
             executing.splice(executing.indexOf(e),1);
-            console.log(i,'e');
+           
         });
 
         executing.push(e);

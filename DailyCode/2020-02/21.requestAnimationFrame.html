@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #root{
+            width: 500px;
+            background-color:antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='root'>
+        <pre>
+            requestAnimationFrame 传递一个参数告诉浏览器，在下一帧重绘之前执行一个函数；
+        </pre>
+    </div>
+
+</body>
+<script>
+    let root = document.getElementById('root');
+    let times = 10;
+
+    function widthLoop(DOMHighResTimeStamp){
+        console.log(DOMHighResTimeStamp)
+        while(times > 0){
+            console.log(performance.now());
+            root.style.width = parseInt(root.clientWidth) + 20 + 'px';
+            requestAnimationFrame(widthLoop);
+            times--;
+        }
+    }
+
+    requestAnimationFrame(widthLoop);
+
+</script>
+</html>
