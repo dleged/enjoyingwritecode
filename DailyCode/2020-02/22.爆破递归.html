@@ -1,0 +1,70 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    递归爆栈: 递归的深度达到极大时，调用堆栈就会溢出
+    破解递归爆栈: 改用循环，深度优先；
+</body>
+<script>
+    let c3 = 'c3';
+    var source = {
+        a1: 'a1',
+        a2: {
+            b1: 'b1',
+            b2: {
+                c3: 'c3'
+            }
+        },
+        c3: c3
+    }
+
+
+    //只考虑{}的拷贝
+    function cloneLoop(source) {
+        let root = {};
+        let loop = [{
+            parent: root,
+            key: undefined,
+            data: source
+        }];
+
+        while (loop.length) {
+            let node = loop.pop();
+
+            let parent = node.parent;
+            let key = node.key;
+            let data = node.data;
+            let res = parent;
+
+            if (key !== undefined) {//有key代码是个对象
+                res = parent[key] = {};
+            }
+
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                    if (typeof source[key] === 'object') {
+                        loop.push({
+                            parent: res,
+                            key: key,
+                            data: data[key]
+                        });
+                    } else {
+                        res[key] = data[key];
+                    }
+                }
+            }
+        }
+
+        return root;
+    }
+
+    console.log(cloneLoop(source));
+
+</script>
+
+</html>
