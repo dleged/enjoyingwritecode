@@ -1,0 +1,1 @@
+../../../../../node_modules/_react-native-screens@2.0.0-alpha.12@react-native-screens/ios/RNSScreen.h

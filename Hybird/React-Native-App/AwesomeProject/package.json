@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "expo": "~36.0.0",
-    "react": "~16.9.0",
+    "react": "^16",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.4",
     "react-native-gesture-handler": "~1.5.0",
@@ -23,7 +23,8 @@
     "@types/react-native": "~0.60.23",
     "babel-preset-expo": "~8.0.0",
     "jest-expo": "~36.0.1",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.3",
+    "watchman": "^1.0.0"
   },
   "jest": {
     "preset": "react-native"
