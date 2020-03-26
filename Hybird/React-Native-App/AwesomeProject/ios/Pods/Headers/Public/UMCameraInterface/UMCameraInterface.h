@@ -1,1 +1,0 @@
-../../../../../node_modules/_react-native-unimodules@0.7.0@react-native-unimodules/node_modules/unimodules-camera-interface/ios/UMCameraInterface/UMCameraInterface.h

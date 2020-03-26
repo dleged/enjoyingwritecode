@@ -1,1 +1,0 @@
-../../../../../node_modules/_expo@36.0.2@expo/node_modules/expo-sqlite/ios/EXSQLite/EXSQLite.h
