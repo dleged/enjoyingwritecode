@@ -51,7 +51,6 @@
 
         //case:
         // p = new _Promise((res, rej) => { res(1) }).then((v) => {
-l
         //     return new _Promise((res, rej) => {
         //         setTimeout(() => {
         //             res(v);
@@ -61,7 +60,7 @@ l
 
         _Promise.prototype.then = function (resolve, reject) {//go on
             if (isFunc(resolve) && this.promiseStatus === FULFILLED) {
-                let result = resolve();
+                let result = resolve(this.promiseValue);
                 if (result) {
                     if (result instanceof _Promise) {
                         this.promiseStatus = PENDING;
@@ -114,12 +113,10 @@ l
         }
 
 
-
-
-
-
-        new _Promise((resolve, reject) => {
-            setTimeout(() => { resolve(1), 1000 });
+        p = new _Promise((res, rej) => {
+            res(1)
+        }).then((v) => {
+            console.log(v);
         })
 
     </script>
