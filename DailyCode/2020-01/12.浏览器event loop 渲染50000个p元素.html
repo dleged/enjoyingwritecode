@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            border: 1px solid rebeccapurple;
+            padding: 5px;
+            margin: 5px;
+            color: goldenrod;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <pre>
+        浏览器使用js引擎线程执行代码，也即单线程执行；
+        那么他是怎么调度同步，宏任务/微任务的呢，那就是通过event loop机制；
+        但是event loop有个缺点，当处理的任务回调过多，浏览器的渲染性能会变低；
+        可以拆分出多个渲染任务；
+        优化：采用任务分拣，时间分片
+    </pre>
+    <div id="root"></div>
+    <script>
+        //case: 输出50000个p；
+        let root = document.getElementById('root');
+
+        function loop(n) {//render 55 ms
+            let index = 0;
+            while (index++ < n) {
+                let p = document.createElement('p');
+                p.innerText = index;
+                root.appendChild(p);
+            }
+        };
+        setTimeout(loop,3000,50000);
+    </script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 2. 使用dns-prefetch预加载<link rel="dns-prefetch" href="//https://developer.mozilla.org/.com">,跳转到https://developer.mozilla.org/就无需在解析域名了；
 3. 使用prefetch,preload加载静态文件，会在浏览器空闲的时候去加载资源；
 4. 使用游标的方式传递接口返回；
-5. 使用http缓存
+5. 使用http缓存;
 
 >缓存
 ```
