@@ -1,8 +1,16 @@
 {
-  "Dependencies": {
-    "koa": "^2.11.0"
+  "name": "koa-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@koa/router": "^8.0.8"
+    "koa": "^2.11.0",
+    "openbrowser": "^1.0.2"
   }
 }
