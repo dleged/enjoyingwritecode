@@ -24,12 +24,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css</a>
-                    </td>
-                    <td><a href="/123456">123456</a></td>
-                    <td>10</td>
-                </tr>
+                <% shortUrls.forEach((v) => {%>
+                    <tr>
+                        <td><a href="<%= v.full %>"><%= v.full %></a>
+                        </td>
+                        <td><a href="<%= v.short %>"><%= v.short %></a></td>
+                        <td><%= v.clicks %></td>
+                    </tr>
+                <%})%>
             </tbody>
         </table>
     </div>
