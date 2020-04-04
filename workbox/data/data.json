@@ -1,8 +1,0 @@
-{
-	"data": [
-		{"name": "html","description": "html,全称Hypertext Markup Language,也就是“超文本链接标示语言"},
-		{"name": "css","description": "层叠样式表(英文全称：Cascading Style Sheets)是一种用来表现HTML（标准通用标记语言的一个应用）或XML（标准通用标记语言的一个子集）等文件样式的计算机语言"},
-		{"name": "javascript","description": "JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型"},
-		{"name": "google","description": " 谷歌公司(Google Inc.)成立于1998年9月4日,由拉里·佩奇和谢尔盖·布林共同创建,被公认为全球最大的搜索引擎"}
-	]
-}
