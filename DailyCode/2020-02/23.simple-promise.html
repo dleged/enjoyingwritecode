@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    简单的promise实现
+</body>
+<script>
+    class Promise{
+        value = undefined;
+        status = 'pending';
+        callbacks = [];
+
+        constructor(fn){
+            fn(this.resolve.bind(this));
+        }
+
+        then = function(fullfilled){
+            return new Promise((resolve) => {
+                this._handlerThen({
+                    fullfilled: fullfilled || null,
+                    resolve: resolve
+                })
+            })
+        }
+
+        _handlerThen = function(param){
+            if(this.status === 'pending'){//没有执行完resolve，推入队列
+                return this.callbacks.push(param.fullfilled);
+            }
+
+            if(!param.fullfilled){//没有fullfilled函数回调直接执行
+                return param.resolve(this.value);
+            }
+
+            let result = param.fullfilled(this.value);//fullfilled状态，拿到结果
+            param.resolve(result);
+        }
+
+        resolve = function(value){//执行resolve函数
+            this.status = 'fullfilled';
+            this.value = value;
+            this.callbacks.forEach((fn) => {//执行队列函数
+                fn(this.value);
+            });
+        }
+    }
+
+</script>
+</html>

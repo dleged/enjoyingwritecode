@@ -1,0 +1,58 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div>name:<span id='name'></span></div>
+        <div>age:<span id='age'></span></div>
+    </div>
+    <div>
+        <input type="text" name='name' placeholder='change name'/>
+        <input type="text" name='age' placeholder='change age'/>
+    </div>
+</body>
+<script>
+
+    let domValue = {
+        name: '',
+        age: '',
+    }
+
+    let watcher = function (obj, name, func) {
+        let value = undefined;
+        Object.defineProperty(obj, name, {
+            set: function (v) {
+                value = v
+                func(v);
+            },
+            get: function () {
+                return value;
+            }
+        })
+    }
+
+    watcher(domValue, 'name', (n) => {
+        document.querySelector('#name').innerText = n;
+    });
+
+    watcher(domValue, 'age', (n) => {
+        document.querySelector('#age').innerText = n;
+    });
+
+    document.querySelector('[name=name]').oninput = function(e){
+        domValue[e.target.name] = e.target.value;
+    }
+
+    document.querySelector('[name=age]').oninput = function(e){
+        domValue[e.target.name] = e.target.value;
+    }
+
+
+</script>
+
+</html>
