@@ -7,7 +7,7 @@ const start = document.getElementById('start');
 const stop = document.getElementById('stop');
 const select = document.getElementById('select');
 
-let mediaRecorder;//视频录制实力
+let mediaRecorder;//视频录制实例
 let mediaChunks = [];//视频bolb队列
 let selectSourceName;
 
