@@ -1,0 +1,11 @@
+type Query{
+    sampleData: SampleData
+    rockets: [Rockets]
+}
+type SampleData{
+    data: String!
+}
+type Rockets{
+    id: String!
+    name: String!
+}
