@@ -15,6 +15,9 @@ let ShopcarService = class ShopcarService {
         return this.skuList;
     }
     insertSkuToShopcar(sku) {
+        if (true) {
+            return new common_1.NotFoundException();
+        }
         this.skuList.push(sku);
         return this.skuList;
     }

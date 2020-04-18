@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test, TestingModule,NotFoundException } from '@nestjs/testing';
 import { ShopcarService } from './shopcar.service';
 
 describe('ShopcarService', () => {

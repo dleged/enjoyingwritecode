@@ -9,13 +9,13 @@ import { BadRequestExceptionFilter } from './filter/bad-requestException.filter'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('/nest')
   getHello(): string {
     return this.appService.getHello();
   }
 
   @Get('/home')
-  getHome(res): string{
+  getHome(): string{
     return this.appService.getHome();
   }
 

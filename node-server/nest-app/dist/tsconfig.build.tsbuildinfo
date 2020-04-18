@@ -1134,12 +1134,12 @@
         "signature": "1f2d0e10eafd96b1cee896f45c85b3f13326204cfb4fe1ae636e33543f09cf9f"
       },
       "../src/shopcar/shopcar.service.ts": {
-        "version": "e49ec7d6b9a15ea403de047063d1d2f01251c458fffa86a3c3d568ed34be1ed0",
-        "signature": "19a746af2098a9e820629054539cd7ba90caf17f281a0dbb8163dd04133bd808"
+        "version": "9b80c32f0efc5d43f9b41ebaa10afb15f88e24d5538f970459fb8245942451d0",
+        "signature": "9e2e66d030f3b87b0377fd1c884bc0f0d7960a5e7ada46a6ea9f2f93250ed322"
       },
       "../src/shopcar/shopcar.controller.ts": {
         "version": "dd82942cbdb81122cdf4203dec40614da31160b16972dea2a3f63789f19987cb",
-        "signature": "9fe6c63d8c61a63b54e79d00bf2a440942d25c50afe1561f445cfaa6b90651e1"
+        "signature": "8164bc1875def6855bd9d6f309cf30cf8b3b3e65ce385825cd9ce9f92767de33"
       },
       "../src/shopcar/shopcar.module.ts": {
         "version": "59b2c60cd3401beb44e7093c262b154c8bb042ee55b4690d6a5966b778ceffbc",
@@ -3703,8 +3703,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/shopcar/shopcar.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
         "../src/shopcar/interface/sku.interface.ts",
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -6537,9 +6537,11 @@
         "../src/app.service.ts"
       ],
       "../src/shopcar/shopcar.service.ts": [
-        "../src/shopcar/interface/sku.interface.ts"
+        "../src/shopcar/interface/sku.interface.ts",
+        "../node_modules/@nestjs/common/index.d.ts"
       ],
       "../src/shopcar/shopcar.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../src/shopcar/shopcar.service.ts",
         "../src/shopcar/interface/sku.interface.ts"
       ],
@@ -7395,9 +7397,6 @@
       "../src/filter/bad-requestexception.filter.ts",
       "../src/app.controller.ts",
       "../src/shopcar/interface/sku.interface.ts",
-      "../src/shopcar/shopcar.service.ts",
-      "../src/shopcar/shopcar.module.ts",
-      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/injector/module-token-factory.d.ts",
@@ -7469,8 +7468,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/shopcar/shopcar.controller.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.8.3"
