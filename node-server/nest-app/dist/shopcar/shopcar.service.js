@@ -15,11 +15,19 @@ let ShopcarService = class ShopcarService {
         return this.skuList;
     }
     insertSkuToShopcar(sku) {
-        if (true) {
-            return new common_1.NotFoundException();
-        }
         this.skuList.push(sku);
         return this.skuList;
+    }
+    findSingleSku(id) {
+        console.log(id, this.skuList);
+        let sku = this.skuList.find((sku) => {
+            console.log(sku.id, id);
+            return sku.id === id;
+        });
+        if (!sku) {
+            return new common_1.NotFoundException();
+        }
+        return sku;
     }
 };
 ShopcarService = __decorate([

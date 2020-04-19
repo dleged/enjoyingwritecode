@@ -541,6 +541,11 @@
     tslib "1.11.1"
     uuid "7.0.3"
 
+"@nestjs/mapped-types@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.0.1.tgz#ff82149301d3d08bcacae2b392d85e24e5bee02b"
+  integrity sha512-4G4Ui7Sj0UqXiZsUFk/6cPD3K7uZEFSElzkOftaJ3/lXW+HUi1/vfWXabF53qrzO1enTRQDxt1plDbP6SsqXEg==
+
 "@nestjs/platform-express@^7.0.0":
   version "7.0.8"
   resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-7.0.8.tgz#0d957a1559267d00731dfc26951d28a6527a0dc2"
@@ -560,6 +565,15 @@
     "@angular-devkit/core" "9.0.6"
     "@angular-devkit/schematics" "9.0.6"
     fs-extra "8.1.0"
+
+"@nestjs/swagger@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.5.2.tgz#0cbf3e8fd6322f10626c0905f991632a27fe78ee"
+  integrity sha512-ZqzgxaL+S1ftUgvh11F57r9w6rYMRnA4w858Uk2zDPpFHFojdH7QC7jrkwgI+tGDWg4e54+AVJvHvmckgQ+6yw==
+  dependencies:
+    "@nestjs/mapped-types" "0.0.1"
+    lodash "4.17.15"
+    path-to-regexp "3.2.0"
 
 "@nestjs/testing@^7.0.0":
   version "7.0.8"
@@ -4265,7 +4279,7 @@ lodash.toarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
 
-lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
+lodash@4.17.15, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==

@@ -18,18 +18,26 @@ let ShopcarController = class ShopcarController {
     constructor(shopcarService) {
         this.shopcarService = shopcarService;
     }
-    insertSkuToShopcar(Sku) {
-        return this.shopcarService.insertSkuToShopcar(Object.assign({}, Sku));
+    insertSkuToShopcar(name, price, count) {
+        return this.shopcarService.insertSkuToShopcar({
+            'id': Math.random(),
+            name,
+            price,
+            count
+        });
     }
     getShopcar() {
         return this.shopcarService.getShopcar();
     }
+    getSingleSku(id) {
+        return this.shopcarService.findSingleSku(Number(id));
+    }
 };
 __decorate([
-    common_1.Get('/:sku/:price/?:count'),
-    __param(0, common_1.Param()),
+    common_1.Post('/'),
+    __param(0, common_1.Body('name')), __param(1, common_1.Body('price')), __param(2, common_1.Body('count')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String, String, Number]),
     __metadata("design:returntype", void 0)
 ], ShopcarController.prototype, "insertSkuToShopcar", null);
 __decorate([
@@ -38,6 +46,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Array)
 ], ShopcarController.prototype, "getShopcar", null);
+__decorate([
+    common_1.Get('/find/?:id'),
+    __param(0, common_1.Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], ShopcarController.prototype, "getSingleSku", null);
 ShopcarController = __decorate([
     common_1.Controller('shopcar'),
     __metadata("design:paramtypes", [shopcar_service_1.ShopcarService])

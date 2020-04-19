@@ -24,6 +24,7 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/swagger": "^4.5.2",
     "http-status-codes": "^1.4.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

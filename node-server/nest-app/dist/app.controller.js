@@ -20,12 +20,12 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    getHome(res) {
+    getHome() {
         return this.appService.getHome();
     }
 };
 __decorate([
-    common_1.Get(),
+    common_1.Get('/nest'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
@@ -33,7 +33,7 @@ __decorate([
 __decorate([
     common_1.Get('/home'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHome", null);
 AppController = __decorate([

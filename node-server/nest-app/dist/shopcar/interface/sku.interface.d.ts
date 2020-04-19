@@ -1,5 +1,6 @@
 export interface Sku {
-    sku: string;
+    id: number;
+    name: string;
     price: string;
-    count: string;
+    count: number;
 }
