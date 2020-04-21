@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module,MiddlewareConsumer,RequestMethod } from '@nestjs/common';
 import { nextAppFactory } from './provider/nest.provider';
 import { SsrController } from './ssr.controller';
 
@@ -6,4 +6,13 @@ import { SsrController } from './ssr.controller';
   providers: [nextAppFactory],
   controllers: [SsrController]
 })
-export class SsrModule {}
+export class SsrModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply()
+      .forRoutes({
+        path: '*',
+        method: RequestMethod.ALL,
+      });
+  }
+}

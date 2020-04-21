@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller,Get } from '@nestjs/common';
 
 @Controller('ssr')
-export class SsrController {}
+export class SsrController {
+    @Get(':project*')
+    getHello(): string {
+        return 'Hello Ssr Router!';
+    }
+}
