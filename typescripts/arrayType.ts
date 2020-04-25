@@ -1,14 +1,14 @@
-(function(){
+(function () {
     let fibonacci: number[];
-    fibonacci = [1,1,2,3,5,8];
+    fibonacci = [1, 1, 2, 3, 5, 8];
 
     let fibonacci2: Array<number>;
-    fibonacci2 = [1,1,2,3,5,8];
+    fibonacci2 = [1, 1, 2, 3, 5, 8];
 
     let fibonacci3: Array<any>;
-    fibonacci3 = ['1',1,2,3,5,{}];
+    fibonacci3 = ['1', 1, 2, 3, 5, {}];
 
-    function sum(a:number,...items:any[]){
+    function sum(a: number, ...items: any[]) {
         let args: {
             [index: number]: number;
             length: number;
@@ -17,5 +17,5 @@
 
         console.log(args);
     }
-    sum(1,2,3,4);
+    sum(1, 2, 3, 4);
 }());
