@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "shelljs": "^0.8.4"
   }
 }
