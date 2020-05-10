@@ -224,7 +224,6 @@
 
     function injectEventPluginsByName(injectedNamesToPlugins) {
         var isOrderingDirty = false;
-
         for (var pluginName in injectedNamesToPlugins) {
             if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
                 continue;
@@ -24572,6 +24571,7 @@
         }
     }
     function unbatchedUpdates(fn, a) {
+        debugger
         var prevExecutionContext = executionContext;
         executionContext &= ~BatchedContext;
         executionContext |= LegacyUnbatchedContext;
@@ -27657,7 +27657,6 @@
         var fiberRoot;
 
         if (!root) {
-            debugger
             // Initial mount
             root = container._reactRootContainer = legacyCreateRootFromDOMContainer(container, forceHydrate);
             fiberRoot = root._internalRoot;

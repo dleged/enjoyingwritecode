@@ -10,21 +10,37 @@
         constructor(props) {
             super(props);
             this.state = {
-                count:1
+                count:1,
+                val: 0,
+                index: 0
             }
         }
 
         componentDidMount(){
-            this.setState({count: this.state.count + 1});
-            console.log(this.state.count);
-            this.setState({count: this.state.count + 1});
-            console.log(this.state.count);
-            setTimeout(() =>{
-                this.setState({count: this.state.count + 1});
-                console.log(this.state.count);
-                this.setState({count: this.state.count + 1});
-                console.log(this.state.count);
-            },2000);
+            this.setState({val: this.state.val + 1});
+            console.log(this.state.val);    // 第 1 次 log 0
+        
+            this.setState({val: this.state.val + 1});
+            console.log(this.state.val);    // 第 2 次 log 0
+        
+            setTimeout(() => {
+              this.setState({val: this.state.val + 1});
+              console.log(this.state.val);  // 第 3 次 log 2
+        
+              this.setState({val: this.state.val + 1});
+              console.log(this.state.val);  // 第 4 次 log 3
+            }, 0);
+        }
+
+
+        add = () => {
+            this.setState(prevState => {
+                return {index: prevState.index + 1};
+            },() => {console.log(this.state.index);});
+            
+            this.setState(prevState => {
+                return {index: prevState.index + 1};
+            },() => {console.log(this.state.index);});
         }
 
         static defaultProps = {
@@ -48,7 +64,7 @@
         render(){
             let { count } = this.state;
             return createElement(
-                'div',{ style: {'border': '1px solid red'},onClick: this.addClickHandle },
+                'div',{ style: {'border': '1px solid red'},onClick: this.add },
                 count,
                 // createElement(Input,{count: this.state.count}),
                 // createElement(Button,{text: '➕',count: count,onClick: this.addClickHandle}),
@@ -99,7 +115,7 @@
 
     window.onload = function(){
         let root = document.getElementById('root');
-        ReactDOM.render(createElement('div',{
+        ReactDOM.render(createElement(Content,{
                         name: 'div',
                         id: 'content'
                     },'😄'),root);
