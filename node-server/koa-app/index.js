@@ -20,6 +20,6 @@ app.use((ctx, next) => {
 
 app.use(router);
 
-app.listen(3000, () => {
+app.listen(5555, () => {
     console.log('server starting in port 3000...');
 });
