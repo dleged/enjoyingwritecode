@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <dark rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Document</title>
     <style>
       pre {
@@ -11,9 +12,11 @@
         font-size: 16px;
       }
       button{
-        background: white;
-        border: 1px solid black;
         height: 30px;
+        color: #fff;
+        background-color: #343a40;
+        border-color: #343a40;
+        cursor: pointer;
       }
     </style>
     <script src="./sandbox.js"></script>
@@ -40,9 +43,9 @@
         console.log('addition',a);
       }
     </pre>
-    <button id="snapshot1">init snapshot ②</button>
-    <button id="addition">addition</button>
-    <button id="snadbox1">active snadbox1</button>
+    <button class="btn btn-dark" id="snapshot1">init snapshot ②</button>
+    <button class="btn btn-dark" id="addition">addition</button>
+    <button class="btn btn-dark" id="snadbox1">active snadbox1</button>
 
     <pre id='pre2'>
       // javaScript沙箱2
@@ -54,9 +57,9 @@
         console.log('minus',a);
       }
     </pre>
-    <button id="snapshot2">init snapshot ②</button>
-    <button id="minus" onClick="minus">minus</button>
-    <button id="snadbox2" onClick="addition">active snadbox2</button>
+    <button class="btn btn-dark" id="snapshot2">init snapshot ②</button>
+    <button class="btn btn-dark" id="minus" onClick="minus">minus</button>
+    <button class="btn btn-dark" id="snadbox2" onClick="addition">active snadbox2</button>
   </body>
 
   <script type="text/javascript">
@@ -66,7 +69,7 @@
 
     let geval = eval;
 
-
+    /********** 初始化代码片段 ******/
     document.getElementById("snapshot1").onclick = function () {
       geval(
         "(function(window){let a = 0;let b = 1;window.addition = function(){ window.result = a = a + b;console.log('addition',a);}}).bind(p1)(p1)"
@@ -78,7 +81,7 @@
       );
     };
 
-
+    /********** 激活沙箱 ******/
     document.getElementById("snadbox1").onclick = function () {
       document.getElementById("pre1").style.background = 'yellow';
       document.getElementById("pre2").style.background = 'white';
@@ -92,10 +95,9 @@
       snadbox1.inActive();
       snadbox2.active();
     };
+
   
-
-
-
+    /********** 调用沙箱中的方法 ******/
     document.getElementById("addition").onclick = function () {
       addition();
     };
@@ -103,5 +105,6 @@
     document.getElementById("minus").onclick = function () {
       minus();
     };
+
   </script>
 </html>

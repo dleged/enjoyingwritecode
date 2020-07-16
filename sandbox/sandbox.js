@@ -16,14 +16,18 @@ class Sandbox {
 
     this.proxy = new Proxy(fakewindow, {
       set(_, property, value) {
+
+        //window 上不存在的属性，视为新增
         if (!rawWindow[property]) {
           target.addedPropsMapInSandbox.set(property, value);
         }
 
+        //window 上存在的属性，视为修改
         if (rawWindow.hasOwnProperty(property)) {
           target.modifiedPropsMapInSandbox.set(property, value);
         }
 
+        //记录当前状态的快照，以便任何是个还原沙箱状态
         target.currentUpdatesMapInSandbox.set(property, value);
 
         rawWindow[property] = value;
