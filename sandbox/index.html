@@ -1,0 +1,107 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      pre {
+        padding: 30px;
+        border: 1px solid black;
+        background: white;
+        font-size: 16px;
+      }
+      button{
+        background: white;
+        border: 1px solid black;
+        height: 30px;
+      }
+    </style>
+    <script src="./sandbox.js"></script>
+    <script>
+      let snadbox1 = new Sandbox();
+      let p1 = snadbox1.proxy;
+
+      let snadbox2 = new Sandbox();
+      let p2 = snadbox2.proxy;
+
+      // eval 函数执行 JavaScript 代码，并传入 global；
+      function evalScript(script, global) {
+        `${script}}(${global})`;
+      }
+    </script>
+  </head>
+  <body>
+    <pre id='pre1'>
+      // javaScript沙箱1
+      let a = 0;
+      let b = 1;
+      window.addition = function(){
+        window.result = a = a + 1;
+        console.log('addition',a);
+      }
+    </pre>
+    <button id="snapshot1">init snapshot ②</button>
+    <button id="addition">addition</button>
+    <button id="snadbox1">active snadbox1</button>
+
+    <pre id='pre2'>
+      // javaScript沙箱2
+      let a = 9999;
+      let b = 10000;
+      window.c = '💅💅💅💅';
+      window.minus = function(){
+        window.result = a = a - b;
+        console.log('minus',a);
+      }
+    </pre>
+    <button id="snapshot2">init snapshot ②</button>
+    <button id="minus" onClick="minus">minus</button>
+    <button id="snadbox2" onClick="addition">active snadbox2</button>
+  </body>
+
+  <script type="text/javascript">
+
+    // 间接调用，使用全局作用域 
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval
+
+    let geval = eval;
+
+
+    document.getElementById("snapshot1").onclick = function () {
+      geval(
+        "(function(window){let a = 0;let b = 1;window.addition = function(){ window.result = a = a + b;console.log('addition',a);}}).bind(p1)(p1)"
+      );
+    };
+    document.getElementById("snapshot2").onclick = function () {
+      geval(
+        "(function(window){let a = 9999;let b = 10000; window.c = '💅💅💅💅';window.minus = function(){ window.result = a = a - b;console.log('minus',a);}}).bind(p2)(p2)"
+      );
+    };
+
+
+    document.getElementById("snadbox1").onclick = function () {
+      document.getElementById("pre1").style.background = 'yellow';
+      document.getElementById("pre2").style.background = 'white';
+      snadbox2.inActive();
+      snadbox1.active();
+    };
+
+    document.getElementById("snadbox2").onclick = function () {
+      document.getElementById("pre1").style.background = 'white';
+      document.getElementById("pre2").style.background = 'yellow';
+      snadbox1.inActive();
+      snadbox2.active();
+    };
+  
+
+
+
+    document.getElementById("addition").onclick = function () {
+      addition();
+    };
+
+    document.getElementById("minus").onclick = function () {
+      minus();
+    };
+  </script>
+</html>
