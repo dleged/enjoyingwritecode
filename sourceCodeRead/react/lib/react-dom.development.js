@@ -24571,7 +24571,6 @@
         }
     }
     function unbatchedUpdates(fn, a) {
-        debugger
         var prevExecutionContext = executionContext;
         executionContext &= ~BatchedContext;
         executionContext |= LegacyUnbatchedContext;

@@ -66,9 +66,9 @@
             return createElement(
                 'div',{ style: {'border': '1px solid red'},onClick: this.add },
                 count,
-                // createElement(Input,{count: this.state.count}),
-                // createElement(Button,{text: '➕',count: count,onClick: this.addClickHandle}),
-                // createElement(Button,{text: '➖',count: count,onClick: this.minusClickHandle}),
+                createElement(Input,{count: this.state.count}),
+                createElement(Button,{text: '➕',count: count,onClick: this.addClickHandle}),
+                createElement(Button,{text: '➖',count: count,onClick: this.minusClickHandle}),
             );
         }
     }
