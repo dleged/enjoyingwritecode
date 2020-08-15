@@ -1,0 +1,22 @@
+// or use jquery
+<!DOCTYPE html> 
+<html> 
+<head> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head> 
+<body > 
+
+<div>Latitude: <span id="latitude"></span></div>
+<div>Longitude: <span id="longitude"></span></div>
+
+<script>
+$.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?')  
+.done (function(location)
+{
+$('#latitude').html(location.latitude);
+$('#longitude').html(location.longitude);
+});
+</script>
+
+</body> 
+</html>
