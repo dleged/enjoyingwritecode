@@ -2,5 +2,8 @@
   "version": "1.0.0",
   "dependencies": {
     "rn-app": "0.1.0"
+  },
+  "devDependencies": {
+    "mysql": "^2.18.1"
   }
 }
