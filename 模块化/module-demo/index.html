@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./require.js"></script>
+    <title>Document</title>
+    <script src="./node_modules/js2flowchart/dist/js2flowchart.js"></script>
+</head>
+<body>
+    <script>
+        define(['a.js', 'd.js'], (a, d) => {
+            console.log(a, 'a');
+            console.log(d, 'd');
+        })
+    </script>
+</body>
+</html>
