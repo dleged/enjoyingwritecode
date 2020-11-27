@@ -19,6 +19,27 @@
 			状态发生变化时就会通知所有的观察者对象，使得它们能够
 			自动更新自己。
 		</pre>
+		<pre>
+
+			function createEvents<F extends Function>(): Events<F> {
+				let handlers: F[] = [];
+
+				return {
+					get length() {
+						return handlers.length;
+					},
+					push(fn: F) {
+						handlers.push(fn);
+						return function() {// 💅卸载函数
+							handlers = handlers.filter(handler => handler !== fn);
+						};
+					},
+					call(arg) {
+						handlers.forEach(fn => fn && fn(arg));
+					}
+				};
+			}
+		</pre>
 		<script type="text/javascript">
 			~(function(){
 				var o = $({});
