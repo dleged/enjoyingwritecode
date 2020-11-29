@@ -1,5 +1,11 @@
 ### 
 POST  http://localhost:3000/post
+Content-Type: application/json
+authorization: Bearer 47c16a25f4d106504394fb30470a59d29100954788b591a59627dd9a601c554a06e100ba6fc3f3f7307894c312437495ff4e3da7a6b4a994ff040e948d69051a
+
+{
+  "JWT": "11"
+}
 
 ###
 POST http://localhost:3000/login 
@@ -8,6 +14,3 @@ Content-Type: application/json
 {
   "username": "catlike"
 }
-
-###
-GET https://www.baidu.com/
