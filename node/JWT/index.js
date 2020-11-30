@@ -20,38 +20,45 @@ app.use(express.json());
 app.use(authorization);
 
 app.post("/post", (req, res) => {
-  res.send(posts[0]);
+  res.send(res.user);
 });
 
-app.post("/login", (req, res) => {
+app.get("/login", (req, res) => {
   const username = req.body.username;
   const user = posts.find((post) => post.username === username);
-  if (!user) {
-    res.status(401).send("用户信息不存在");
-  }
 
-  const token = generateJWT({ a: 1 });
+  // if (!user) {
+  //   res.status(401).send("用户信息不存在");
+  // }
+
+  const token = generateJWT({ user });
   res.json({ JWT: token });
 });
 
 function generateJWT(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10s" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1000s",
+  });
 }
 
 function authorization(req, res, next) {
-  const authorizationJWT = req.headers["authorization"];
-  const token = authorizationJWT.split(" ")[1];
+  if (req.path === "/login") {
+    return next();
+  }
+
+  const token = req.body["JWT"] || '';
 
   if (!token) {
     return res.status(401).send("Sorry, you do not have authorization");
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    // if (err) {
-    //   res.status(403).send("Sorry, plase login agin");
-    // }
-    console.log(err, user);
-
+    if (err) {
+      res.status(403).send("Sorry, plase login agin");
+    }
+    // console.log(err, user);
+    console.log(user);
+    res.user = user;
     next();
   });
 }

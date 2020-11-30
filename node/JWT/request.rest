@@ -1,14 +1,14 @@
 ### 
 POST  http://localhost:3000/post
 Content-Type: application/json
-authorization: Bearer 47c16a25f4d106504394fb30470a59d29100954788b591a59627dd9a601c554a06e100ba6fc3f3f7307894c312437495ff4e3da7a6b4a994ff040e948d69051a
+# authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDY3NTAxODYsImV4cCI6MTYwNjc1MDE5Nn0.XGQ0O2vj-iDEshnM62nVXcOtsLTNotlgLoAl6tb3pVI"
 
 {
-  "JWT": "11"
+  "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDY3NTA1NzMsImV4cCI6MTYwNjc1MTU3M30.YH8rkLEgNTOM7U7pDAu37vV4MnASOQU6JaB202rMcY0"
 }
 
 ###
-POST http://localhost:3000/login 
+get http://localhost:3000/login 
 Content-Type: application/json
 
 {
