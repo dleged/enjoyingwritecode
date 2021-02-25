@@ -6004,9 +6004,14 @@
         var rawEventName = getRawEventName(topLevelType);
 
         if (capture) {
-            addEventCaptureListener(element, rawEventName, listener);
+            if(topLevelType === 'click'){
+                addEventCaptureListener(element, rawEventName, listener);
+            }
+            
         } else {
-            addEventBubbleListener(element, rawEventName, listener);
+            if(topLevelType === 'click'){
+                addEventBubbleListener(element, rawEventName, listener);
+            }
         }
     }
 

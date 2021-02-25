@@ -870,6 +870,7 @@
             }
         }
 
+        console.log(element);
         return element;
     };
     /**
@@ -1712,7 +1713,6 @@
     }
     function useState(initialState) {
         var dispatcher = resolveDispatcher();
-        debugger
         return dispatcher.useState(initialState);
     }
     function useReducer(reducer, initialArg, init) {
