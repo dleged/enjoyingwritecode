@@ -20,7 +20,6 @@ app.use((ctx, next) => {
 
 app.use(router);
 
-
 app.listen(5555, () => {
     console.log(app)
     console.log('server starting in port 5000...');

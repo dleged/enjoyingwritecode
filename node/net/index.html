@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webSocket测试</title>
+</head>
+<body>
+    <div id="sse">
+        <a href="javascript:WebSocketTest()">运行(连接服务，等于账号登录) WebSocket
+    </div>
+    <input type="text" id="inputBox" />
+    <button id="submitFunc">发送</button><button onclick="closeWs()">关闭</button>
+    <div id="content"></div>
+    <script type="text/javascript">
+        var ws = null;
+        var inputBox = document.getElementById('inputBox');
+        var submitFunc = document.getElementById('submitFunc');
+        var content = document.getElementById('content');
+        function WebSocketTest() {
+            if ("WebSocket" in window) {
+                console.log("您的浏览器支持 WebSocket!");
+                // 打开一个 web socket
+                ws = new WebSocket("ws://localhost:9999");
+                ws.onopen = function () {
+                    // Web Socket 已连接上，使用 send() 方法发送数据
+                    ws.send("笑傲江湖");
+                    submitFunc.onclick = function () {
+                        ws.send(inputBox.value);
+                    }
+                };
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    console.log('接受的数据', received_msg);
+                    var html = content.innerHTML;
+                    html += received_msg;
+                    content.innerHTML = '<p>' + html + '</p>';
+                    //console.log("数据已接收...");
+                };
+
+                ws.onclose = function () {
+                    // 关闭 websocket
+                    console.log("连接已关闭...");
+                };
+            } else {
+                // 浏览器不支持 WebSocket
+                console.log("您的浏览器不支持 WebSocket!");
+            }
+        }
+
+        //获取信息发送
+        function closeWs() {
+            if (ws != null) {
+                ws.close();
+            } else {
+                console.log('你还没开启');
+            }
+        }
+    </script>
+</body>
+</html>
