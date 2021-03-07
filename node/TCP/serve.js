@@ -16,7 +16,7 @@ const server = net.createServer(function(socket){
 
 server.on('data',function(data){
   console.log('serve has received: %s',data);
-  socket.write('serve send to client');
+  socket.write('server send to client');
 });
 
 server.on('error',function(err){

@@ -19,7 +19,14 @@ function asyncAdd(a,b,callback) {
  */
 async function sum(...rest) {
   // 请在此处完善代码
- 
+
+  function callback(n,val){
+    resolve(val);
+  }
+
+ rest.reduce((acc,cur) => {
+   asyncAdd(0,acc,callback);
+ },0);
   
 }
 
