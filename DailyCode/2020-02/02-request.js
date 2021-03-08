@@ -34,7 +34,7 @@ request(urls,3,console.log)
 
 
 class RequestDecorator {
-    public maxLimit;
+    public maxLimit: number;
     public requestQueue: { _resolve: (value?: unknown) => void; id: string | number }[];
     public currentConcurrent: number;
     constructor({ maxLimit = 5 }) {
