@@ -1,12 +1,11 @@
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <pre>
         <h5>promise的api</h5>
         1.Promise.prototype.then()
@@ -21,104 +20,106 @@
         10.Promise.try()
     </pre>
     <script>
+      function isFunc(fn) {
+        return typeof fn === "function";
+      }
 
-        function isFunc(fn) {
-            return typeof fn === 'function';
+      const PENDING = "Pending";
+      const FULFILLED = "Fulfilled";
+      const REJECTED = "Rjected";
+
+      function setInstanceStatus(instance, status, value) {
+        instance.promiseStatus = status;
+        instance.promiseValue = value;
+      }
+
+      function _Promise(handler) {
+        if (typeof handler !== "function") {
+          throw new Error(` Promise resolver ${handler} is not a function`);
         }
-
-        const PENDING = 'Pending';
-        const FULFILLED = 'Fulfilled';
-        const REJECTED = 'Rjected';
-
-
-        function setInstanceStatus(instance, status, value) {
-            instance.promiseStatus = status;
-            instance.promiseValue = value;
+        this.promiseStatus = PENDING;
+        this.promiseValue = undefined;
+        try {
+          handler(this.resolve.bind(this), this.reject.bind(this));
+        } catch (error) {
+          this.reject.bind(this)(error);
         }
+      }
 
-        function _Promise(handler) {
-            if (typeof handler !== 'function') {
-                throw new Error(` Promise resolver ${handler} is not a function`);
-            }
-            this.promiseStatus = PENDING;
-            this.promiseValue = undefined;
-            try {
-                handler(this.resolve.bind(this), this.reject.bind(this));
-            } catch (error) {
-                this.reject.bind(this)(error);
-            }
-        }
+      //case:
+      // p = new _Promise((res, rej) => { res(1) }).then((v) => {
+      //     return new _Promise((res, rej) => {
+      //         setTimeout(() => {
+      //             res(v);
+      //         }, 5000)
+      //     })
+      // })
 
-        //case:
-        // p = new _Promise((res, rej) => { res(1) }).then((v) => {
-        //     return new _Promise((res, rej) => {
-        //         setTimeout(() => {
-        //             res(v);
-        //         }, 5000)
-        //     })
-        // })
-
-        _Promise.prototype.then = function (resolve, reject) {//go on
-            if (isFunc(resolve) && this.promiseStatus === FULFILLED) {
-                let result = resolve(this.promiseValue);
-                if (result) {
-                    if (result instanceof _Promise) {
-                        this.promiseStatus = PENDING;
-                        result.then((res) => {
-                            setInstanceStatus(this, FULFILLED, res);
-                        }, (error) => {
-                            setInstanceStatus(this, REJECTED, res);
-                        });
-                    } else {
-                        this.promiseValue = result;
-                    }
-                } else {
-                    resolve(this.promiseValue);
-                    this.promiseValue = undefined;
-                    return this;
+      _Promise.prototype.then = function (resolve, reject) {
+        //go on
+        if (isFunc(resolve) && this.promiseStatus === FULFILLED) {
+          let result = resolve(this.promiseValue);
+          if (result) {
+            if (result instanceof _Promise) {
+              this.promiseStatus = PENDING;
+              result.then(
+                (res) => {
+                  setInstanceStatus(this, FULFILLED, res);
+                },
+                (error) => {
+                  setInstanceStatus(this, REJECTED, res);
                 }
-            }
-
-            if (isFunc(reject) && this.promiseStatus === REJECTED) {
-                reject(this.promiseValue);
-                this.promiseValue = undefined;
-            }
-            return this;
-        }
-
-        _Promise.prototype.catch = function (callback) {
-            if (this.promiseStatus === REJECTED && isFunc(callback)) {
-                callback(this.promiseValue);
-            }
-        }
-
-        _Promise.prototype.finally = function (callback) {
-            callback(this.promiseValue);
-            this.promiseValue = undefined;
-        }
-
-        _Promise.prototype.resolve = function (v) {
-            if (isFunc(v)) {//传入的是一个_Promise实例
-                this.promiseStatus = FULFILLED;
-                this.promiseValue = v;
+              );
             } else {
-                this.promiseStatus = FULFILLED;
-                this.promiseValue = v;
+              this.promiseValue = result;
             }
+          } else {
+            resolve(this.promiseValue);
+            this.promiseValue = undefined;
+            return this;
+          }
         }
 
-        _Promise.prototype.reject = function (v) {
-            this.promiseStatus = REJECTED;
-            this.promiseValue = v;
+        if (isFunc(reject) && this.promiseStatus === REJECTED) {
+          reject(this.promiseValue);
+          this.promiseValue = undefined;
         }
+        return this;
+      };
 
-        p = new _Promise((res, rej) => {
-            res(1)
-        }).then((v) => {
-            console.log(v);
-        })
+      _Promise.prototype.catch = function (callback) {
+        if (this.promiseStatus === REJECTED && isFunc(callback)) {
+          callback(this.promiseValue);
+        }
+      };
 
+      _Promise.prototype.finally = function (callback) {
+        callback(this.promiseValue);
+        this.promiseValue = undefined;
+      };
+
+      _Promise.prototype.resolve = function (v) {
+        if (isFunc(v)) {
+          //传入的是一个_Promise实例
+          this.promiseStatus = FULFILLED;
+          this.promiseValue = v;
+        } else {
+          this.promiseStatus = FULFILLED;
+          this.promiseValue = v;
+        }
+      };
+
+      _Promise.prototype.reject = function (v) {
+        this.promiseStatus = REJECTED;
+        this.promiseValue = v;
+      };
+
+      p = new _Promise((res, rej) => {
+        res(1);
+      }).then((v) => {
+        console.log(v);
+      });
     </script>
-</body>
-
+  </body>
 </html>
+
