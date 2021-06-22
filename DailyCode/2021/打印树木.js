@@ -1,0 +1,4 @@
+function printTree(liet){ 
+
+
+}
