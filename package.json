@@ -4,6 +4,7 @@
     "rn-app": "0.1.0"
   },
   "devDependencies": {
+    "@types/node": "^15.12.5",
     "mysql": "^2.18.1"
   }
 }

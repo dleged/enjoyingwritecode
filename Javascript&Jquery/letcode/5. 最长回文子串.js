@@ -18,3 +18,29 @@
 输出："a"
 
 */
+
+function getPalindrome(str) {
+  if (str.length < 2) {
+    return str;
+  }
+  let result = '';
+
+  for (let i = 0; i < str.length; i++) {
+    map(i, i);
+    map(i, i + 1);
+  }
+
+  function map(i, j) {
+    while (i > -1 && j < str.length && str[i] === str[j]) {
+      i--;
+      j++;
+    }
+    if (j - i - 1 > result.length) {
+      result = str.slice(i, j - i - 1);
+    }
+  }
+
+  return result;
+}
+
+console.log(getPalindrome('babad'));

@@ -27,7 +27,7 @@ function inorder(root){
 
 // inorder(bt);
 
-// 左右中
+// 左中右
 function inorderWhile(root){
 
   if(!root) return;

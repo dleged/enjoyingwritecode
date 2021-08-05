@@ -59,7 +59,7 @@ function preorderWhile(root) {
     const node = stack.pop();
     console.log(node.val);
 
-    if(node.right) stack.push(node.right);// 右先出，后出
+    if(node.right) stack.push(node.right);// 右先进，后出
     if(node.left) stack.push(node.left);// 左后进，先出
   }
 

@@ -21,7 +21,7 @@ function postorder(root) {
       const node = stack.pop();
       outputStack.push(node);
       if(node.left) stack.push(node.left);
-      if(node.left) stack.push(node.right);
+      if(node.right) stack.push(node.right);
     }
 
     while(outputStack.length){
