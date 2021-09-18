@@ -16,38 +16,77 @@
 输出：[]
  */
 
-function threeSum(nums){
+// function threeSum(nums){
 
-  let result = [];
-  if(nums.length < 3) return result;
+//   let result = [];
+//   if(nums.length < 3) return result;
 
-  nums.sort((a,b) => a - b);
+//   nums.sort((a,b) => a - b);
 
-  for(let i = 0; i < nums.length; i++){
-    if(nums[i] > 0) break;
-    if(nums[i] === nums[i-1]) continue;
-    let left = i + 1;
-    let right = nums.length - 1;
+//   for(let i = 0; i < nums.length; i++){
+//     if(nums[i] > 0) break;
+//     if(nums[i] === nums[i-1]) continue;
+//     let left = i + 1;
+//     let right = nums.length - 1;
 
-    while(left < right){
-      sum = nums[i]+nums[left]+nums[right];
-      if(sum === 0){
-        result.push([[nums[i],nums[left],nums[right]]]);
-        while(left < right && nums[left] === nums[left + 1]) left++;
-        while(left < right && nums[right] === nums[right - 1]) right--;
-        left++;
-        right--;
-      }else if(sum > 0){
-        right--;
-      }else if(sum < 0){
-        left++;
+//     while(left < right){
+//       sum = nums[i]+nums[left]+nums[right];
+//       if(sum === 0){
+//         result.push([[nums[i],nums[left],nums[right]]]);
+//         while(left < right && nums[left] === nums[left + 1]) left++;
+//         while(left < right && nums[right] === nums[right - 1]) right--;
+//         left++;
+//         right--;
+//       }else if(sum > 0){
+//         right--;
+//       }else if(sum < 0){
+//         left++;
+//       }
+//     }
+
+//   }
+
+//   return result;
+
+// }
+
+// console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
+//
+function threeSum(nums) {
+  nums = nums.sort((a, b) => a - b);
+  let ans = [];
+
+  for (let i = 0; i < nums.length; i++) {
+
+    if(nums[i] > 0) break;// T跳出循环
+    if(nums[i] === nums[i-1]) continue;// 去重
+
+    let l = i + 1;
+    let r = nums.length - 1;
+
+    while (l < r) {
+      const sum = nums[i] + nums[l] + nums[r];
+
+      console.log(sum);
+      if (sum === 0) {
+
+        ans.push([nums[i], nums[l], nums[r]]);
+        while (l < r && nums[l] === nums[l + 1]) l++; // 去重
+        while (l < r && nums[r] === nums[r - 1]) r--;
+
+        l++;
+        r--;
+
+      } else if (sum > 0) {
+        r--;
+      } else {
+        l++;
       }
     }
-    
   }
 
-  return result;
-
+  return ans;
 }
 
-console.log(threeSum([-1,0,1,2,-1,-4]));
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));

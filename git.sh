@@ -3,15 +3,19 @@ date='Fri Nov 13 20:00:00 2020'
 
 # git commit --amend --no-edit --date="Fri June 23 20:00:00 2019 -0600";
 
-echo ${date}
+# echo ${date}
 
-gitDoAmend(){
-    git commit --amend --no-edit --date="${date} -0600";
-    git pull -f;
-    git push;
-}
+# gitDoAmend(){
+#     git commit --amend --no-edit --date="${date} -0600";
+#     git pull -f;
+#     git push;
+# }
 
-gitDoAmend
+# gitDoAmend
+
+git add .
+git commit -n -m 'code: daily'
+git push
 
 # git pull
 # git add .
