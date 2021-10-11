@@ -1,22 +1,25 @@
 const Koa = require('koa');
 const openbrowser = require('openbrowser');
+const cors = require('koa-cors');
+
 const router = require('./middleware/router');
 
 const app = new Koa();
 console.log(1);
-app.use((ctx, next) => {
-    ctx.body = 'koa app!!!'
-    next();// 指向下一个中间件函数
-    console.log('A1');
-});
-app.use((ctx, next) => {
-    next();
-    console.log('A2');
-});
-app.use((ctx, next) => {
-    next();
-    console.log('A3');
-});
+app.use(cors());
+// app.use((ctx, next) => {
+//     ctx.body = 'koa app!!!'
+//     next();// 指向下一个中间件函数
+//     console.log('A1');
+// });
+// app.use((ctx, next) => {
+//     next();
+//     console.log('A2');
+// });
+// app.use((ctx, next) => {
+//     next();
+//     console.log('A3');
+// });
 
 app.use(router);
 

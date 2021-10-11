@@ -1,0 +1,22 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">页面喔</div>
+  </body>
+  <script type="text/javascript">
+    fetch('http://localhost:5555/api/user', {
+      method: 'GET', // or 'PUT'
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error('Error:', error))
+      .then((response) => console.log('Success:', response));
+  </script>
+</html>
