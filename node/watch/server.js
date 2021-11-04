@@ -8,3 +8,9 @@ http.createServer(function(req, res){
 }).listen(9999,() => {
   console.log('server listening at port 9999...')
 });
+
+process.title = 'node server process';
+
+process.on('stdin',(res) => {
+  console.log(res)
+})

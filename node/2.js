@@ -1,1 +1,3 @@
-console.log(require('./1'));
+require('./1');
+
+console.log(require.cache);

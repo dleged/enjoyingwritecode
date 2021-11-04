@@ -4,3 +4,4 @@ child.on('message', (m) => {
   console.log(m);
 });
 child.send('Here Here');//给子进程发送消息
+

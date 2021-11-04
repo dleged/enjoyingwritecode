@@ -12,7 +12,7 @@ const server = http.createServer((req,res) => {
   });
 
   res.end(`i am worker, pid: ${process.pid} , ppid: ${process.ppid}`);
-  throw new Error('worker process exception!');
+  // throw new Error('worker process exception!');
 });
 
 let worker;

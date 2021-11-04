@@ -17,7 +17,7 @@ const server = http.createServer((req, res) => {
   res.end('hello cluster');
 });
 server.listen('1234');
-process.title = 'main process';
+process.title = 'main-node-process';
 
 function createCluster() {
   function createWork() {
