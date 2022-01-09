@@ -1,3 +1,5 @@
+
+// 真正开始工作的 observable
 class SafeObservable {
 
   constructor(destination) {
@@ -33,42 +35,24 @@ class SafeObservable {
 
   unsubscribe() {
     this.isUnsubscribed = true;
-    if(this._subscriber){
-      this._subscriber();
+    if (this._unsubscriber) {
+      this._unsubscriber();
     }
   }
 }
 
+// 控制主题
 class Observable {
-  constructor(_subscriber){
-    this._subscriber = _subscriber;
+  constructor(_observer) {
+    this._observer = _observer;
   }
 
   subscriber(observer) {
     const safeObservable = new SafeObservable(observer);
-    safeObservable._subscriber = this._subscriber(safeObservable);
-    return safeObservable._subscriber; 
+    safeObservable._unsubscriber = this._observer(safeObservable);
+    return safeObservable.unsubscribe;
   }
 }
-
-const observable = new Observable(observer => {
-  const safeObservable = new SafeObservable(observer);
-
-  let i = 0;
-  const id = setInterval(() => {
-    if(i < 10){
-      safeObservable.next(i++);
-    }else{
-      safeObservable.complete();
-    }
-  },100)
-
-  return () => {
-    console.log('unsubbed');
-    clearInterval(id);
-  }
-
-});
 
 const observer = {
   next(value) { console.log('next -> ' + value); },
@@ -77,6 +61,20 @@ const observer = {
 }
 
 
-const unSubscribe = observable.subscriber(observer);
+const observable = new Observable(observer => {
+  let i = 0;
+  const id = setInterval(() => {
+    if (i < 10) {
+      observer.next(i++);
+    } else {
+      observer.complete();
+    }
+  }, 100);
 
-// setTimeout(unSubscribe,500)
+  return () => {
+    console.log('unsubbed');
+    clearInterval(id);
+  }
+});
+// 订阅后开始工作
+const unSubscribe = observable.subscriber(observer);
