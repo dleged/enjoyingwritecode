@@ -78,3 +78,8 @@ const observable = new Observable(observer => {
 });
 // 订阅后开始工作
 const unSubscribe = observable.subscriber(observer);
+
+
+// 1. Observable 初始化函数（observer）；
+// 2. 参数（observer）作为 SafeObservable 的初始化对象；
+// 3. Observable subscribe 订阅后开始工作；  

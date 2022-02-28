@@ -13,4 +13,4 @@ process.title = 'node server process';
 
 process.on('stdin',(res) => {
   console.log(res)
-})
+});

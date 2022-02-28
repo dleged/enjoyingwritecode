@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-
-
 function startProgram(){
   exports.child =  require('child_process').spawn('node',['./server.js'],{stdio: 'inherit'});
 } 

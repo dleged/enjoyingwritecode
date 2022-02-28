@@ -26,7 +26,6 @@
                     executing.splice(executing.indexOf(e), 1);
                 });
                 executing.push(e);
-
                 let resolve = Promise.resolve();
                 if (executing.length >= maxNumber) {
                     resolve = Promise.race(executing);
