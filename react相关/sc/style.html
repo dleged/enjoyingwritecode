@@ -1,0 +1,36 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1 id="h1">我是一号标题</h1>
+
+  <script>
+
+    const style = document.createElement("style");
+    style.appendChild(document.createTextNode(''));
+    document.head.insertBefore(style, document.querySelector('title'));
+
+    const target = {
+      sheet: style.sheet,
+      element: style
+    }
+
+    target.sheet.insertRule("h1 {color: red}");
+
+    // 从页面上删除 style 再还原 style
+    
+    // 就会发现 👇 引入 sheet 对象丢失了
+    // target.sheet === style.sheet 
+
+  </script>
+
+</body>
+
+</html>

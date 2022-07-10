@@ -21,12 +21,12 @@ function debounce(fn,time){
 */
 
 function throttle(fn,time){
-  var flag = true;
+  var isRunning = false;
   return function(args){
-    if(!flag) return;
-    flag = false;
+    if(flag) return;
+    isRunning = true;
     timer = setTimeout((args) => {
-      flag = true;
+      flag = false;
       fn(args);
     },time || 300);
   }

@@ -1,0 +1,17 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "- [hash] 包含一个项目构建生成的hash值,只要变更任何一个代码，整个hash就会变；   - [chunkhash] 根据入口，不同的依赖关系，解析生成的hash值；   - [contenthash] 只根据文本内容生成hash,即内容变，hash值才变；",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack build --config ./webpack.config.js && cp -f ./src/index.html ./dist/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

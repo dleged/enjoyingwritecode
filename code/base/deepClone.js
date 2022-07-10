@@ -2,7 +2,6 @@ function deepClone(target, map = new Map()) {
 
   let dist = target;
 
-
   if (typeof target === 'object') {
 
     // 处理循环引用
@@ -30,7 +29,7 @@ function deepClone(target, map = new Map()) {
     map.set(target, dist);
     // 处理自有属性
     for (let key in target) {
-      if (target.hasOwnProperty) {
+      if (target.hasOwnProperty(key)) {
         dist[key] = deepClone(target[key], map);
       }
     }
@@ -42,6 +41,7 @@ function deepClone(target, map = new Map()) {
 
 }
 
+module.exports = deepClone;
 
 const map = new Map();
 map.set('a', 1);
