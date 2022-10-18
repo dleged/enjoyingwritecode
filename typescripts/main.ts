@@ -1,3 +1,3 @@
-import {someVar,someType} from './module';
+import { someVar, someType } from './module';
 
 console.log(someVar);

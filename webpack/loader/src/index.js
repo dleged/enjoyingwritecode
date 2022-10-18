@@ -1,9 +1,9 @@
-import head from './head';
+import { createHead, removeHead } from './head';
 
 export const mount = () => {
-  head();
+  createHead();
 }
 
 export const unmount = () => {
-  head();
+  removeHead();
 }

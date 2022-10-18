@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.12.5",
+    "@webpack-cli/generators": "^2.5.0",
     "mysql": "^2.18.1"
   }
 }

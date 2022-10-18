@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+    1. 创建一个 ul，里面追加 10 个 li;
+    2. 如何给每个 li 绑定事件；
+  </pre>
+
+  <ul id="list"></ul>
+  <pre>
+    1. 广度优先遍历下面这颗 dom 树;
+  </pre>
+
+  <div class="root">
+    <div class="container">
+      <section class="sidebar">
+        <ul class="menu"></ul>
+      </section>
+      <section class="main">
+        <article class="post"></article>
+        <p class="copyright"></p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+
+    (function () {
+      let lastTime = 0;
+      let id = null;
+      function requestAnimationFrame(callback) {
+        let currentTime = Date.now();
+        let timeToCall = Math.max(0,16 - (currentTime - lastTime));
+
+        id = setTimeout(function(){
+          callback(currentTime + timeToCall);
+        },timeToCall);
+        lastTime = currentTime + timeToCall;
+      }
+      window.requestAnimationFrame = requestAnimationFrame;
+    }());
+
+
+
+    function bfsDom(dom) {
+      if (!dom) return;
+
+      const queue = [dom];// listNode
+
+      let deep = 1;
+
+      while (queue.length) {
+
+        let size = queue.length;
+
+        while (size--) {
+          const node = queue.shift();
+          console.log(node, deep);
+          const childList = node.children;
+
+          if (childList.length) {
+            for (let i = 0; i < childList.length; i++) {
+              queue.push(childList[i]);
+            }
+          }
+        }
+        deep++;
+
+      }
+
+    }
+
+    bfsDom(document.querySelector('.root'));
+
+  </script>
+
+  <script>
+
+    function createList(count) {
+      const ulDom = document.getElementById('list');
+
+      if (!ulDom) return;
+      const batchSize = 4;
+      const batchCount = Math.ceil(count / batchSize);
+      let batchDone = 0;
+
+      function appendItems() {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < batchSize; i++) {
+          const liDom = document.createElement('li');
+          liDom.innerText = (batchSize * batchDone) + i + 1;
+          fragment.appendChild(liDom);
+        }
+
+        batchDone++;
+        ulDom.appendChild(fragment);
+        doPatchAppend()
+      }
+
+      function doPatchAppend() {
+        if (batchDone < batchCount) {
+          requestAnimationFrame(appendItems);
+        }
+      }
+
+      doPatchAppend();
+
+
+
+      ulDom.addEventListener('click', function (evt) {
+        const target = evt.target;
+        if (target.tagName.toLowerCase() === 'li') {
+          console.log(target.innerText);
+        }
+      });
+    }
+
+
+    createList(3000);
+
+  </script>
+
+
+
+</body>
+
+</html>

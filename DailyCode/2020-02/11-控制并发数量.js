@@ -39,4 +39,4 @@ function promiseIterator(i){
     },i));
 }
 
-asyncPromise(2,[1000,8000,2000,1000,5000,1500],promiseIterator).then(console.log);
+asyncPromise(2,[1000,8000,2000,1000,5000,1500].map).then(console.log);

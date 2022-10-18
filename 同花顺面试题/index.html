@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+    写一个对30mb-100mb文本资料的文件进行换行切割保存到IndexedDB中，
+    要求可以设置切割后每个key的存储字符串的最大限制数量。比如给定文本"123 456 789 1000" , 
+    如果按照长度5切割 就保存["123  "," 456 ", " 789 "," 1000"]4个key，
+    如果按照长度10切割 就保存["123 456 ", " 789 1000"] 。
+    评价指标：页面阻塞时间、处理业务时间、内存占用率
+  </pre>
+  <pre>
+    备注：我考虑的是把没份切割的字符串存放到 db 中，如果拿部分数据可以自己查和组装成数组。
+    说明：用 serve 模块启动(file 协议加载 html 好像不能使用 indexDB)或者其他方式启动静态服务，导入 text.txt 文件测试，然后查看 indexDB 中的数据。重新测把 indexDB 删除掉。关闭 worker，删除 indexDB 这些细节没实现。
+  </pre>
+  <input type="file" id="upload" onchange="onChnageHandle">
+  测试阻塞输入：<input  />
+</body>
+<!-- worker 对 indexDB 的操作有兼容的情况，如果 worker 不支持操作 indexDB，可以在js线程中利用 requestIdleCallback 同步插入数据 -->
+<!-- <script type="module">
+  import { openDB, deleteDB, wrap, unwrap } from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
+
+  class IIndexDB {
+
+    constructor({
+      name, version, store, schema: [], keyOptions = {}
+    }) {
+      // const openRequest = indexedDB.open(name, version);
+      // this.openRequest = openRequest;
+      this.name = name;
+      this.version = version;
+      this.store = store;
+      const dbPromise = openDB(name, version, {
+        upgrade(db) {
+          db.createObjectStore(store);
+        },
+      });
+      this.dbPromise = dbPromise;
+    }
+
+    async getDb() {
+      return await this.dbPromise;
+    }
+
+    async createStore(name, keyOptions = {}, schemas = []) {
+      const store = (await this.dbPromise).createObjectStore('name', {
+        keyPath: keyOptions.keyPath,
+      });
+      store.createIndex(...schemas);
+    }
+
+    async get(key, store) {
+      return (await this.getDb()).get(this.store, key);
+    }
+
+    async set(key, val) {
+      return (await this.getDb()).put(this.store, val, key);
+    }
+
+    async keys() {
+      return (await this.getDb()).getAllKeys(this.store);
+    }
+  }
+
+  const db = new IIndexDB({
+    name: 'database',
+    version: 1,
+    store: 'data_list',
+    keyOptions: { keyPath: 'key' },
+    schema: ['value', 'string'],
+  });
+
+</script> -->
+<script>
+  // Uint8Array 转字符串
+  function Uint8ArrayToString(fileData) {
+    var dataString = '';
+    for (var i = 0; i < fileData.length; i++) {
+      dataString += String.fromCharCode(fileData[i]);
+    }
+    return dataString;
+  }
+
+  class FileSystem {
+    time = 0;
+
+    constructor({ file, size, perUnit, limt, unit, count }) {
+      this.file = file;
+      this.size = size;// 文件总字节大小
+      this.perUnit = perUnit;// 每次切割任务的总字符串长度
+      this.limt = limt;// 分成多少等份
+      this.unit = unit;// 切割的单位字符串长度
+      this.count = count;
+    }
+
+    async startWork() {
+      // 工作任务完成
+      if (this.time > this.limt) {
+        return Promise.resolve();
+      }
+
+      return new Promise(async (resolve) => {
+        const { time, perUnit, count } = this;
+        const start = time * perUnit;
+        const end = (++this.time) * perUnit;
+        let data = '';
+        const reader = await this.file.slice(start, end).stream().getReader();
+        reader.read().then(function processStr({ done, value }) {
+          if (value) {
+            data += Uint8ArrayToString(value);
+          }
+          if (done) {
+            resolve({ data, time, count });
+            return;
+          }
+          return reader.read().then(processStr);
+        });
+      })
+
+    }
+
+  }
+
+  document.getElementById('upload').onchange = function (event) {
+    const file = event.target.files[0];
+    const size = file.size;
+    // 题目：假如设置的切割长度为 5 ,每次切割 1000 条
+    cutStr({ file, size, unit: 5, count: 1000 });
+  }
+
+  class FileDispatch extends FileSystem {
+
+    constructor(p) {
+      super(p);
+    }
+
+    attachWorker(worker) {
+      this.worker = worker;
+      this.onMessage();
+    }
+
+    async runTask() {
+      const { data, time, count } = await this.startWork();
+      this.postMessage({ data, time, count })
+    }
+
+    postMessage(data) {
+      this.worker.postMessage({
+        ...data,
+        unit: this.unit
+      });
+    }
+
+    onMessage(data) {
+      this.worker.onmessage = (evt) => {
+        const { data } = evt;
+        if (data.type === 'runing') {
+          this.runTask();
+        }
+      };
+    }
+
+  }
+
+  function cutStr(cutObj) {
+    const { file, size, unit, count } = cutObj;
+    // 按照长度为 unit 的 count 份去切割文件 
+    const perUnit = unit * count;
+    // 总共分多少等份
+    const remainder = size % perUnit;
+    const integer = Math.floor(size / unit);
+    const limt = integer === 0 ? integer : integer + 1;
+
+    const worker = new Worker('./worker.js');
+    const fileDispatch = new FileDispatch({ file, size, perUnit, limt, unit, count });
+    fileDispatch.attachWorker(worker);
+
+    // 入口：启动任务
+    fileDispatch.runTask();
+  }
+
+
+</script>
+
+</html>
