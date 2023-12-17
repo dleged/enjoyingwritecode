@@ -159,6 +159,15 @@ MyPromise.prototype.finally = function (onFinally) {
 }
 
 
+MyPromise.resolve = function(value){
+
+  return new Promise((resolve, reject) => {
+
+    resolve(value);
+
+  });
+}
+
 // console.log('原生 Promise 执行开始 🚀')
 // const promise = new Promise((resolve) => resolve(1)).then(console.log).then(() => 2).then(console.log);
 // Promise.resolve('原生 Promise 执行结果').then(console.log);
