@@ -1,26 +1,22 @@
 function throttle(fn, interval) {
-
   let timer = null;
-  let startTime = Date.now();
+  let now = Date.now();
 
   return function () {
-    let now = Date.now();
-    let timeRemaining = interval - (now - startTime);
-    let args = arguments;
     let context = this;
-    clearTimeout(timer);
+    let args = arguments;
 
-    if (timeRemaining <= 0) {
-      fn.call(context, ...args);
-      startTime = now;
-    } else {
-      timer = setTimeout(() => {
-        fn.call(context, ...args);
-        startTime = now;
-      }, timeRemaining);
+    if (timer) {
+      return;
     }
-  }
 
+    timer = setTimeout(() => {
+      now = Date.now();
+      timer = null;
+      fn.apply(context, args);
+    }, (interval - (Date.now() - now)));
+
+  }
 }
 
 
