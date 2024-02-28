@@ -1,32 +1,58 @@
-class EventBus{
+class EventBus {
 
-  constructor(){
-    this.events = {};
+  constructor() {
+    this._events = new Map();
   }
 
-  on(type,cb){
-    this.events[type] = this.events[type] || [];
-    this.events[type].push(cb);
-  }
+  on(type, cb) {
 
-  emit(type,...args){
-    (this.events[type] || []).forEach(cb => cb.apply(this,args));
-  }
+    if (typeof cb !== 'function') throw new TypeError('cb must be a function!');
 
-  off(type,cb){
-    if(!cb){
-      this.events[type] = null;
+    const fns = this._events.get(type) || [];
+    fns.push(cb);
+    this._events.set(type, fns);
+    return () => {
+      this._events.set(fns.filter((fn) => fn !== cb));
     }
-    this.events[type] = this.events[type].filter(item =>item !== cb);
+
   }
 
-  once(type,cb){
-    const fn = () => {
-      cb();
-      this.off(type,cb);
+  once(type, cb) {
+
+    if (typeof cb !== 'function') throw new TypeError('cb must be a function!');
+
+    const newFb = (...args) => {
+      cb(...args);
+      this.off(type, cb);
     }
-    this.add(type,fn);
+
+    this.on(type, cb);
+
   }
+
+  emit(type, ...args) {
+
+    const fns = this._events.get(type) || [];
+    if (!fns.length) return;
+
+    fns.foreach((fn) => fn(...args));
+
+  }
+
+  off(type, cb) {
+
+    if (typeof cb !== 'function') throw new TypeError('cb must be a function!');
+
+    const fns = this._events.get(type) || [];
+
+    if (fns.lenght) return;
+
+    const fliterFns = fns.filter((fn) => fn !== cb);
+    this._events.set(type, fliterFns);
+
+  }
+
+
 
 }
 
