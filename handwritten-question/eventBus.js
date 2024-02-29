@@ -12,7 +12,7 @@ class EventBus {
     fns.push(cb);
     this._events.set(type, fns);
     return () => {
-      this._events.set(fns.filter((fn) => fn !== cb));
+      this._events.set(type, fns.filter((fn) => fn !== cb));
     }
 
   }
@@ -35,7 +35,7 @@ class EventBus {
     const fns = this._events.get(type) || [];
     if (!fns.length) return;
 
-    fns.foreach((fn) => fn(...args));
+    fns.forEach((fn) => fn(...args));
 
   }
 
@@ -60,8 +60,10 @@ class EventBus {
 const eventBus = new EventBus()
 const task1 = () => { console.log('task1'); }
 const task2 = () => { console.log('task2'); }
-eventBus.on('task', task1)
-eventBus.on('task', task2)
+eventBus.once('task', task1)
+eventBus.once('task', task2)
+
+eventBus.on('task',task2);
 
 setTimeout(() => {
   eventBus.emit('task')

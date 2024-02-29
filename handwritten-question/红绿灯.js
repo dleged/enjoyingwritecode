@@ -6,22 +6,23 @@ const light = [
 
 // 按照顺序，执行定时器
 
-function lightRun(light){
+function lightRun(light) {
 
-  let promisify = ({value,time}) => new Promise((resolve) => {
+
+  let len = light.length;
+
+  function loop(i) {
+    const l = light[i];
     setTimeout(() => {
-      console.log(value);
-      resolve();
-    },time);
-  });
+      console.log(l.value);
+      i = i === len - 1 ? 0 : i + 1;
+      loop(i);
+    }, l.time)
 
-  function loop(){
-    Promise.resolve(light.reduce((task,cur) => {
-      return task.then(() => promisify(cur));
-    },Promise.resolve(0))).then(loop);
   }
 
-  loop();
+
+  loop(0);
 }
 
 lightRun(light);
