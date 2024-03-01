@@ -15,9 +15,9 @@ const a = compose(fn1, fn2, fn3, fn4);
 console.log(a(1)); // 1+4+3+2+1=11
 
 function compose(...args){
-  return function(start){
-    return args.reduce((pre,fn) => {
-      return fn(pre);
-    },start);
+  function fn(num){
+    return args.reduce((preNum,fn) => fn(preNum),num);
   }
+
+  return fn;
 }
