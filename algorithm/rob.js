@@ -11,27 +11,28 @@
  * @returns {number}
  */
 function rob(nums) {
-  // 动态转移方程从第二项开始,dp[i] = Math.max(dp[i-2] + nums[i], dp[i-2]);
-  // 转移方程推导方法，先简化，再复杂化
-  // 实现算法逻辑
-  if (nums.length === 0) {
-    return 0;
-  } else if (nums.length === 1) {
+
+  let len = nums.length;
+
+  if (len === 1) {
     return nums[0];
-  } else if (nums.length === 2) {
+  } else if (len === 2) {
     return Math.max(nums[0], nums[1]);
   }
 
-  const dp = new Array(nums.length);
+  const dp = Array.from(len).fill(0);
   dp[0] = nums[0];
-  dp[1] = Math.max(nums[0], nums[1]);
+  dp[1] = nums[1];
 
-  for (let i = 2; i < nums.length; i++) {
-    dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);
+  // 动态转移方程，max = Math.max(dp[i-2] + nums[i],dp[i-1]);
+  // 偷到每个房间有两个选择：偷或者不偷
+  // 偷：dp[i-2] + nums[i]
+  // 不偷： dp[i-1]
+  for (let i = 2; i < len; i++) {
+    dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
   }
 
-  console.log(dp)
-  return dp[nums.length - 1];
+  return dp[len - 1];
 }
 
 const result1 = rob([1, 2, 3, 1]);
