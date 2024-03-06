@@ -5,37 +5,35 @@ const timeout = i => new Promise(resolve => setTimeout(() => resolve(i), i));
 function limit(limitMax = 2, arr, pro) {
 
   return new Promise((resolve, reject) => {
+    let count = arr.length;
+    let start = -1;
+    let res = [];
 
-    let ret = [];
-    let count = 0;
-    let allCount = arr.length;
+    function runPro(index) {
 
-    const addTask = () => {
-      limitMax--;
-      let item = arr.shift();
-      if (!item) return;
-      runTask(item, allCount - arr.length - 1);
-    }
+      let fnPro = pro(arr[index]);
 
-    const runTask = (item, index) => {
-      pro(item).then((res) => {
-        ret[index] = res;
-        count++;
-        if (count === allCount) {
-          return resolve(ret);
-        }
-        addTask();
+      fnPro.then((r) => {
+        res[index] = r;// 赋值的下标
+        count--;
+        if (count === 0) return resolve(res);
+        start++;
+        if (start >= arr.length) return; //  终止条件
+        runPro(start);
       });
+
     }
 
     while (limitMax > 0) {
-      addTask();
+      limitMax--;
+      start++;
+      runPro(start);
     }
 
-  });
 
+  });
 }
 
-limit(2, [1001, 1002, 1003, 1004], timeout).then((res) => {
+limit(2, [1001, 1002, 1003,30, 1004], timeout).then((res) => {
   console.log(res)
 }) 
