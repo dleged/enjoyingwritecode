@@ -1,25 +1,31 @@
 const cluster = require("cluster");
-const express = require("express");
+const os = require("os");
+const http = require("http");
 
+function childProcess() {
+  console.log('Child process started.');
+  setInterval(() => {
+    console.log('I am still alive!');
+    if (Math.random() > 0.5) {
+      console.log('Child process ' + process.pid + 'has exited');
+    }
+  }, 1000);
+}
 
-const app = express();
-const numCPUs = require("os").cpus().length;
-
+// 主进程，根据多核创建子进程
 if (cluster.isMaster) {
-  for (let i = 0; i < numCPUs; i++) {
+
+  for (let i = 0; i < os.cpus().length; i++) {
     cluster.fork();
   }
 
-  cluster.on("exit", (worker, code, signal) => {
-    conosle.log(`process ${workder.process.pid} is exit!`);
-  });
-} else {
-  app.listen(8000, () => {
-    console.log(`process ${process.pid} is stared!`);
+  // 监听进程是否退出
+  cluster.on('exit', (worker, code, singal) => {
+    console.log('process is exit, code is ' + code);
+    cluster.fork();
   });
 
-  app.use("/", (req, res, next) => {
-    console.log(`visible ${process.pid}!`,2);
-    res.end(`process ${process.pid} is stared!`);
-  });
+} else {
+  childProcess();
 }
+
