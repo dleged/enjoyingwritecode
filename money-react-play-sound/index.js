@@ -117,6 +117,4 @@ class AmountPlaySound{
 
 }
 
-console.log(new AmountPlaySound(1.0).getSound());
-
 module.exports = AmountPlaySound;
