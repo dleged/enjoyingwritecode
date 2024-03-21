@@ -18,16 +18,18 @@ function minSubArrayLen(nums, target) {
   // 扩大窗口
   for (let right = 0; right < nums.length; right++) {
     sum += nums[right];
-
-    // 满足窗口的条件
+    // 符合条件
     while (sum >= target) {
-      const len = right - left + 1;
-      result = Math.min(len, result);
-      // 缩小窗口，减去值
+      result = Math.min(result, right - left + 1);
+      // 符合条件的情况下，缩小窗口
       sum -= nums[left];
       left++;
     }
+
+    // for 循环 right++
   }
+
+
 
   return result === Infinity ? 0 : result;
 }
@@ -35,6 +37,6 @@ function minSubArrayLen(nums, target) {
 
 // 测试用例
 console.log(minSubArrayLen([2, 3, 1, 2, 4, 3], 7)); // 应输出 2
-console.log(minSubArrayLen([1, 4, 4], 4)); // 应输出 1
-console.log(minSubArrayLen([1, 1, 1, 1, 1, 1, 1, 1], 11)); // 应输出 0
-console.log(minSubArrayLen([1, 2, 3, 4, 5], 11)); // 应输出 3
+// console.log(minSubArrayLen([1, 4, 4], 4)); // 应输出 1
+// console.log(minSubArrayLen([1, 1, 1, 1, 1, 1, 1, 1], 11)); // 应输出 0
+// console.log(minSubArrayLen([1, 2, 3, 4, 5], 11)); // 应输出 3

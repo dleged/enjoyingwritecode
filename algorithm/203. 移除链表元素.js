@@ -1,26 +1,42 @@
 // 给定一个链表 head 和一个整数 val，删除链表中所有值为 val 的节点，并返回新链表的头。
 
 
-function ListNode(val) {
+function ListNode(val, next) {
   this.val = val;
-  this.next = null;
+  this.next = next;
 }
 
 
 function removeElements(head, val) {
+  // 1->2->6->3->4->5->6, val = 6
+  // pre
 
-  //tail(-1) -> 1->2->6->3->4->5->6, val = 6
-  //             pre cur next
+  // way1： 前驱指针，删除 cur，把前驱指针next 指向 cur.next
 
-  // dummy -> 1->2->6->3->4->5->6, val = 6
+  // const dummy = new ListNode(0, head);
+  // let pre = dummy;
+  // let cur = dummy.next;
 
-  const dummyNode = new ListNode(-1);
-  dummyNode.next = head;
-  let cur = dummyNode;
+  // while (cur) {
+  //   let next = cur.next;
+  //   // 满足条件
+  //   if (cur.val === val) {
+  //     pre.next = next;
+  //     cur = next;
+  //   } else {
+  //     pre = cur;
+  //     cur = next;
+  //   }
+
+  // }
+
+
+  // way2: 一个 cur 搞定
+
+  const dummy = new ListNode(0, head);
+  let cur = dummy;
 
   while (cur.next) {
-
-    // 下一个值满足条件
     if (cur.next.val === val) {
       cur.next = cur.next.next;
     } else {
@@ -30,25 +46,7 @@ function removeElements(head, val) {
   }
 
 
-  return dummyNode.next;
-
-  // let tail = new ListNode(-1);
-  // tail.next = head;
-  // let pre = tail;
-  // let cur = head;
-
-  // while (cur) {
-  //   const next = cur.next;
-  //   if (cur.val === val) {
-  //     pre.next = next;
-  //     cur = next;
-  //   } else {
-  //     pre = cur;
-  //     cur = next;
-  //   }
-  // }
-
-  // return tail.next;
+  return dummy.next;
 }
 
 
@@ -63,7 +61,7 @@ head1.next.next.next.next = new ListNode(4);
 head1.next.next.next.next.next = new ListNode(5);
 head1.next.next.next.next.next.next = new ListNode(6);
 let val1 = 6;
-console.log(removeElements(head1, val1));
+console.log(removeElements(head1, val1).next.next);
 
 // 测试用例2
 // 输入：head = [], val = 1
