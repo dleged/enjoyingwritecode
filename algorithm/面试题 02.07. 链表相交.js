@@ -1,9 +1,48 @@
 // 给定两个（单向）链表，判定它们是否相交并返回相交的起始节点。请注意相交的定义基于节点的引用，而不是基于节点的值。
-
-
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
 
 function getIntersectionNode(headA, headB) {
+  let lenA = 0;
+  let lenB = 0;
+  let curA = headA;
+  let curB = headB;
 
+  while (curA) {
+    lenA++;
+    curA = curA.next;
+  }
+
+  while (curB) {
+    lenB++;
+    curB = curB.next;
+  }
+
+  if (lenB > lenA) {
+    [headA, headB] = [headB, headA];
+    [lenA, lenB] = [lenB, lenA];
+  }
+
+  let poor = lenA - lenB;
+
+  console.log(poor);
+
+  while (poor--) {
+    headA = headA.next;
+  }
+
+  while (headA && headB) {
+    if (headA === headB) {
+      return headA;
+    }
+
+    headA = headA.next;
+    headB = headB.next;
+  }
+
+  return headA;
 }
 
 
