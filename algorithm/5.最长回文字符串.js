@@ -18,17 +18,16 @@ function longestPalindrome(str) {
 
   for (let i = 0; i < str.length; i++) {
 
-    let left = i - 1;
-    let right = i + 1;
-    let temp = '';
 
-
-    // 相邻情况 bb
+    // 相邻情况 bb和 bbb
     if (str[i] === str[right]) {
-      left = i;
-    } else {
-      temp = str[i];
+      recursion(i, i + 1, ''); // bbbb bb
     }
+    recursion(i - 1, i + 1, s[i]); // bab bbb
+
+
+  }
+  function recursion(left, right, temp) {
 
     // 从中心点扩展
     while (left > -1 && right < str.length && str[left] === str[right]) {
@@ -39,9 +38,7 @@ function longestPalindrome(str) {
     }
 
     maxStr = maxStr.length > temp.length ? maxStr : temp;
-
   }
-
   return maxStr;
 }
 
@@ -53,3 +50,4 @@ console.log(longestPalindrome("cbbd"));  // 应输出 "bb"
 console.log(longestPalindrome("a"));     // 应输出 "a"
 console.log(longestPalindrome("ac"));    // 应输出 "a"
 console.log(longestPalindrome("bb"));    // 应输出 "bb"
+console.log(longestPalindrome("bbb"));    // 应输出 "bbb"
