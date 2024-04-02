@@ -1,39 +1,37 @@
 // 实现JS限流调度器，方法add接收一个返回Promise的函数，同时执行的任务数量不能超过两个。
+// 题目描述
+// JS实现一个带并发限制的异步调度器Scheduler，
+// 保证同时运行的任务最多有两个。
+// 完善代码中Scheduler类，
+// 使得以下程序能正确输出
 
+
+// 1. 先拆解题目，实现简单的执行
+// 2. 再限流
 class Scheduler {
-
-  runningQueue = [];
-  taskQueue = [];
-
-  async add(promiseFunc) {
-   
-    return new Promise((resolve) => {
-
-      promiseFunc.resolve = resolve;
-
-      // 任务数量少于 2，添加任务并执行
-      if(this.runningQueue.length < 2){
-        this.runningQueue.push(promiseFunc);
-        this.runTask(promiseFunc);
-      }else{// 多余 2，添加到任务队列
-        this.taskQueue.push(promiseFunc);
-      }
-
-    });
-
+  constructor() {
+    this.count = 2
+    this.queue = []
+    this.run = []
   }
 
-  runTask(promiseFunc){
-    promiseFunc().then(() => {
-      promiseFunc.resolve();
+  add(task) {
+    return new Promise((resolve, reject) => {
+      task.resolve = resolve;
+      this.queue.push(task);
+      this.runTask();
+    });
+  }
 
-      const index = this.runningQueue.findIndex(fn => fn === promiseFunc);
-      this.runningQueue.splice(index,1);
-      let shift = this.taskQueue.shift();
-      if(shift){
-        this.runningQueue.push(shift);
-        this.runTask(shift);
-      }
+  runTask() {
+    if (this.run.length >= this.count || !this.queue.length) return;
+    const task = this.queue.shift();
+    this.run.push(task);
+
+    task().then((val) => {
+      task.resolve(val);
+      this.run = this.run.filter((t) => t !== task);
+      this.runTask();
     })
   }
 
@@ -44,8 +42,7 @@ const timeout = (time) => {
   return new Promise(r => setTimeout(r, time))
 }
 const addTask = (time, order) => {
-  scheduler.add(() => timeout(time))// 返回一个 promise
-    .then(() => console.log(order))// 期望返回的 promise 执行后再执行 order 输出
+  scheduler.add(() => timeout(time)).then(() => console.log(order))
 }
 addTask(1000, 1)
 addTask(500, 2)

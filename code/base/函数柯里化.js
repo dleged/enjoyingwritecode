@@ -4,19 +4,23 @@ function sum(...arg) {
   return arg.reduce((pre, cur) => pre + cur);
 }
 
+
+// 利用 bind 绑定闭包内的函数，当执行不传参的时候返回结果
 function curry1(curryFn) {
 
   return function fn(...args) {
 
-    if (arguments.length == 1) {
+    // ()
+    if (args.length === 1) {
       return args[0];
     }
-
-    return fn.bind(this, sum.apply(null, args));
+    // (传入参数) 计算传入参数的和，并且绑定作为 fn 的第一个参数
+    return fn.bind(this, sum.apply(this, args));
 
   }
 
 }
+
 
 const sum1 = curry1(sum);
 

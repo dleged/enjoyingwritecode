@@ -1,15 +1,15 @@
 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
 
-Function.prototype._apply = function (target, args) {
+Function.prototype._apply = function (target = {}, args) {
+  // this 是当前函数
   target.fn = this;
-  let ret = undefined;
-  if (!args) {
-    ret = target.fn();
-  } else {
-    ret = target.fn(...args);
-  }
+  let result = null;
+
+  result = target.fn(...args);
+
   delete target.fn;
-  return ret;
+  return result;
+
 }
 
 let target = {
