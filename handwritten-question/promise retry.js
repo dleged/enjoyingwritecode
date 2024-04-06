@@ -4,34 +4,36 @@
 function retry(originFunc, times) {
 
   return new Promise((resolve, reject) => {
-    let callTimes = 0;
-    function callOriginFunc() {
-      originFunc().then((val) => {
-        resolve(val);
-      }).catch((error) => {
-        callTimes++;
-        console.log('重试次数',callTimes);
-        if (callTimes >= times) {
-          resolve(error)
+
+    let retryCount = 0;
+    function retryFn() {
+      retryCount++;
+      originFunc().then(resolve).catch((err) => {
+        if (retryCount >= times) return reject(err);
+
+        if (retryCount < times) {
+          retryFn();
         } else {
-          callOriginFunc();
+          reject(err);
         }
       });
+
+    };
+
+    retryFn();
+
+  });
+
+}
+
+function func() {
+  return new Promise((resolve, reject) => {
+    if (Math.random() < 0.00991) {
+      resolve(true);
+    } else {
+      reject(false);
     }
-
-    callOriginFunc();
-
   });
 }
 
-function func(){
-  return new Promise((resolve,reject) => {
-      if(Math.random() <0.1){
-        resolve(true);
-      }else{
-        reject(false);
-      }
-  });
-}
-
-retry(func,5).then(console.log);
+retry(func, 5).then(console.log).catch(console.error);

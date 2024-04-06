@@ -45,77 +45,81 @@
 //   return clone(target);
 // }
 
-function initObjectWithType(source) {
-  if (source instanceof Array) {
+
+function generateSource(source) {
+  if (Array.isArray(source)) {
     return new Array();
   } else {
-    return Object.create(Object.getPrototypeOf(source));
+    return {};
   }
+
+  return source;
+
 }
 
+
 function deepClone(source) {
-
+  // null or not Object
   if (source === null || typeof source !== 'object') return source;
-  if (source === undefined) return source;
+  if (source === undefined) return undefined;
 
-  let map = new Map();
-  let target = initObjectWithType(source);
-  let queue = [{ target: target, source }];
+  const weakMap = new WeakMap();
+
+  // copy 最外层的空类
+  let target = generateSource(source);
+  const queue = [{ source, target }];
 
   function clone(source) {
+
     if (source === null || typeof source !== 'object') return source;
-    if (source === undefined) return source;
+    if (source === undefined) return undefined;
 
-    let target;
+    let dist;
 
-    if (source instanceof Array) {
-      target = new Array();
+    if (source instanceof Set) {
+      dist = new Set(source);
     } else if (source instanceof Map) {
-      target = new Map(source);
-    } else if (source instanceof Set) {
-      target = new Set(source);
+      dist = new Map(source);
     } else if (source instanceof Date) {
-      target = new Date(source);
-    } else if (source instanceof Function) {
-      target = source.bind({});
+      dist = new Date(source);
     } else if (source instanceof RegExp) {
-      target = new RegExp(source.source, source.flags);
-      target.lastIndex = source.lastIndex;
+      dist = new RegExp(source.source, source.flags);
+      dist.lastIndex = source.lastIndex;
+    } else if (source instanceof Function) {
+      dist = function () { return source.apply(this, arguments) }
     } else if (source instanceof Symbol) {
-      target = Object(Symbol.prototype.valueOf.call(source));
+      dist = Object(Symbol.prototype.valueOf.call(source));
     } else {
-      // 创建一个具有同样原型的对象
-      target = Object.create(Object.getPrototypeOf(source));
+      dist = Object.create(Object.getPrototypeOf(source));
     }
 
-    return target;
-  };
+    return dist;
+  }
 
   while (queue.length) {
-    let { target, source } = queue.shift();
-
-    // 遍历可枚举
+    const { source, target } = queue.shift();
     for (let key in source) {
-      // 排除原型属性
-      if (!source.hasOwnProperty(key)) return;
+      if (source.hasOwnProperty(key)) {
+        const val = source[key];
 
-      if (map.has(source[key])) {
-        target[key] = map.get(source[key]);
-      } else {
-        if (typeof source[key] === 'object') {
-          // 目标对象的值赋值为原对象的值
-          target[key] = clone(source[key]);
-          // 缓存拷贝过的值
-          map.set(source[key], target[key]);
-          // 对象其他的属性加入队列中
-          queue.push({ target: target[key], source: source[key] });
-
+        if (typeof val === 'object') {
+          // 循环引用
+          if (weakMap.has(val)) {
+            target[key] = val;
+          } else {
+            target[key] = clone(val); // 拷贝对象
+            weakMap.set(val, target[key]);
+            // ✨
+            queue.push({
+              source: val,
+              target: target[key],
+            });
+          }
         } else {
-          target[key] = source[key];
+          target[key] = val;
         }
       }
     }
-
   }
 
   return target;
