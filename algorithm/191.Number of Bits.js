@@ -11,7 +11,7 @@ function countBits(num) {
   let count = 0;
   while (num !== 0) {
       count += num & 1; // 检查最低位是否为1
-      num = num >>> 1; // 右移一位
+      num = num >>> 1; // 右移一位  101001 -> 10100
   }
   return count;
 }
