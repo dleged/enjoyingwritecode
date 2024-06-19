@@ -16,10 +16,12 @@
 
 function setZeroes(matrix) {
   // 空方法，待实现 
+  let m = matrix.length;
+  let n = matrix[0].length;
   let rows = new Set();
   let columns = new Set();
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[0].length; j++) {
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
       if (matrix[i][j] !== 0) {
         continue;
       }
@@ -27,15 +29,14 @@ function setZeroes(matrix) {
       columns.add(j);
     }
   }
-  console.log(rows,columns)
   for (let i of rows) {
-    for (let j = 0; j < matrix.length; j++) {
+    for (let j = 0; j < n; j++) {
       matrix[i][j] = 0;
     }
   }
 
   for (let j of columns) {
-    for (let i = 0; i < matrix.length; i++) {
+    for (let i = 0; i < m; i++) {
       matrix[i][j] = 0;
     }
   }
@@ -45,12 +46,11 @@ function setZeroes(matrix) {
 
 // 测试用例 1
 let matrix1 = [
-  [1, 1, 1],
-  [1, 0, 1],
-  [1, 1, 1]
+  [0, 1],
+  
 ];
 setZeroes(matrix1);
-console.log(matrix1); // 应输出 [[1, 0, 1], [0, 0, 0], [1, 0, 1]]
+console.log(matrix1); // 应输出 [[0,0]]
 
 // 测试用例 2
 let matrix2 = [
