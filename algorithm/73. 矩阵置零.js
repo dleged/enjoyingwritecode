@@ -14,40 +14,64 @@
 
 // 请实现函数 setZeroes(matrix: number[][]): void 来解决这个问题，并给出测试用例。
 
+// function setZeroes(matrix) {
+//   // 空方法，待实现 
+//   let m = matrix.length;
+//   let n = matrix[0].length;
+//   let rows = new Set();
+//   let columns = new Set();
+//   for (let i = 0; i < m; i++) {
+//     for (let j = 0; j < n; j++) {
+//       if (matrix[i][j] !== 0) {
+//         continue;
+//       }
+//       rows.add(i);
+//       columns.add(j);
+//     }
+//   }
+//   for (let i of rows) {
+//     for (let j = 0; j < n; j++) {
+//       matrix[i][j] = 0;
+//     }
+//   }
+
+//   for (let j of columns) {
+//     for (let i = 0; i < m; i++) {
+//       matrix[i][j] = 0;
+//     }
+//   }
+
+//   return matrix;
+// }
+
 function setZeroes(matrix) {
-  // 空方法，待实现 
-  let m = matrix.length;
-  let n = matrix[0].length;
-  let rows = new Set();
-  let columns = new Set();
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      if (matrix[i][j] !== 0) {
-        continue;
+  if (!matrix.length) { return matrix }
+  const rows = new Array(matrix.length).fill(false);
+  const columns = new Array(matrix[0].length).fill(false);
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++)
+      if (matrix[i][j] === 0) {
+        rows[i] = columns[j] = true;
       }
-      rows.add(i);
-      columns.add(j);
-    }
-  }
-  for (let i of rows) {
-    for (let j = 0; j < n; j++) {
-      matrix[i][j] = 0;
-    }
   }
 
-  for (let j of columns) {
-    for (let i = 0; i < m; i++) {
-      matrix[i][j] = 0;
-    }
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++)
+      if (rows[i] || columns[j]) {
+        matrix[i][j] = 0;
+      }
   }
 
   return matrix;
+
 }
 
 // 测试用例 1
 let matrix1 = [
   [0, 1],
-  
+
 ];
 setZeroes(matrix1);
 console.log(matrix1); // 应输出 [[0,0]]
@@ -87,3 +111,26 @@ let matrix5 = [
 setZeroes(matrix5);
 console.log(matrix5); // 应输出 [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 // 这些测试用例涵盖了不同的场景，包括矩阵中没有 0 的情况、矩阵中有 0 的情况以及边界情况（如只有一行或一列）。通过这些用例，可以确保函数的正确性和鲁棒性。
+
+
+
+
+// var setZeroes = function(matrix) {
+//   const m = matrix.length, n = matrix[0].length;
+//   const row = new Array(m).fill(false);
+//   const col = new Array(n).fill(false);
+//   for (let i = 0; i < m; i++) {
+//       for (let j = 0; j < n; j++) {
+//           if (matrix[i][j] === 0) {
+//               row[i] = col[j] = true;
+//           }
+//       }
+//   }
+//   for (let i = 0; i < m; i++) {
+//       for (let j = 0; j < n; j++) {
+//           if (row[i] || col[j]) {
+//               matrix[i][j] = 0;
+//           }
+//       }
+//   }
+// };
