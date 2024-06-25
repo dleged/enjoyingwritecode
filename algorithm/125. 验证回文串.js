@@ -11,9 +11,55 @@
 
 // 请实现函数 isPalindrome(s: string): boolean 来解决这个问题，并给出测试用例。
 
+function isValidStr(str) {
+  str = str.charCodeAt();
+  return (str >= 65 && str <= 90) || (str >= 97 && str <= 122) || (str >= 48 && str <= 57);
+}
 
 function isPalindrome(s) {
   // 空方法，待实现
+
+  let left = 0;
+  let right = s.length - 1;
+
+  const isChar = (str) => /[a-zA-Z0-9]/.test(str);
+
+  while (left <= right) {
+    while (left <= right && !isChar(s[left])) {
+      left++;
+    }
+    while (left <= right && !isChar(s[right])) {
+      right--;
+    }
+    if (left <= right && s[left].toLowerCase() !== s[right].toLowerCase()) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+
+
+  // let left = 0;
+  // let right = s.length - 1;
+
+  // while (left < right) {
+
+  //   while (!isValidStr(s[left])) {
+  //     left++;
+  //   }
+
+  //   while (!isValidStr(s[right])) {
+  //     right--;
+  //   }
+
+  //   if (left <= right && s[left].toLocaleLowerCase() !== s[right].toLocaleLowerCase()) {
+  //     return false;
+  //   }
+  //   left++;
+  //   right--;
+  // }
+
+  return true;
 }
 
 // 测试用例 1
@@ -23,7 +69,7 @@ console.log(isPalindrome("A man, a plan, a canal: Panama")); // 应输出 true
 console.log(isPalindrome("race a car")); // 应输出 false
 
 // 测试用例 3
-console.log(isPalindrome(" ")); // 应输出 true
+console.log(isPalindrome("1 1")); // 应输出 true
 
 // 测试用例 4
 console.log(isPalindrome("")); // 应输出 true
